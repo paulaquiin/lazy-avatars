@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 0 implementada y verificada localmente. Hay motor, workspace, galería de prueba y CI configurado. Falta confirmar la primera ejecución remota del CI tras un push; no hay publicación npm ni colecciones temáticas todavía.
+> **Estado:** fase 0 implementada y verificada localmente. Hay motor, workspace, galería de prueba y CI configurado. El CI se ejecuta en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml); no hay publicación npm ni colecciones temáticas todavía.
 > **Última actualización:** 2026-10-23
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -353,7 +353,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 **Objetivo:** demostrar el contrato técnico antes de producir las colecciones.
 
-**Estado al 2026-10-23:** implementación y comprobación local terminadas. `pnpm check` pasa en Node 24.21/Windows: lint, tipos, 38 pruebas unitarias, snapshots de 20 semillas, build, revisión de rutas/credenciales e historial, límites de tamaño, empaquetado e instalación aislada con tipos, y dos pruebas en Chromium. Se ha comprobado paridad Node/navegador y descarga de SVG. La colección `fixtures/test-collection.ts` no se exporta ni entra en npm. El workflow contempla Linux/Node 24.11 y 26, y Windows/Node 24. **Pendiente para el cierre remoto:** subir los commits y confirmar el primer CI verde; no se afirma que ya haya ejecutado en GitHub.
+**Estado al 2026-10-23:** implementación y comprobación local terminadas. `pnpm check` pasa en Node 24.21/Windows: lint, tipos, 38 pruebas unitarias, snapshots de 20 semillas, build, revisión de rutas/credenciales e historial, límites de tamaño, empaquetado e instalación aislada con tipos, y dos pruebas en Chromium. Se ha comprobado paridad Node/navegador y descarga de SVG. La colección `fixtures/test-collection.ts` no se exporta ni entra en npm. El workflow contempla Linux/Node 24.11 y 26, y Windows/Node 24. **Verificación remota:** los commits ya están subidos; consultar el resultado del commit correspondiente en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 1. Documentación, licencia MIT, arquitectura y exclusiones de Git. Esta parte queda preparada el 2026-10-23; no cierra la fase.
 2. Comprobar disponibilidad y propiedad de los nombres npm; fijar versiones compatibles de Node, pnpm y herramientas. Crear workspace privado, paquete core, galería mínima y lockfile.
 3. Configurar TypeScript estricto, tsup, Vitest, Biome y scripts reproducibles de lint, tipos, tests y build. Incorporar Changesets.
@@ -418,22 +418,22 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ## 10. Decisiones de base y pendientes
 
-Las propuestas siguientes se usan como base de la documentación del 2026-10-23. Las tareas de verificación siguen pendientes; no implican que el workspace o las publicaciones existan.
+Las propuestas siguientes se usan como base de la documentación del 2026-10-23. El workspace existe; las verificaciones que sigan pendientes se indican en cada fila y no implican que haya paquetes publicados.
 
-| #   | Decisión                                   | Opciones                                      | Propuesta                                                                                                              |
-| --- | ------------------------------------------ | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                   | Base: código/API y README principal en inglés; `README.es.md` añadido                                                  |
-| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`      | Comprobados: los tres nombres propuestos devuelven 404 el 2026-10-23; reserva y propiedad pendientes antes de publicar |
-| 3   | Licencia                                   | MIT / Apache-2.0                              | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                |
-| 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL convertida a paths | Pendiente elegir glifos; si se usa OFL, revisar términos e incluir licencia antes de distribuir                        |
-| 5   | Mayúsculas en la semilla                   | Respetar / ignorar                            | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                            |
-| 6   | Tamaño mínimo garantizado                  | 24 px / 32 px                                 | 32 px                                                                                                                  |
-| 7   | API HTTP                                   | Servicio público propio / solo autoalojable   | Solo autoalojable, para evitar costes y abusos                                                                         |
-| 8   | ids de las colecciones                     | Inglés / español                              | Inglés (los de la tabla del §2)                                                                                        |
-| 9   | Temas globales iniciales                   | Los 5 propuestos / otros                      | Pastel, Corporativo, Noche, Tierra y Monocromo, ampliables                                                             |
-| 10  | Tecnología de la galería                   | Vite sin framework / Astro / React            | Vite sin framework; pasar a Astro si crece hasta ser la web de documentación                                           |
-| 11  | Compatibilidad y versiones de herramientas | Baselines fijados y versiones en el lockfile  | Node 24.11+ (24.x) o 26+, pnpm 11.25.0; ESM + tipos; verificación local Node 24.21 y Chromium, matriz remota pendiente |
-| 12  | IDs repetidos en SVG inline                | Aleatoriedad / contador / prefijo explícito   | `idPrefix` explícito por instancia; núcleo determinista sin estado global                                              |
+| #   | Decisión                                   | Opciones                                      | Propuesta                                                                                                                                       |
+| --- | ------------------------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                   | Base: código/API y README principal en inglés; `README.es.md` añadido                                                                           |
+| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`      | Comprobados: los tres nombres propuestos devuelven 404 el 2026-10-23; reserva y propiedad pendientes antes de publicar                          |
+| 3   | Licencia                                   | MIT / Apache-2.0                              | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                                         |
+| 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL convertida a paths | Pendiente elegir glifos; si se usa OFL, revisar términos e incluir licencia antes de distribuir                                                 |
+| 5   | Mayúsculas en la semilla                   | Respetar / ignorar                            | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                                                     |
+| 6   | Tamaño mínimo garantizado                  | 24 px / 32 px                                 | 32 px                                                                                                                                           |
+| 7   | API HTTP                                   | Servicio público propio / solo autoalojable   | Solo autoalojable, para evitar costes y abusos                                                                                                  |
+| 8   | ids de las colecciones                     | Inglés / español                              | Inglés (los de la tabla del §2)                                                                                                                 |
+| 9   | Temas globales iniciales                   | Los 5 propuestos / otros                      | Pastel, Corporativo, Noche, Tierra y Monocromo, ampliables                                                                                      |
+| 10  | Tecnología de la galería                   | Vite sin framework / Astro / React            | Vite sin framework; pasar a Astro si crece hasta ser la web de documentación                                                                    |
+| 11  | Compatibilidad y versiones de herramientas | Baselines fijados y versiones en el lockfile  | Node 24.11+ (24.x) o 26+, pnpm 11.25.0; ESM + tipos; verificación local Node 24.21 y Chromium; resultados de la matriz remota en GitHub Actions |
+| 12  | IDs repetidos en SVG inline                | Aleatoriedad / contador / prefijo explícito   | `idPrefix` explícito por instancia; núcleo determinista sin estado global                                                                       |
 
 ## 11. Registro de decisiones
 
@@ -445,3 +445,4 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-23:** se añaden README principal y español, licencia MIT y reglas de Git/distribución. Se distinguen los permisos del arte original y las futuras licencias de terceros.
 - **2026-10-23:** se concreta el contrato determinista con opciones, UTF-8, sub-flujos y `idPrefix` para instancias inline. Los IDs de temas se fijan en inglés.
 - **2026-10-23:** a petición de la usuaria, se implementa la fase 0: motor sin dependencias de ejecución, temas, glifos propios, galería mínima, herramientas y CI. Comprobaciones locales completas en verde; primera ejecución remota pendiente de push. No se publica ningún paquete ni se implementan colecciones de fase 1.
+- **2026-10-23:** se suben los commits a GitHub. El primer CI descubre que los tipos de la galería necesitan el build previo del núcleo; se corrige `pnpm typecheck` y se valida desde una copia limpia sin `dist`. Los resultados de cada commit se consultan en GitHub Actions.

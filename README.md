@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. One seed, a theme
 
 [Español](README.es.md) · [Architecture](docs/ARCHITECTURE.md) · [Implementation plan (Spanish)](PLAN.md) · [MIT license](LICENSE)
 
-> **Status: phase 0 implemented locally, unpublished `0.0.0`.** The deterministic engine, tools, tests and minimal gallery work from this workspace. The 13 themed collections are not implemented yet. CI is configured; a remote green run is still pending the first push. Registry checks returned 404 for the proposed package names on 2026-10-23; this does not reserve the names or establish scope ownership.
+> **Status: phase 0 implemented locally, unpublished `0.0.0`.** The deterministic engine, tools, tests and minimal gallery work from this workspace. The 13 themed collections are not implemented yet. CI runs on GitHub for pushes and pull requests; see [workflow results](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml). Registry checks returned 404 for the proposed package names on 2026-10-23; this does not reserve the names or establish scope ownership.
 
 ## What we are building
 
@@ -65,7 +65,7 @@ The engine runs locally without an external image service. A self-hosted HTTP ad
 | Phase 4        | React, web component, CLI, self-hosted HTTP adapter and custom palette editor      |
 | Phase 5 · v1.0 | Stable output contract, complete documentation and release review                  |
 
-Phase 0 is implemented and locally verified; its remote CI confirmation is pending. Phases 1–5 are planned. See [PLAN.md](PLAN.md#9-hoja-de-ruta) for deliverables, dependencies and exit criteria. The development-only test collection is outside the npm package.
+Phase 0 is implemented and locally verified; remote validation results are linked above. Phases 1–5 are planned. See [PLAN.md](PLAN.md#9-hoja-de-ruta) for deliverables, dependencies and exit criteria. The development-only test collection is outside the npm package.
 
 ## Architecture
 
@@ -88,7 +88,7 @@ pnpm dev
 
 On Linux, use `pnpm exec playwright install --with-deps chromium` to install browser system dependencies too. `pnpm dev` opens the minimal gallery server at the URL printed by Vite (normally `http://127.0.0.1:5173`). It only generates a development fixture; it does not display unreleased themed collections.
 
-Individual commands: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Build before running the package/browser checks or starting the gallery for the first time. `pnpm check` runs them in the required order. `pnpm format` applies formatting and safe lint fixes. `pnpm changeset` records public API/output changes.
+Individual commands: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Build before running the package/browser checks. The typecheck and dev commands build the core automatically. `pnpm check` runs them in the required order. `pnpm format` applies formatting and safe lint fixes. `pnpm changeset` records public API/output changes.
 
 Start with [the guide](PLAN.md), [architecture](docs/ARCHITECTURE.md) and [repository hygiene rules](docs/REPOSITORY_HYGIENE.md). `pnpm check` includes 38 unit tests, a 20-seed snapshot, package inventory and isolated installation/type checks, plus two Chromium tests. The initial core budgets are 24 KiB ESM / 8 KiB gzip; SVG has an advisory 4 KiB target. CI has no automatic publish step and does not require repository secrets.
 

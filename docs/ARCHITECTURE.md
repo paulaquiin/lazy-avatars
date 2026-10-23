@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: núcleo, workspace y galería mínima implementados y verificados localmente en fase 0. Fecha: 2026-10-23. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores y colecciones temáticas son futuros. El CI está configurado, pendiente de primera confirmación remota.
+Estado: núcleo, workspace y galería mínima implementados y verificados localmente en fase 0. Fecha: 2026-10-23. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores y colecciones temáticas son futuros. El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 
 ## 1. Decisión principal
 
@@ -101,7 +101,7 @@ El SVG no tendrá scripts, manejadores de eventos ni recursos externos. No acept
 | CI         | GitHub Actions: lint, tipos, tests, build, tamaño y paquete |
 | Galería    | Vite + TypeScript; despliegue estático en GitHub Pages      |
 
-La salida actual es ESM y tipos, sin CommonJS. Desarrollo: Node `^24.11.0 || >=26.0.0`, pnpm 11.25.0, TypeScript 5.9.3, tsup 9.0.0, Vitest 5.0.5, Biome 2.6.2, Changesets 3.0.3, Vite 8.3.5 y Playwright 1.64.1. Las versiones y dependencias transitivas están fijadas por manifiesto y lockfile. La verificación local usa Node 24.21/Chromium en Windows; las otras combinaciones del workflow esperan ejecución remota. React será una dependencia peer del adaptador, no del núcleo.
+La salida actual es ESM y tipos, sin CommonJS. Desarrollo: Node `^24.11.0 || >=26.0.0`, pnpm 11.25.0, TypeScript 5.9.3, tsup 9.0.0, Vitest 5.0.5, Biome 2.6.2, Changesets 3.0.3, Vite 8.3.5 y Playwright 1.64.1. Las versiones y dependencias transitivas están fijadas por manifiesto y lockfile. La verificación local usa Node 24.21/Chromium en Windows; los resultados de las otras combinaciones se registran en GitHub Actions. React será una dependencia peer del adaptador, no del núcleo.
 
 El workspace raíz y la galería son privados para npm. El núcleo define `files` con lista positiva y un único export público raíz hasta que se implementen las colecciones. `pnpm check:package` verifica los cinco archivos del tarball, tamaños máximos de 24 KiB ESM y 8 KiB gzip, ausencia de dependencias de ejecución y patrones de credenciales, y una instalación real offline en un directorio temporal con importación ESM y comprobación de tipos. El ejemplo de SVG tiene un objetivo orientativo de 4 KiB. La licencia se copia desde la raíz durante el build y no se duplica en Git. Véanse las [reglas de higiene](REPOSITORY_HYGIENE.md).
 
@@ -109,4 +109,4 @@ El workspace raíz y la galería son privados para npm. El núcleo define `files
 
 El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 0 tiene 38 pruebas unitarias, snapshots de 20 semillas y dos pruebas de Chromium, además de controles de tipos, paquete e higiene. Los glifos de píxel son originales; Monograma y Misión aún necesitan su decisión tipográfica y revisión de licencias.
 
-Los tres nombres propuestos devolvieron 404 en el registro público el 2026-10-23. Sigue pendiente acreditar/reservar el scope antes de publicar; el 404 no concede propiedad. También quedan pendientes la primera ejecución remota del CI y la matriz real de compatibilidad para Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
+Los tres nombres propuestos devolvieron 404 en el registro público el 2026-10-23. Sigue pendiente acreditar/reservar el scope antes de publicar; el 404 no concede propiedad. La matriz remota de CI ya se ejecuta en GitHub; sigue pendiente comprobar compatibilidad real con Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.

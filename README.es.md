@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Una semill
 
 [English](README.md) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía y fases](PLAN.md) · [Licencia MIT](LICENSE)
 
-> **Estado: fase 0 implementada localmente, versión `0.0.0` sin publicar.** Funcionan el motor determinista, las herramientas, las pruebas y la galería mínima del workspace. Las 13 colecciones temáticas siguen pendientes. El CI está configurado; falta confirmar su primera ejecución remota tras un push. Los nombres propuestos devolvieron 404 en el registro el 2026-10-23; eso no reserva los nombres ni acredita la propiedad del scope.
+> **Estado: fase 0 implementada localmente, versión `0.0.0` sin publicar.** Funcionan el motor determinista, las herramientas, las pruebas y la galería mínima del workspace. Las 13 colecciones temáticas siguen pendientes. El CI se ejecuta en GitHub con cada push y pull request; consulta [sus resultados](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml). Los nombres propuestos devolvieron 404 en el registro el 2026-10-23; eso no reserva los nombres ni acredita la propiedad del scope.
 
 ## Qué vamos a construir
 
@@ -65,7 +65,7 @@ La generación es local, sin un servicio externo de imágenes. Más adelante hab
 | Fase 4        | React, web component, CLI, adaptador HTTP autoalojable y editor de paletas     |
 | Fase 5 · v1.0 | Contrato de salida estable, documentación completa y revisión de lanzamiento   |
 
-La fase 0 está implementada y verificada localmente; queda confirmar el CI remoto. Las fases 1–5 son futuras. Los entregables, dependencias y criterios de cierre están en [PLAN.md](PLAN.md#9-hoja-de-ruta). La colección de prueba es solo de desarrollo y queda fuera del paquete npm.
+La fase 0 está implementada y verificada localmente; los resultados remotos están enlazados arriba. Las fases 1–5 son futuras. Los entregables, dependencias y criterios de cierre están en [PLAN.md](PLAN.md#9-hoja-de-ruta). La colección de prueba es solo de desarrollo y queda fuera del paquete npm.
 
 ## Arquitectura
 
@@ -88,7 +88,7 @@ pnpm dev
 
 En Linux, usa `pnpm exec playwright install --with-deps chromium` para instalar también las dependencias del sistema del navegador. `pnpm dev` inicia la galería en la URL que imprime Vite (normalmente `http://127.0.0.1:5173`). Muestra únicamente la figura de prueba del motor.
 
-Comandos individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete/navegador o iniciar la galería por primera vez. `pnpm check` los ejecuta en el orden necesario. `pnpm format` aplica formato y arreglos seguros del linter. `pnpm changeset` registra cambios de API o salida pública.
+Comandos individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete/navegador. Los comandos de tipos y desarrollo compilan el núcleo automáticamente. `pnpm check` los ejecuta en el orden necesario. `pnpm format` aplica formato y arreglos seguros del linter. `pnpm changeset` registra cambios de API o salida pública.
 
 Empieza por [la guía](PLAN.md), [la arquitectura](docs/ARCHITECTURE.md) y [las reglas del repositorio](docs/REPOSITORY_HYGIENE.md). La comprobación incluye 38 pruebas unitarias, un snapshot de 20 semillas, inventario del paquete y prueba de instalación/tipos aislada, además de dos tests en Chromium. Los presupuestos iniciales del núcleo son 24 KiB ESM y 8 KiB gzip; el objetivo orientativo por SVG es 4 KiB. El CI no publica automáticamente ni requiere secretos del repositorio.
 
