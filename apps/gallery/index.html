@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Banco de pruebas local del motor SVG determinista de lazy-avatars." />
+    <title>lazy-avatars · Engine lab</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="eyebrow">lazy-avatars / fase 0</span>
+        <h1>Una semilla.<br />El mismo avatar.</h1>
+        <p>Banco de pruebas del motor SVG. Esta figura de prueba valida el motor; las colecciones temáticas llegarán en las siguientes fases.</p>
+      </header>
+      <section class="lab" aria-label="Generador de prueba">
+        <form id="controls">
+          <label for="collection">Colección</label>
+          <select id="collection"><option value="test">Prueba del motor</option></select>
+          <label for="seed">Semilla</label>
+          <input id="seed" name="seed" value="demo-person-01" maxlength="1024" required autocomplete="off" />
+          <label for="theme">Tema</label>
+          <select id="theme">
+            <option value="pastel">Pastel</option><option value="corporate">Corporativo</option>
+            <option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option>
+          </select>
+          <label for="shape">Forma</label>
+          <select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
+          <p class="hint">La generación ocurre en tu navegador. Usa datos ficticios en capturas y ejemplos.</p>
+        </form>
+        <div class="results">
+          <section id="sizes" class="sizes" aria-label="Comparación de tamaños"></section>
+          <p id="status" role="status" aria-live="polite"></p>
+          <button id="download" class="download" type="button" disabled>Descargar SVG</button>
+        </div>
+      </section>
+      <section class="source" aria-label="SVG generado"><h2>SVG · 64 px</h2><pre><code id="output"></code></pre></section>
+      <footer>SVG autocontenido · sin fuentes externas · sin servicio de imágenes</footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

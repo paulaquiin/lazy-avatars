@@ -67,3 +67,7 @@ desktop.ini
 /scratch/
 /exports/
 /artifacts/
+
+# Copied from the canonical root license during package builds.
+/packages/core/LICENSE
+/.playwright/

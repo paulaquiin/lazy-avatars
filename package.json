@@ -1,0 +1,35 @@
+{
+  "name": "lazy-avatars-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": "^24.11.0 || >=26.0.0",
+    "pnpm": "11.25.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @lazy-avatars/gallery dev",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit && pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser": "playwright test",
+    "build": "pnpm -r build",
+    "check:repo": "node scripts/check-repository.mjs",
+    "check:package": "node scripts/check-package.mjs",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm check:repo && pnpm check:package && pnpm test:browser",
+    "changeset": "changeset"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.2",
+    "@changesets/cli": "3.0.3",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.10.0",
+    "fast-xml-parser": "5.11.2",
+    "tsup": "9.0.0",
+    "typescript": "5.9.3",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}
