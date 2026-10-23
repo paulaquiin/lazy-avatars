@@ -1,83 +1,58 @@
 # lazy-avatars
 
-Avatares SVG deterministas para personas, equipos, servidores y bots. Una semilla y una colección temática, sin almacenar imágenes.
+Avatares SVG deterministas para personas, equipos, servidores y bots. Cuatro colecciones originales, sin dependencias de ejecución ni servicio de imágenes.
 
-[English](README.md) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía y fases](PLAN.md) · [Licencia MIT](LICENSE)
+[English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Estado: fase 0 implementada localmente, versión `0.0.0` sin publicar.** Funcionan el motor determinista, las herramientas, las pruebas y la galería mínima del workspace. Las 13 colecciones temáticas siguen pendientes. El CI se ejecuta en GitHub con cada push y pull request; consulta [sus resultados](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml). Los nombres propuestos devolvieron 404 en el registro el 2026-10-23; eso no reserva los nombres ni acredita la propiedad del scope.
+> **Fase 1 · v0.1.0 preparada.** Mosaico, Monograma, Rack y Siesta están implementadas. La primera publicación npm requiere iniciar sesión: no se da por disponible el paquete en el registro. La galería estática se despliega en GitHub Pages cuando pasan todos los trabajos del CI.
 
-## Qué vamos a construir
+## Uso
 
-- Una librería TypeScript que devuelve SVG en texto, sin dependencias de ejecución en el núcleo.
-- El mismo SVG para la misma colección, versión de salida, semilla normalizada y opciones de renderizado.
-- Colecciones importables por separado para cargar solo las que se utilizan.
-- Un lienzo `80 × 80`, formas configurables, fondo transparente opcional y cinco roles de color comunes a colecciones y temas.
-- Iniciales dibujadas mediante paths o píxeles, sin fuentes del sistema ni recursos remotos.
-- Una galería estática para revisar semillas, tamaños, temas y ejemplos dentro de interfaces. El tamaño mínimo objetivo es 32 px; 24 px sirve como prueba visual exigente.
-
-La verificación local cubre Node 24.21 y Chromium en Windows. El CI contempla Node 24.11 (mínimo) y Node 26 en Linux, y Node 24 en Windows. Deno, Bun y entornos edge siguen siendo objetivos cuya compatibilidad se comprobará antes de prometer soporte.
-
-## API funcional del motor
-
-Compila primero el workspace. Este ejemplo utiliza la API implementada con una colección definida por la aplicación; las subrutas como `lazy-avatars/rack` llegarán en fase 1. No instales todavía ese nombre desde npm: este proyecto no ha publicado ningún paquete.
+Estas importaciones funcionan en el workspace compilado y el paquete preparado:
 
 ```ts
-import {
-  createAvatar,
-  createAvatarDataUri,
-  svgElement,
-  themes,
-  type Collection,
-} from 'lazy-avatars';
+import { createAvatar, createAvatarDataUri } from 'lazy-avatars';
+import { rack } from 'lazy-avatars/rack';
 
-const dot: Collection = {
-  id: 'dot',
-  name: 'Ejemplo de punto',
-  outputVersion: 1,
-  palettes: themes.pastel,
-  usesInitials: false,
-  render: ({ palette }) => svgElement('circle', { cx: 40, cy: 40, r: 24, fill: palette.primary }),
-};
-
-const svg = createAvatar(dot, {
-  seed: 'persona-demo-01',
+const svg = createAvatar(rack, {
+  seed: 'demo-host-01',
   size: 64,
   shape: 'rounded',
-  title: 'Persona de ejemplo',
+  title: 'Host de ejemplo — advertencia',
+  options: { status: 'warn' },
 });
 
-const src = createAvatarDataUri(dot, { seed: 'persona-demo-01' });
+const src = createAvatarDataUri(rack, {
+  seed: 'demo-host-01',
+  options: { status: 'warn' },
+});
 // Usar src en un <img> con un alt adecuado.
 ```
 
-La semilla se normaliza con `trim()` y Unicode NFC, respetando mayúsculas: `Ana` y `ana` son distintas. Se rechazan las semillas vacías. Si tu aplicación considera equivalentes los emails con distintas mayúsculas, conviértelos a minúsculas antes de pasarlos. Usa identificadores ficticios: el hash determinista no anonimiza. Cuando la fase 1 incorpore estado en la URL de la galería, compartirla expondrá su semilla.
+La entrada raíz exporta el motor y sus tipos. Cada colección se importa por separado, sin cargar las otras tres. El núcleo no depende del DOM, la red, fuentes del sistema ni paquetes de ejecución. Los SVG generados son autocontenidos.
 
-La generación es local, sin un servicio externo de imágenes. Más adelante habrá un adaptador HTTP autoalojable; no se promete una API pública alojada por el proyecto. El [contrato del núcleo](packages/core/README.md) detalla los valores por defecto, validación, renderizadores de confianza y requisitos de `idPrefix` para SVG inline.
+| Colección | Importación             | Opciones                                                                                                                  |
+| --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Mosaico   | `lazy-avatars/mosaic`   | `tile`: `arcs`, `triangles`                                                                                               |
+| Monograma | `lazy-avatars/monogram` | `frame`: `circle`, `shield`, `diamond`                                                                                    |
+| Rack      | `lazy-avatars/rack`     | `status`: `ok`, `warn`, `down`, `off`; `unit`: `disks`, `vent`                                                            |
+| Siesta    | `lazy-avatars/siesta`   | `accessory`: `cap`, `zzz`, `mask`, `blanket`, `none`; `body`: `round`, `pear`, `cloud`; `mouth`: `smile`, `yawn`, `sleep` |
 
-## Colecciones y fases
+Las opciones visuales omitidas se eligen según la semilla. Rack usa `off` por defecto: representa un estado que aporta tu aplicación, no monitoriza servidores. Añade siempre una etiqueta textual. Monograma usa trazos serif propios y Rack glifos de píxel propios; no se distribuyen fuentes de terceros.
 
-| Hito          | Colecciones / alcance                                                          |
-| ------------- | ------------------------------------------------------------------------------ |
-| Fase 0        | Workspace, motor, colección de prueba y galería mínima                         |
-| Fase 1 · v0.1 | `mosaic`, `monogram`, `rack`, `siesta`; galería completa y primera publicación |
-| Fase 2 · v0.2 | `origami`, `pantry`, `deco`, `latte`, `constellation`                          |
-| Fase 3 · v0.3 | `tinbot`, `orbit`, `mission`, `helmet`                                         |
-| Fase 4        | React, web component, CLI, adaptador HTTP autoalojable y editor de paletas     |
-| Fase 5 · v1.0 | Contrato de salida estable, documentación completa y revisión de lanzamiento   |
+Temas: `pastel`, `corporate`, `night`, `earth`, `mono`, o una paleta/lista con los cinco roles. Las semillas se recortan, normalizan en NFC y conservan mayúsculas: `Ana` y `ana` difieren. Las vacías se rechazan. Misma colección, versión de salida, semilla normalizada y opciones efectivas producen los mismos bytes. Fija la versión del paquete o guarda el SVG para conservar una salida histórica. Consulta el [contrato completo](packages/core/README.md).
 
-La fase 0 está implementada y verificada localmente; los resultados remotos están enlazados arriba. Las fases 1–5 son futuras. Los entregables, dependencias y criterios de cierre están en [PLAN.md](PLAN.md#9-hoja-de-ruta). La colección de prueba es solo de desarrollo y queda fuera del paquete npm.
+Al insertar SVG inline, proporciona un `idPrefix` distinto por instancia. Las data URI en `<img>` aíslan las referencias automáticamente. `background: false` elimina el fondo común, no el dibujo propio: las teselas de Mosaico siguen siendo opacas. El objetivo de legibilidad es 32 px; 24 px es una prueba exigente.
 
-## Arquitectura
+## Galería
 
-El monorepo pnpm contiene el núcleo independiente de frameworks en `packages/core` y la galería con Vite y TypeScript sin framework en `apps/gallery`. Los adaptadores llegarán en fases posteriores. El núcleo resuelve hash, aleatoriedad determinista, SVG, iniciales, glifos de píxel propios y color. Cada colección futura contendrá sus reglas visuales, paletas y opciones tipadas.
+Permite elegir colección, semilla, forma, tema, transparencia y variantes. Incluye tamaños de 24–128 px, variedad con 12/60 identidades ficticias, comparación de los cinco temas y las paletas propias, y ejemplos de miembros, comentarios, perfil y servidores. Las hojas de contacto se pueden revisar a 24, 32, 64 y 128 px, sobre páginas claras u oscuras. Permite copiar código de API/imagen y descargar SVG. React se reserva explícitamente para la fase 4.
 
-Usamos tsup para ESM y tipos, Vitest para pruebas y snapshots, Playwright para paridad en Chromium y pruebas de galería, Biome para lint y formato, Changesets para versiones y GitHub Actions para comprobaciones. Son herramientas de desarrollo, no dependencias de ejecución del núcleo. Las versiones exactas están fijadas en `package.json` y `pnpm-lock.yaml`.
+La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Usa nombres y hosts ficticios; el hash no anonimiza. No hay solicitudes de imágenes o fuentes remotas ni analítica.
 
-Consulta [las decisiones de arquitectura](docs/ARCHITECTURE.md), incluida la estabilidad de salida, los identificadores SVG, los límites entre paquetes y la publicación.
+## Desarrollo
 
-## Desarrollo y contribuciones
-
-Requiere Node `^24.11.0 || >=26.0.0` y pnpm `11.25.0`. Con pnpm instalado:
+Requiere Node `^24.11.0 || >=26.0.0` y pnpm `11.25.0`:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -86,18 +61,18 @@ pnpm check
 pnpm dev
 ```
 
-En Linux, usa `pnpm exec playwright install --with-deps chromium` para instalar también las dependencias del sistema del navegador. `pnpm dev` inicia la galería en la URL que imprime Vite (normalmente `http://127.0.0.1:5173`). Muestra únicamente la figura de prueba del motor.
+En Linux usa `pnpm exec playwright install --with-deps chromium`. `pnpm dev` compila el núcleo, lo deja en observación e inicia la galería en la URL de Vite (normalmente `http://127.0.0.1:5173`). `pnpm typecheck` también compila primero las declaraciones para funcionar desde un checkout limpio.
 
-Comandos individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete/navegador. Los comandos de tipos y desarrollo compilan el núcleo automáticamente. `pnpm check` los ejecuta en el orden necesario. `pnpm format` aplica formato y arreglos seguros del linter. `pnpm changeset` registra cambios de API o salida pública.
+Comprobaciones individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete o navegador por separado. `pnpm format` aplica formato y arreglos seguros; `pnpm changeset` registra cambios públicos.
 
-Empieza por [la guía](PLAN.md), [la arquitectura](docs/ARCHITECTURE.md) y [las reglas del repositorio](docs/REPOSITORY_HYGIENE.md). La comprobación incluye 38 pruebas unitarias, un snapshot de 20 semillas, inventario del paquete y prueba de instalación/tipos aislada, además de dos tests en Chromium. Los presupuestos iniciales del núcleo son 24 KiB ESM y 8 KiB gzip; el objetivo orientativo por SVG es 4 KiB. El CI no publica automáticamente ni requiere secretos del repositorio.
+Hay 57 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, siete pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
 
-Cada colección necesitará arte original o con licencia compatible, opciones documentadas, snapshots deterministas y revisión visual a 24, 32, 64 y 128 px. Las pruebas y capturas deben usar datos ficticios.
+Git contiene fuentes públicas, documentación, arte revisado, scripts reproducibles del proyecto, pruebas y lockfile. El [.gitignore](.gitignore) excluye herramientas internas, estado de asistentes, credenciales, dependencias y builds. `check:repo` revisa rutas, patrones habituales de credenciales e historial disponible sin mostrar valores; no sustituye una auditoría exhaustiva. npm usa una lista positiva: entradas/chunks/tipos compilados, README, licencia, changelog y manifiesto. Consulta las [reglas de publicación](docs/REPOSITORY_HYGIENE.md).
 
-Git contiene código reutilizable, documentación pública, recursos revisados, configuración, pruebas y el lockfile. El [.gitignore](.gitignore) excluye credenciales, herramientas internas, configuración local de asistentes, dependencias y resultados de compilación. Los scripts públicos de `scripts/` permiten reproducir el CI y forman parte del proyecto. Las exclusiones no protegen secretos ya versionados: hay que revisar cada commit. El comprobador examina rutas, patrones habituales de credenciales y el historial Git disponible sin imprimir valores; no sustituye una auditoría exhaustiva. El paquete tiene una lista positiva de cinco archivos, contrastada con el contenido real del pack.
+## Fases siguientes
 
-## Licencia: qué se puede hacer
+La fase 0 aporta motor y herramientas; la fase 1, estas cuatro colecciones y la galería completa. Después llegarán otras nueve colecciones, adaptadores React/web component/CLI/HTTP autoalojable y el contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
 
-El código, la documentación y el arte original del proyecto se distribuyen bajo [MIT](LICENSE). Se pueden usar en proyectos personales, educativos, internos y comerciales, incluidas aplicaciones privativas; modificar, redistribuir y vender copias. No es obligatorio publicar el código de tu aplicación. Al redistribuir copias o partes sustanciales del material licenciado, hay que conservar el aviso de copyright y la licencia. Se proporciona sin garantía.
+## Licencia y usos permitidos
 
-Los avatares generados íntegramente con arte original del proyecto también se pueden usar en proyectos personales y comerciales bajo esa licencia. Si incorporamos glifos o ilustraciones de terceros, conservarán sus propias condiciones y avisos; MIT no los sustituye. Actualmente no se distribuyen fuentes ni ilustraciones de terceros. Revisar sus licencias e incluir sus avisos será obligatorio antes de publicar las colecciones afectadas.
+[MIT](LICENSE) cubre código, documentación y arte original, incluidos los avatares generados íntegramente con ese arte. Se permiten uso personal, educativo, interno y comercial, modificación y redistribución. Conserva copyright y licencia al redistribuir copias o partes sustanciales. No obliga a publicar el código de tu aplicación. Se proporciona sin garantía. Los futuros recursos de terceros conservarán sus propias condiciones y avisos.

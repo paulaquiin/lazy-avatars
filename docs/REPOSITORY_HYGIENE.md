@@ -1,6 +1,6 @@
 # Qué entra en Git y qué se publica
 
-Estado: reglas y comprobaciones de fase 0 implementadas, 2026-10-23. El `.gitignore`, los manifiestos npm y el workflow de CI ya existen. `pnpm check:repo` comprueba rutas, patrones habituales de credenciales e historial disponible; `pnpm check:package` revisa e instala el tarball fuera del workspace. El CI remoto se ejecuta con los pushes y las pull requests, sin publicar paquetes ni requerir secretos del repositorio. Este documento y la guía son documentación pública: no deben contener notas privadas.
+Estado: reglas y comprobaciones de fase 0 implementadas, 2026-10-23. El `.gitignore`, los manifiestos npm y el workflow de CI ya existen. `pnpm check:repo` comprueba rutas, patrones habituales de credenciales e historial disponible; `pnpm check:package` revisa e instala el tarball fuera del workspace. El CI remoto se ejecuta con los pushes y las pull requests, sin publicar paquetes npm ni requerir secretos del repositorio. Solo el job de Pages recibe permisos pages/id-token; publica el build estático tras aprobar la matriz. Este documento y la guía son documentación pública: no deben contener notas privadas.
 
 ## Git: material del proyecto
 

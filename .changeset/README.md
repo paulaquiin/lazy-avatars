@@ -5,5 +5,6 @@ the consumer-visible behavior and update a collection's `outputVersion` when its
 existing output changes. Before 1.0, use a minor release for incompatible changes
 and record the output change explicitly. From 1.0 onward, use a major release.
 
-The initial engine is unpublished (`0.0.0`). There is no automatic publishing
-workflow in phase 0. Package names must be confirmed before the first release.
+Version 0.1.0 has been prepared with Changesets. The first npm publication still
+requires an authenticated maintainer session; it is not an automatic CI step.
+See docs/RELEASING.md for the reviewed publication procedure.

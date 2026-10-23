@@ -1,22 +1,36 @@
 # lazy-avatars
 
-Dependency-free, deterministic SVG engine. Phase 0, unpublished `0.0.0`.
-The themed collections are planned for later phases and are not included yet.
+Dependency-free, deterministic SVG avatars. Version 0.1.0 is prepared; the first
+npm publication still requires an authenticated maintainer session.
+
+[Gallery](https://paulaquiin.github.io/lazy-avatars/) · [Source and license](https://github.com/paulaquiin/lazy-avatars)
 
 ```ts
-import { createAvatar, svgElement, themes, type Collection } from 'lazy-avatars';
-
-const dot: Collection = {
-  id: 'dot',
-  name: 'Dot example',
-  outputVersion: 1,
-  palettes: themes.pastel,
-  usesInitials: false,
-  render: ({ palette }) => svgElement('circle', { cx: 40, cy: 40, r: 24, fill: palette.primary }),
-};
-
-const svg = createAvatar(dot, { seed: 'demo-person-01', title: 'Demo person' });
+import { createAvatar, createAvatarDataUri } from 'lazy-avatars';
+import { rack } from 'lazy-avatars/rack';
+const svg = createAvatar(rack, {
+  seed: 'demo-host-01',
+  title: 'Demo host — warning',
+  options: { status: 'warn' },
+});
+const src = createAvatarDataUri(rack, { seed: 'demo-host-01' });
 ```
+
+| Subpath                 | Export     | Options                                                                                                                           |
+| ----------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `lazy-avatars/mosaic`   | `mosaic`   | `tile: 'arcs' / 'triangles'`                                                                                                      |
+| `lazy-avatars/monogram` | `monogram` | `frame: 'circle' / 'shield' / 'diamond'`                                                                                          |
+| `lazy-avatars/rack`     | `rack`     | `status: 'ok' / 'warn' / 'down' / 'off'`; `unit: 'disks' / 'vent'`                                                                |
+| `lazy-avatars/siesta`   | `siesta`   | `accessory: 'cap' / 'zzz' / 'mask' / 'blanket' / 'none'`; `body: 'round' / 'pear' / 'cloud'`; `mouth: 'smile' / 'yawn' / 'sleep'` |
+
+All collections have outputVersion 1. Visual options default to seeded selection;
+Rack status defaults to off. It is a supplied display value, not live monitoring:
+include a textual label with status LEDs. Each subpath retains typed options and
+imports only its own artwork and shared engine helpers. Monogram serif paths and
+Rack pixel glyphs are original MIT artwork, without third-party fonts.
+
+You may also define your own typed Collection and use svgElement, themes and RNG
+helpers from the root entry. Collection source documentation is in the repository.
 
 ESM only. No Node built-ins, DOM, system fonts, remote assets or runtime packages
 are required by the engine. The development baseline is Node 24.11+ (24.x) or 26+;
