@@ -8,7 +8,7 @@
     "pnpm": "11.25.0"
   },
   "scripts": {
-    "dev": "pnpm --filter @lazy-avatars/gallery dev",
+    "dev": "pnpm --filter lazy-avatars build && pnpm -r --parallel --filter lazy-avatars --filter @lazy-avatars/gallery dev",
     "lint": "biome check .",
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit && pnpm -r typecheck",
