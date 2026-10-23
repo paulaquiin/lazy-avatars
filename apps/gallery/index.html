@@ -1,42 +1,52 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Banco de pruebas local del motor SVG determinista de lazy-avatars." />
-    <title>lazy-avatars · Engine lab</title>
-  </head>
-  <body>
-    <main>
-      <header>
-        <span class="eyebrow">lazy-avatars / fase 0</span>
-        <h1>Una semilla.<br />El mismo avatar.</h1>
-        <p>Banco de pruebas del motor SVG. Esta figura de prueba valida el motor; las colecciones temáticas llegarán en las siguientes fases.</p>
-      </header>
-      <section class="lab" aria-label="Generador de prueba">
-        <form id="controls">
-          <label for="collection">Colección</label>
-          <select id="collection"><option value="test">Prueba del motor</option></select>
-          <label for="seed">Semilla</label>
-          <input id="seed" name="seed" value="demo-person-01" maxlength="1024" required autocomplete="off" />
-          <label for="theme">Tema</label>
-          <select id="theme">
-            <option value="pastel">Pastel</option><option value="corporate">Corporativo</option>
-            <option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option>
-          </select>
-          <label for="shape">Forma</label>
-          <select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
-          <p class="hint">La generación ocurre en tu navegador. Usa datos ficticios en capturas y ejemplos.</p>
-        </form>
-        <div class="results">
-          <section id="sizes" class="sizes" aria-label="Comparación de tamaños"></section>
-          <p id="status" role="status" aria-live="polite"></p>
-          <button id="download" class="download" type="button" disabled>Descargar SVG</button>
-        </div>
-      </section>
-      <section class="source" aria-label="SVG generado"><h2>SVG · 64 px</h2><pre><code id="output"></code></pre></section>
-      <footer>SVG autocontenido · sin fuentes externas · sin servicio de imágenes</footer>
-    </main>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Avatares SVG deterministas. Explora Mosaico, Monograma, Rack y Siesta con tus colores y tu semilla." />
+  <title>lazy-avatars · Cuatro formas de ser tú</title>
+</head>
+<body>
+<main>
+  <header>
+    <span class="eyebrow">lazy-avatars / colección 01</span>
+    <h1>Una semilla.<br />Un poco de personalidad.</h1>
+    <p>Un sello, un mosaico, un servidor o alguien que necesita una siesta. Elige tu estilo: el mismo texto siempre dibuja el mismo avatar.</p>
+    <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"></section>
+  </header>
+  <section class="lab" aria-label="Generador de avatares">
+    <form id="controls">
+      <label for="collection">Colección</label>
+      <select id="collection"><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select>
+      <label for="seed">Semilla</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" required autocomplete="off" />
+      <label for="theme">Tema</label><select id="theme"><option value="auto">Auto · paletas propias</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select>
+      <label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
+      <div id="collection-options" class="option-fields"></div>
+      <label class="check"><input id="transparent" type="checkbox" /> Fondo transparente</label>
+      <label class="check"><input id="dark" type="checkbox" /> Página oscura</label>
+      <p class="hint">Todo se dibuja en tu navegador. La URL contiene la semilla: usa datos ficticios al compartirla.</p>
+    </form>
+    <div class="results">
+      <nav class="view-nav" aria-label="Vista de la galería">
+        <button type="button" data-view="sizes" aria-pressed="true">Tamaños</button><button type="button" data-view="variety" aria-pressed="false">Variedad</button><button type="button" data-view="context" aria-pressed="false">En contexto</button><button type="button" data-view="palettes" aria-pressed="false">Paletas</button>
+      </nav>
+      <div id="review-controls" class="review-controls" hidden>
+        <label class="check"><input id="contact-sheet" type="checkbox" /> Hoja de 60 semillas</label>
+        <label for="contact-size">Tamaño de revisión</label><select id="contact-size"><option value="24">24 px</option><option value="32">32 px</option><option value="64" selected>64 px</option><option value="128">128 px</option></select>
+      </div>
+      <section id="sizes" class="stage sizes" aria-label="Vista previa"></section>
+      <p id="status" role="status" aria-live="polite"></p>
+      <div class="actions"><button id="download" class="download" type="button" disabled>Descargar SVG</button><button id="share" type="button">Copiar enlace</button></div>
+    </div>
+  </section>
+  <section class="source" aria-label="Ejemplos de uso">
+    <div class="source-heading"><h2>Llévatelo a tu proyecto</h2><button id="copy-code" type="button">Copiar código</button></div>
+    <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" disabled>React · fase 4</button></div>
+    <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
+    <details><summary>Ver SVG de 64 px</summary><pre><code id="output"></code></pre></details>
+  </section>
+  <footer>SVG autocontenido · sin fuentes externas · MIT · cuatro colecciones originales</footer>
+</main>
+<script type="module" src="/src/main.ts"></script>
+</body>
 </html>
