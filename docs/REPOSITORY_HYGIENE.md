@@ -1,6 +1,6 @@
 # Qué entra en Git y qué se publica
 
-Estado: reglas iniciales, 2026-10-23. El `.gitignore` ya existe; la automatización de CI y los manifiestos npm se implementarán en fase 0. Este documento y la guía son documentación pública: no deben contener notas privadas.
+Estado: reglas y comprobaciones de fase 0 implementadas, 2026-10-23. El `.gitignore`, los manifiestos npm y el workflow de CI ya existen. `pnpm check:repo` comprueba rutas, patrones habituales de credenciales e historial disponible; `pnpm check:package` revisa e instala el tarball fuera del workspace. El CI remoto espera el primer push. Este documento y la guía son documentación pública: no deben contener notas privadas.
 
 ## Git: material del proyecto
 
@@ -17,7 +17,7 @@ Solo se admiten `.env.example` o `.env.*.example` con valores ficticios. No copi
 1. Consultar `git status --short --untracked-files=all` y revisar archivos nuevos por nombre y contenido. Añadir rutas explícitas cuando sea posible.
 2. Comprobar rutas privadas concretas con `git check-ignore -v --no-index -- RUTA`. Confirmar que fuente, tests, snapshots y licencias que sí necesitamos siguen visibles.
 3. Revisar `git diff --cached --name-status`, `git diff --cached --check` y `git diff --cached`. Los archivos nuevos sin preparar aún no aparecen en ese diff.
-4. Ejecutar la detección de secretos en CI cuando esté incorporada, incluyendo el historial que vaya a enviarse. No sustituye la revisión manual.
+4. Ejecutar `pnpm check:repo`, incluyendo el historial que vaya a enviarse. En CI, checkout usa `fetch-depth: 0`. La detección por patrones no sustituye una auditoría exhaustiva ni la revisión manual. Solo informa del archivo y del tipo de patrón, sin imprimir el valor encontrado.
 5. Hacer el push únicamente al destino previsto y revisar que no se incluyen archivos o commits ajenos al proyecto.
 
 No usar `git add -f` sobre exclusiones privadas sin revisar y retirar el contenido sensible. `.gitignore` no elimina archivos ya versionados ni detecta secretos dentro de un archivo permitido. Si aparece una credencial ya distribuida, revocarla o rotarla y sanear su exposición; borrarla de la última versión no la retira del historial.
@@ -25,7 +25,6 @@ No usar `git add -f` sobre exclusiones privadas sin revisar y retirar el conteni
 ## npm: publicar menos que Git
 
 El repositorio incluye código y herramientas de desarrollo públicos; el paquete de consumo solo incluirá los archivos necesarios para usarlo y cumplir sus licencias.
-
 - Marcar la raíz y `apps/gallery` con `private: true` cuando se creen sus manifiestos.
 - Usar `files` como lista positiva en cada paquete publicable: salida `dist`, README, LICENSE y avisos de terceros aplicables. No confiar solo en `.npmignore` o en `.gitignore`.
 - Revisar `package.json` y todos los archivos incluidos por npm, también los que npm añade automáticamente.

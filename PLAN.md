@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** planificación documentada. Hay README, licencia y reglas de Git; todavía no hay código, paquetes ni galería funcional. Esta guía define el trabajo pendiente, no funcionalidades disponibles.
+> **Estado:** fase 0 implementada y verificada localmente. Hay motor, workspace, galería de prueba y CI configurado. Falta confirmar la primera ejecución remota del CI tras un push; no hay publicación npm ni colecciones temáticas todavía.
 > **Última actualización:** 2026-10-23
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -24,49 +24,54 @@ Lo que lo hace distinto son sus colecciones temáticas, cada una con personalida
 
 ## 2. Las colecciones (13)
 
-| # | Colección | id | Grupo | Tema | Iniciales | Fase |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | Monograma | `monogram` | Clásica | Corporativo | Sí | 1 |
-| 2 | Origami | `origami` | Clásica | Animales | No | 2 |
-| 3 | Despensa | `pantry` | Clásica | Comida | No | 2 |
-| 4 | Mosaico | `mosaic` | Clásica | Geométrico | No | 1 |
-| 5 | Déco | `deco` | Clásica | Chic y vintage | No | 2 |
-| 6 | Siesta | `siesta` | Original | Mascota del proyecto | No | 1 |
-| 7 | Rack | `rack` | Original | Servidores y bots | Sí (LCD) | 1 |
-| 8 | Latte | `latte` | Original | Pausa café | No | 2 |
-| 9 | Hojalata | `tinbot` | Original | Robots de juguete | No | 3 |
-| 10 | Constelación | `constellation` | Espacial | Cielo nocturno | No | 2 |
-| 11 | Órbita | `orbit` | Espacial | Planetas | No | 3 |
-| 12 | Misión | `mission` | Espacial | Parches de misión | Sí (cinta) | 3 |
-| 13 | Casco | `helmet` | Espacial | Astronautas | No | 3 |
+| #   | Colección    | id              | Grupo    | Tema                 | Iniciales  | Fase |
+| --- | ------------ | --------------- | -------- | -------------------- | ---------- | ---- |
+| 1   | Monograma    | `monogram`      | Clásica  | Corporativo          | Sí         | 1    |
+| 2   | Origami      | `origami`       | Clásica  | Animales             | No         | 2    |
+| 3   | Despensa     | `pantry`        | Clásica  | Comida               | No         | 2    |
+| 4   | Mosaico      | `mosaic`        | Clásica  | Geométrico           | No         | 1    |
+| 5   | Déco         | `deco`          | Clásica  | Chic y vintage       | No         | 2    |
+| 6   | Siesta       | `siesta`        | Original | Mascota del proyecto | No         | 1    |
+| 7   | Rack         | `rack`          | Original | Servidores y bots    | Sí (LCD)   | 1    |
+| 8   | Latte        | `latte`         | Original | Pausa café           | No         | 2    |
+| 9   | Hojalata     | `tinbot`        | Original | Robots de juguete    | No         | 3    |
+| 10  | Constelación | `constellation` | Espacial | Cielo nocturno       | No         | 2    |
+| 11  | Órbita       | `orbit`         | Espacial | Planetas             | No         | 3    |
+| 12  | Misión       | `mission`       | Espacial | Parches de misión    | Sí (cinta) | 3    |
+| 13  | Casco        | `helmet`        | Espacial | Astronautas          | No         | 3    |
 
 Descartada: **Señales** (iniciales codificadas con banderas del código marítimo internacional).
 
 ### 2.1 Clásicas con giro propio
 
 #### Monograma · `monogram`
+
 Iniciales con serifa dentro de un sello. Para directorios, intranets y herramientas corporativas.
 - **Varía:** el marco (círculo doble, escudo, rombo) y la paleta.
 - **Paletas:** azul marino, burdeos, verde inglés y grafito combinados con hueso u oro viejo, más sus inversas.
 - **Ojo:** las letras se dibujan como paths (ver §4.4), no con fuentes del sistema.
 
 #### Origami · `origami`
+
 Cabezas de animales hechas con triángulos, a dos tonos (luz y sombra) para dar efecto de papel plegado.
 - **Varía:** el animal (zorro, gato, oso, búho; ampliable a pingüino, conejo, mapache, rana), el pelaje según el animal y el fondo pastel.
 - **Opciones propias:** `animal` para forzar uno.
 
 #### Despensa · `pantry`
+
 Comida vista desde arriba, en plano.
 - **Varía:** el alimento (donut, cítrico cortado, huevo frito, aguacate; ampliable a sandía, galleta, sushi, tostada), el glaseado, las virutas, el número de gajos y la posición de la yema.
 - **Opciones propias:** `food`.
 - **Ojo:** los detalles pequeños (virutas) se pierden a 24 px; limitar su número.
 
 #### Mosaico · `mosaic`
+
 Teselas Truchet en una cuadrícula de 4×4.
 - **Varía:** el tipo de tesela (arcos o triángulos), la orientación de cada una de las 16 teselas y la paleta bicolor.
 - **Ojo:** es la colección más simple, así que se usa para validar el motor en la fase 1.
 
 #### Déco · `deco`
+
 Art déco: líneas doradas, simetría y marco fino.
 - **Varía:** el motivo (abanico, arcos escalonados, sol radiante), el número de rayos y la paleta (dorado sobre azul noche, negro, verde esmeralda o burdeos; tinta sobre crema).
 - **Opciones propias:** `motif`.
@@ -75,22 +80,26 @@ Art déco: líneas doradas, simetría y marco fino.
 ### 2.2 Originales
 
 #### Siesta · `siesta`
-Criaturas blanditas medio dormidas. Es la colección que da sentido al nombre *lazy* y la candidata a mascota y logo del proyecto.
+
+Criaturas blanditas medio dormidas. Es la colección que da sentido al nombre _lazy_ y la candidata a mascota y logo del proyecto.
 - **Varía:** el color de la criatura, el accesorio (gorro de dormir, «zzz», antifaz, manta), la boca y el fondo.
 - **Opciones propias:** `accessory`.
 
 #### Rack · `rack`
+
 Paneles frontales de servidor con tres unidades. Pensada para hosts, servicios, bots y runners de CI.
 - **Varía:** el chasis (grafito, beige retro, azul, negro), el tipo de unidad (bahías de disco, rejilla), los LEDs y una pantalla LCD con las iniciales.
 - **Opciones propias:** `status` (`'ok' | 'warn' | 'down' | 'off'`) fija el color de los LEDs. Es la única colección con una opción que transmite información.
 - **Ojo:** el texto del LCD usa una fuente de 7 segmentos o de píxel hecha con rectángulos.
 
 #### Latte · `latte`
+
 Una taza vista desde arriba con arte latte.
 - **Varía:** el dibujo (corazón, tulipán, roseta, anillos), el color de la cerámica y la superficie de la mesa.
 - **Opciones propias:** `art`.
 
 #### Hojalata · `tinbot`
+
 Robots de juguete de hojalata de los años 50: remaches, brillo de chapa y antenas.
 - **Varía:** el color de la chapa, la antena (una, dos, cúpula), los ojos (manómetros, visor, desparejados), la dirección de la mirada y la boca (rejilla, sonrisa, puntos).
 
@@ -105,51 +114,57 @@ Cuatro colecciones comparten tema. Para que no se confundan entre sí:
 En la web se pueden presentar juntas como un pack.
 
 #### Constelación · `constellation`
+
 Cada semilla dibuja su propia constelación sobre un cielo nocturno.
 - **Varía:** el número de estrellas (4–6), sus posiciones, el trazo que las une, las estrellas de fondo y el color del cielo.
 - **Idea futura:** generar también un nombre para cada constelación.
 
 #### Órbita · `orbit`
+
 Planetas con o sin anillo.
 - **Varía:** el tamaño y el color del planeta, franjas o cráteres, el anillo y su inclinación, y una luna.
 
 #### Misión · `mission`
+
 Parches de misión al estilo de las agencias espaciales. Encaja con equipos y proyectos.
 - **Varía:** los colores del borde y del campo, el planeta de la parte inferior, la órbita, la inclinación del cohete y las estrellas.
 - **Iniciales:** sobre una cinta, en una letra de palo seco.
 
 #### Casco · `helmet`
+
 Un astronauta con un planeta reflejado en el visor.
 - **Varía:** el color del traje, la forma del visor, el planeta reflejado, la antena y el fondo (claro u oscuro).
 
-## 3. API propuesta
+## 3. API del motor y colecciones previstas
+
+`createAvatar`, `createAvatarDataUri`, contratos y helpers ya están implementados. El ejemplo siguiente describe **Rack, que llegará en fase 1**: la subruta `lazy-avatars/rack` no existe todavía. Para un ejemplo ejecutable con una colección propia, ver [README.es.md](README.es.md#api-funcional-del-motor) y [el contrato completo del núcleo](packages/core/README.md).
 
 ```ts
 import { createAvatar, createAvatarDataUri } from 'lazy-avatars';
 import { rack } from 'lazy-avatars/rack';
 
 const svg = createAvatar(rack, {
-  seed: 'prod-db-01',          // obligatorio
-  size: 64,                    // px, por defecto 64
-  shape: 'rounded',            // 'square' | 'rounded' | 'circle'
-  title: 'prod-db-01',         // <title> accesible (opcional)
-  background: true,            // false = fondo transparente
-  palette: 'night',            // tema, paleta o lista de paletas (opcional)
-  idPrefix: 'server-row-01',    // espacio de nombres único por instancia inline (opcional)
+  seed: 'prod-db-01', // obligatorio
+  size: 64, // px, por defecto 64
+  shape: 'rounded', // 'square' | 'rounded' | 'circle'
+  title: 'prod-db-01', // <title> accesible (opcional)
+  background: true, // false = fondo transparente
+  palette: 'night', // tema, paleta o lista de paletas (opcional)
+  idPrefix: 'server-row-01', // espacio de nombres único por instancia inline (opcional)
   options: { status: 'warn' }, // opciones propias de cada colección
 });
 
 const src = createAvatarDataUri(rack, { seed: 'prod-db-01' }); // para <img src>
 ```
 
-API de diseño, todavía no implementada. Regla general: cada variante principal de una colección se puede forzar con `options`. El resto se deja al azar determinista. `idPrefix` forma parte de la entrada determinista; para SVG inline con referencias internas se debe proporcionar uno diferente por instancia. Un `<img>` con data URI aísla cada SVG y no requiere ese espacio de nombres documental.
+Regla general para las colecciones: cada variante principal se podrá forzar con `options`; el resto se deja al azar determinista. `idPrefix` ya forma parte de la API implementada; para SVG inline con referencias internas se debe proporcionar uno diferente por instancia. Un `<img>` con data URI aísla cada SVG y no requiere ese espacio de nombres documental. Las colecciones pueden validar nombres, valores y defaults con `validateOptions`. Los [tipos implementados](packages/core/src/types.ts) son la referencia precisa del contrato.
 
 ### Contrato de una colección
 
 ```ts
 export interface Collection<O = Record<string, never>> {
-  id: string;            // 'rack'
-  name: string;          // 'Rack'
+  id: string; // 'rack'
+  name: string; // 'Rack'
   outputVersion: number; // sube cuando cambia el SVG de una semilla existente
   palettes: Palette[];
   usesInitials: boolean;
@@ -157,9 +172,9 @@ export interface Collection<O = Record<string, never>> {
 }
 
 export interface RenderContext<O> {
-  rng: Rng;                     // generador con sub-flujos: rng.fork('eyes')
+  rng: Rng; // generador con sub-flujos: rng.fork('eyes')
   seed: string;
-  initials: string;             // ya normalizadas, 1–2 caracteres
+  initials: string; // ya normalizadas, 1–2 caracteres
   palette: Palette;
   options: Partial<O>;
   id: (name: string) => string; // ids locales estables; aislamiento según idPrefix
@@ -178,14 +193,13 @@ export interface Palette {
 
 Cada colección pinta con cinco **roles** de color, no con colores fijos:
 
-| Rol | Uso |
-| --- | --- |
-| `background` | Fondo |
-| `primary` | Forma principal (cuerpo, chasis, teselas) |
-| `secondary` | Sombras y variaciones de la forma principal |
-| `accent` | Detalles (accesorios, luces, adornos) |
-| `ink` | Trazos finos, ojos y letras |
-
+| Rol          | Uso                                         |
+| ------------ | ------------------------------------------- |
+| `background` | Fondo                                       |
+| `primary`    | Forma principal (cuerpo, chasis, teselas)   |
+| `secondary`  | Sombras y variaciones de la forma principal |
+| `accent`     | Detalles (accesorios, luces, adornos)       |
+| `ink`        | Trazos finos, ojos y letras                 |
 - **Paletas propias:** cada colección trae las suyas y la semilla elige una con su propio sub-flujo. Así, cambiar de paleta no cambia la forma del avatar.
 - **Temas globales:** listas de paletas que sirven para cualquier colección. Los iniciales son Pastel (`pastel`), Corporativo (`corporate`), Noche (`night`), Tierra (`earth`) y Monocromo (`mono`). Los IDs públicos están en inglés; las etiquetas se pueden traducir. El registro de temas se separa del objeto `Palette` de cinco roles.
 - **Contraste:** el motor ofrece `readable(fondo, ...candidatos)`, que devuelve el primer color con contraste ≥ 3:1 (el criterio WCAG para elementos gráficos). Las colecciones lo usan para ojos, letras y trazos, y así funcionan con cualquier tema.
@@ -194,15 +208,18 @@ Cada colección pinta con cinco **roles** de color, no con colores fijos:
 ## 4. Motor (núcleo)
 
 ### 4.1 De la semilla a un número
-- Normalización: `trim` + Unicode NFC. Se respetan las mayúsculas (decisión abierta, ver §10).
+
+- Normalización implementada: `trim` + Unicode NFC, conservando mayúsculas. Se rechazan semillas vacías o de más de 1024 unidades UTF-16 tras normalizar.
 - Hash FNV-1a de 32 bits sobre los bytes UTF-8 de `` `${collection.id}:${seed}` ``. Al incluir el id, el mismo nombre da avatares independientes en cada colección. Se fijarán vectores ASCII y Unicode. Puede haber colisiones: no se garantiza un avatar distinto para toda identidad ni anonimización.
 
 ### 4.2 Aleatoriedad determinista
+
 - PRNG `mulberry32`: pequeño, rápido y suficiente para esto.
-- **Sub-flujos por rasgo:** `rng.fork('eyes')` deriva un generador de la semilla raíz y la ruta completa del sub-flujo, sin consumir el padre. Así, añadir una variante nueva de ojos no cambia el color de fondo de todas las semillas que ya existen. La composición exacta se fijará con pruebas en fase 0.
+- **Sub-flujos por rasgo:** `rng.fork('eyes')` deriva un generador del hash uint32 raíz y la ruta completa del sub-flujo, serializados como `[root, path]` en JSON y hasheados con FNV-1a. No consume el padre. Así, añadir una variante nueva de ojos no cambia el color de fondo de todas las semillas que ya existen. Su comportamiento está fijado con pruebas desde fase 0.
 - Helpers: `pick`, `range`, `int`, `chance`, `weighted`.
 
 ### 4.3 Construcción del SVG
+
 - Lienzo fijo de 80×80 (`viewBox`) que se escala con `width` y `height`.
 - Helpers para crear elementos y escapar texto.
 - Redondeo a 1 decimal: la salida es estable y más corta.
@@ -210,6 +227,7 @@ Cada colección pinta con cinco **roles** de color, no con colores fijos:
 - `shape` (cuadrado, redondeado, círculo) se aplica en el envoltorio común, no en cada colección.
 
 ### 4.4 Iniciales y letras
+
 - Extracción: separar por espacios, `.`, `_` y `-`; quitar acentos; dos caracteres; mayúsculas. Ejemplos: `Ana García` → `AG`, `prod-db-01` → `PD`, `bruno` → `BR`.
 - **Las letras se dibujan como paths**, nunca con `<text>`, para no depender de las fuentes instaladas:
   - Rack: 7 segmentos o píxel, de diseño propio.
@@ -218,6 +236,7 @@ Cada colección pinta con cinco **roles** de color, no con colores fijos:
 - Si una inicial no tiene glifo (por ejemplo, nombres en alfabetos no latinos), la colección pone un símbolo neutro en su lugar.
 
 ### 4.5 Contrato de estabilidad
+
 - Cambiar el SVG que produce una semilla existente es un cambio incompatible: se sube `outputVersion` de la colección y la versión mayor del paquete.
 - Los tests de snapshot lo detectan.
 - Antes de la 1.0 se permite, pero se anota en el CHANGELOG.
@@ -250,21 +269,21 @@ lazy-avatars/
 
 Cada colección sale como subruta (`lazy-avatars/rack`) para que solo se cargue lo que se usa.
 
-| Para qué | Tecnología |
-| --- | --- |
-| Lenguaje | TypeScript |
-| Monorepo | pnpm workspaces: núcleo, React, CLI y galería en un solo repo |
-| Empaquetado | tsup: ESM + tipos, una entrada por colección |
-| Tests | Vitest: unitarios y snapshots |
-| Lint y formato | Biome |
-| CI | GitHub Actions: lint, tests, build y tamaño |
-| Versiones y changelog | Changesets |
-| Galería | Vite + TypeScript sin framework, publicada en GitHub Pages |
-| Integraciones (fase 4) | React (componente), Node (CLI), Docker (API HTTP) |
+| Para qué               | Tecnología                                                    |
+| ---------------------- | ------------------------------------------------------------- |
+| Lenguaje               | TypeScript                                                    |
+| Monorepo               | pnpm workspaces: núcleo, React, CLI y galería en un solo repo |
+| Empaquetado            | tsup: ESM + tipos, una entrada por colección                  |
+| Tests                  | Vitest: unitarios y snapshots                                 |
+| Lint y formato         | Biome                                                         |
+| CI                     | GitHub Actions: lint, tests, build y tamaño                   |
+| Versiones y changelog  | Changesets                                                    |
+| Galería                | Vite + TypeScript sin framework, publicada en GitHub Pages    |
+| Integraciones (fase 4) | React (componente), Node (CLI), Docker (API HTTP)             |
 
 El paquete publicado no tiene dependencias en tiempo de ejecución: todo lo de la tabla es para desarrollar.
 
-Esta garantía corresponde al **núcleo**. Los adaptadores tienen sus propios requisitos (por ejemplo, React como peer dependency). Se distribuirá ESM y tipos; no se promete CommonJS inicialmente. La raíz no importará ni reexportará todas las colecciones. Las versiones de herramientas y mínimos de runtime se fijarán en fase 0. La estructura anterior es el destino previsto: los paquetes se crearán cuando se implementen.
+Esta garantía corresponde al **núcleo**. Los adaptadores tienen sus propios requisitos (por ejemplo, React como peer dependency). Ya se compilan ESM y tipos; no se ofrece CommonJS. La entrada raíz no importa colecciones. `package.json` y el lockfile fijan herramientas; el desarrollo requiere pnpm 11.25.0 y Node `^24.11.0 || >=26.0.0`. La estructura anterior sigue siendo el destino previsto: actualmente existen `packages/core` y `apps/gallery`; no se crean paquetes vacíos para fases futuras.
 
 ### 5.1 Git y distribución
 
@@ -280,6 +299,7 @@ Procedimiento completo en [REPOSITORY_HYGIENE.md](docs/REPOSITORY_HYGIENE.md).
 Una web estática que hace de banco de pruebas mientras diseñamos y de escaparate para quien llega al repo. Vive en `apps/gallery` y se publica en GitHub Pages.
 
 ### Controles
+
 - **Colección:** cualquiera de las 13.
 - **Paleta:** «Auto» (las de la colección) o un tema global. Más adelante, un editor para crear una paleta propia con los 5 roles.
 - **Semilla:** texto libre.
@@ -288,6 +308,7 @@ Una web estática que hace de banco de pruebas mientras diseñamos y de escapara
 - **Opciones propias** de la colección, por ejemplo `status` en Rack o `animal` en Origami.
 
 ### Vistas
+
 1. **Tamaños:** la misma semilla a 24, 32, 48, 64 y 128 px.
 2. **Variedad:** una cuadrícula de 12 semillas; en modo revisión, una «hoja de contactos» de 60.
 3. **En contexto:** el avatar dentro de interfaces reales:
@@ -332,6 +353,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 **Objetivo:** demostrar el contrato técnico antes de producir las colecciones.
 
+**Estado al 2026-10-23:** implementación y comprobación local terminadas. `pnpm check` pasa en Node 24.21/Windows: lint, tipos, 38 pruebas unitarias, snapshots de 20 semillas, build, revisión de rutas/credenciales e historial, límites de tamaño, empaquetado e instalación aislada con tipos, y dos pruebas en Chromium. Se ha comprobado paridad Node/navegador y descarga de SVG. La colección `fixtures/test-collection.ts` no se exporta ni entra en npm. El workflow contempla Linux/Node 24.11 y 26, y Windows/Node 24. **Pendiente para el cierre remoto:** subir los commits y confirmar el primer CI verde; no se afirma que ya haya ejecutado en GitHub.
 1. Documentación, licencia MIT, arquitectura y exclusiones de Git. Esta parte queda preparada el 2026-10-23; no cierra la fase.
 2. Comprobar disponibilidad y propiedad de los nombres npm; fijar versiones compatibles de Node, pnpm y herramientas. Crear workspace privado, paquete core, galería mínima y lockfile.
 3. Configurar TypeScript estricto, tsup, Vitest, Biome y scripts reproducibles de lint, tipos, tests y build. Incorporar Changesets.
@@ -345,7 +367,6 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 ### Fase 1 · v0.1: validar el motor con 4 colecciones
 
 **Depende de:** fase 0. **Objetivo:** primera versión pequeña que valide todos los mecanismos del motor.
-
 1. **Mosaico:** validar composición geométrica, orientaciones y paletas.
 2. **Monograma:** validar iniciales como paths, fallback de glifos y avisos de la fuente si se usa una de terceros.
 3. **Rack:** validar LCD, inferencia de opciones y los cuatro estados (`ok`, `warn`, `down`, `off`), acompañados de texto en los ejemplos.
@@ -358,7 +379,6 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 ### Fase 2 · v0.2: resto de clásicas y originales
 
 **Depende de:** fase 1. **Objetivo:** ampliar el catálogo sin cambiar el contrato común.
-
 1. Implementar Origami, Despensa, Déco, Latte y Constelación, una a una.
 2. Añadir sus controles específicos (`animal`, `food`, `motif`, `art`), paletas, documentación y entradas en galería.
 3. Revisar detalles pequeños, grosor mínimo de trazo y contraste de constelaciones. Conservar los snapshots de las colecciones existentes o versionar cualquier cambio de salida.
@@ -368,7 +388,6 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 ### Fase 3 · v0.3: robots y familia espacial
 
 **Depende de:** fase 2. **Objetivo:** completar las 13 colecciones y diferenciar los estilos espaciales.
-
 1. Implementar Hojalata, Órbita, Misión y Casco.
 2. Revisar reflejos, anillos, siluetas y glifos de Misión; documentar cada variante principal y cómo forzarla.
 3. Comparar Constelación, Órbita, Misión y Casco juntas para evitar que sean intercambiables visualmente. Completar la navegación de la familia espacial en la galería.
@@ -378,7 +397,6 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 ### Fase 4 · Integraciones
 
 **Depende de:** fase 3 y API del núcleo revisada. **Objetivo:** adaptar el mismo motor sin duplicarlo.
-
 1. Paquete React con tipos, accesibilidad, IDs por instancia y comportamiento SSR/hidratación probado.
 2. Web component `<lazy-avatar collection="rack" seed="demo-server-01">`, con atributos documentados y registro explícito de las colecciones usadas.
 3. CLI para exportar SVG y reportar errores por stderr/código de salida. Comando objetivo: `npx @lazy-avatars/cli rack demo-server-01 > avatar.svg` (nombre sujeto a disponibilidad).
@@ -390,7 +408,6 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 ### Fase 5 · v1.0
 
 **Depende de:** fase 4 y revisión de todos los contratos. **Objetivo:** comprometer estabilidad pública sobre una versión comprobada.
-
 1. Congelar API, IDs públicos de colecciones/temas y contrato `outputVersion`; documentar migraciones y política de cambios incompatibles.
 2. Revisar compatibilidad real, rendimiento, tamaño del núcleo y colecciones, datos de accesibilidad, ejemplos y límites conocidos. Publicar la matriz de entornos verificados.
 3. Completar documentación en inglés y español, guía de contribuciones, licencias y avisos de terceros. Crear identidad visual y logo a partir de Siesta con derechos revisados.
@@ -403,20 +420,20 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 Las propuestas siguientes se usan como base de la documentación del 2026-10-23. Las tareas de verificación siguen pendientes; no implican que el workspace o las publicaciones existan.
 
-| # | Decisión | Opciones | Propuesta |
-| --- | --- | --- | --- |
-| 1 | Idioma del código, la API y el README | Inglés / español / bilingüe | Base: código/API y README principal en inglés; `README.es.md` añadido |
-| 2 | Nombre en npm | `lazy-avatars` / scope `@lazy-avatars/*` | Comprobar disponibilidad antes de la fase 0 (aún sin comprobar) |
-| 3 | Licencia | MIT / Apache-2.0 | MIT añadida para código, documentación y arte original; terceros conservan sus términos |
-| 4 | Glifos de Monograma y Misión | Diseño propio / fuente OFL convertida a paths | Pendiente elegir glifos; si se usa OFL, revisar términos e incluir licencia antes de distribuir |
-| 5 | Mayúsculas en la semilla | Respetar / ignorar | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas |
-| 6 | Tamaño mínimo garantizado | 24 px / 32 px | 32 px |
-| 7 | API HTTP | Servicio público propio / solo autoalojable | Solo autoalojable, para evitar costes y abusos |
-| 8 | ids de las colecciones | Inglés / español | Inglés (los de la tabla del §2) |
-| 9 | Temas globales iniciales | Los 5 propuestos / otros | Pastel, Corporativo, Noche, Tierra y Monocromo, ampliables |
-| 10 | Tecnología de la galería | Vite sin framework / Astro / React | Vite sin framework; pasar a Astro si crece hasta ser la web de documentación |
-| 11 | Compatibilidad y versiones de herramientas | Baselines por verificar | Fijarlas en fase 0; ESM + tipos y sin CommonJS inicial |
-| 12 | IDs repetidos en SVG inline | Aleatoriedad / contador / prefijo explícito | `idPrefix` explícito por instancia; núcleo determinista sin estado global |
+| #   | Decisión                                   | Opciones                                      | Propuesta                                                                                                              |
+| --- | ------------------------------------------ | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                   | Base: código/API y README principal en inglés; `README.es.md` añadido                                                  |
+| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`      | Comprobados: los tres nombres propuestos devuelven 404 el 2026-10-23; reserva y propiedad pendientes antes de publicar |
+| 3   | Licencia                                   | MIT / Apache-2.0                              | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                |
+| 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL convertida a paths | Pendiente elegir glifos; si se usa OFL, revisar términos e incluir licencia antes de distribuir                        |
+| 5   | Mayúsculas en la semilla                   | Respetar / ignorar                            | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                            |
+| 6   | Tamaño mínimo garantizado                  | 24 px / 32 px                                 | 32 px                                                                                                                  |
+| 7   | API HTTP                                   | Servicio público propio / solo autoalojable   | Solo autoalojable, para evitar costes y abusos                                                                         |
+| 8   | ids de las colecciones                     | Inglés / español                              | Inglés (los de la tabla del §2)                                                                                        |
+| 9   | Temas globales iniciales                   | Los 5 propuestos / otros                      | Pastel, Corporativo, Noche, Tierra y Monocromo, ampliables                                                             |
+| 10  | Tecnología de la galería                   | Vite sin framework / Astro / React            | Vite sin framework; pasar a Astro si crece hasta ser la web de documentación                                           |
+| 11  | Compatibilidad y versiones de herramientas | Baselines fijados y versiones en el lockfile  | Node 24.11+ (24.x) o 26+, pnpm 11.25.0; ESM + tipos; verificación local Node 24.21 y Chromium, matriz remota pendiente |
+| 12  | IDs repetidos en SVG inline                | Aleatoriedad / contador / prefijo explícito   | `idPrefix` explícito por instancia; núcleo determinista sin estado global                                              |
 
 ## 11. Registro de decisiones
 
@@ -427,3 +444,4 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-23:** se documenta la arquitectura de monorepo TypeScript y se amplían las fases con dependencias, entregables y criterios de cierre. No se inicia implementación.
 - **2026-10-23:** se añaden README principal y español, licencia MIT y reglas de Git/distribución. Se distinguen los permisos del arte original y las futuras licencias de terceros.
 - **2026-10-23:** se concreta el contrato determinista con opciones, UTF-8, sub-flujos y `idPrefix` para instancias inline. Los IDs de temas se fijan en inglés.
+- **2026-10-23:** a petición de la usuaria, se implementa la fase 0: motor sin dependencias de ejecución, temas, glifos propios, galería mínima, herramientas y CI. Comprobaciones locales completas en verde; primera ejecución remota pendiente de push. No se publica ningún paquete ni se implementan colecciones de fase 1.

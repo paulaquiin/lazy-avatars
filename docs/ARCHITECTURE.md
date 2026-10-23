@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: diseño para implementar. Fecha: 2026-10-23. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. No describe código existente.
+Estado: núcleo, workspace y galería mínima implementados y verificados localmente en fase 0. Fecha: 2026-10-23. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores y colecciones temáticas son futuros. El CI está configurado, pendiente de primera confirmación remota.
 
 ## 1. Decisión principal
 
@@ -34,12 +34,12 @@ Los directorios de código se crearán en su fase, sin paquetes vacíos. Los nom
 
 ## 2. Dependencias y responsabilidades
 
-| Componente | Responsabilidad | Límites |
-| --- | --- | --- |
-| Motor | Normalización, hash, RNG, color, glifos, SVG y envoltorio | Sin DOM, red, reloj, estado global mutable ni dependencias de ejecución |
-| Colección | Dibujo, paletas, variantes y opciones tipadas | Usa contratos/helpers del núcleo; no importa otras colecciones |
-| Galería | Controles, previsualización, URL compartible, descarga y ejemplos | Consume la API pública; sus dependencias nunca pasan al núcleo |
-| Adaptadores | Integración con React, custom elements, terminal o HTTP | Consumen la API pública, sin duplicar el motor |
+| Componente  | Responsabilidad                                                   | Límites                                                                 |
+| ----------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Motor       | Normalización, hash, RNG, color, glifos, SVG y envoltorio         | Sin DOM, red, reloj, estado global mutable ni dependencias de ejecución |
+| Colección   | Dibujo, paletas, variantes y opciones tipadas                     | Usa contratos/helpers del núcleo; no importa otras colecciones          |
+| Galería     | Controles, previsualización, URL compartible, descarga y ejemplos | Consume la API pública; sus dependencias nunca pasan al núcleo          |
+| Adaptadores | Integración con React, custom elements, terminal o HTTP           | Consumen la API pública, sin duplicar el motor                          |
 
 ```mermaid
 flowchart LR
@@ -56,7 +56,7 @@ El consumidor importa explícitamente `lazy-avatars/rack`, por ejemplo, y pasa l
 
 ## 3. Flujo de generación y determinismo
 
-1. Validar la colección y las opciones; normalizar la semilla con `trim()` + NFC. Conservar mayúsculas. Documentar y probar el comportamiento de semillas vacías y valores inválidos en fase 0.
+1. Validar la colección y las opciones; normalizar la semilla con `trim()` + NFC. Conservar mayúsculas. Rechazar semillas vacías o de más de 1024 unidades UTF-16. Tamaño entero de 1 a 4096, predeterminado 64; forma predeterminada `rounded` y fondo activado. El [contrato del núcleo](../packages/core/README.md) recoge el resto de límites.
 2. Codificar en UTF-8 y aplicar FNV-1a de 32 bits a `${collection.id}:${seed}`. Los vectores de prueba fijarán el comportamiento para ASCII y Unicode.
 3. Crear un RNG `mulberry32`. Cada `fork(nombre)` se deriva de la semilla raíz y de la ruta completa del subflujo, sin consumir el flujo padre. Los rasgos usan nombres estables (`palette`, `eyes`, etc.).
 4. Resolver paleta y opciones sin alterar subflujos de otros rasgos. El orden de las opciones no debe modificar la salida.
@@ -70,10 +70,9 @@ Antes de 1.0, los cambios de salida se registrarán en el changelog y actualizar
 ## 4. Identificadores SVG e integración inline
 
 Un prefijo que dependa solo de la semilla no evita que dos instancias iguales, o dos avatares con distintas formas, compartan IDs en el mismo documento HTML.
-
 - Evitar IDs y referencias cuando la geometría lo permita.
 - Para las referencias necesarias, derivar el prefijo de la identidad completa de renderizado, con serialización canónica de las opciones. La función `ctx.id(nombre)` añade un sufijo local estable.
-- Añadir a la API propuesta `idPrefix?: string`: un espacio de nombres explícito y validado para instancias inline. El llamador debe dar un prefijo diferente a cada instancia del mismo documento, incluidas las repeticiones del mismo avatar. No se generará aleatoriedad ni un contador global en el núcleo.
+- La API incluye `idPrefix?: string`: un espacio de nombres explícito y validado para instancias inline. El llamador debe dar un prefijo diferente a cada instancia del mismo documento, incluidas las repeticiones del mismo avatar. Los IDs del envoltorio están separados de los de la colección (`ctx.id`). No hay aleatoriedad ni contador global en el núcleo.
 - Documentar que el modo predeterminado determinista no garantiza unicidad documental al repetir SVG inline. Para uso simple, un `<img>` con data URI mantiene cada SVG en su propio documento.
 - El adaptador React podrá proporcionar el prefijo estable por instancia con su mecanismo de IDs; se comprobará también la hidratación SSR.
 
@@ -81,9 +80,9 @@ Las pruebas cubrirán IDs duplicados, referencias sin destino y varias instancia
 
 ## 5. Color, accesibilidad y recursos
 
-Las paletas tienen cinco roles: `background`, `primary`, `secondary`, `accent`, `ink`. Los temas iniciales serán `pastel`, `corporate`, `night`, `earth` y `mono`. Son sus IDs públicos; sus etiquetas se pueden traducir. `Palette` seguirá siendo el objeto de cinco roles; los IDs de temas se resuelven en un registro separado. En fase 0 se cerrará el tipo de `palette` para admitir tema, paleta explícita o lista de paletas.
+Las paletas tienen exactamente cinco roles: `background`, `primary`, `secondary`, `accent`, `ink`. Los temas implementados son `pastel`, `corporate`, `night`, `earth` y `mono`. Son sus IDs públicos; sus etiquetas se pueden traducir. Los IDs de temas se resuelven en un registro separado. `PaletteInput` admite un tema, una paleta explícita o una lista no vacía; los colores se validan como hex `#RGB` o `#RRGGBB` y se normalizan a seis dígitos.
 
-`readable()` seleccionará candidatos con contraste objetivo de 3:1 para gráficos. Este umbral no garantiza por sí solo la accesibilidad de toda una interfaz. La implementación deberá definir qué hacer si ningún candidato cumple. Rack conservará el significado del color de estado; los ejemplos incluirán también una etiqueta textual del estado.
+`readable()` selecciona el primer candidato con contraste de al menos 3:1; si ninguno cumple, usa el de mayor contraste entre negro y blanco. Este umbral no garantiza por sí solo la accesibilidad de toda una interfaz. Rack conservará el significado del color de estado; sus ejemplos incluirán también una etiqueta textual del estado.
 
 Las letras se dibujarán como paths o rectángulos, sin fuentes remotas. Se prefiere arte propio; si se convierten fuentes OFL, se revisarán sus términos y se incluirán los avisos exigidos antes de distribuirlas. La compatibilidad de licencias no se da por supuesta.
 
@@ -91,21 +90,23 @@ El SVG no tendrá scripts, manejadores de eventos ni recursos externos. No acept
 
 ## 6. Herramientas y publicación
 
-| Área | Decisión |
-| --- | --- |
-| Lenguaje | TypeScript estricto |
-| Workspace | pnpm, versión fijada y lockfile versionado |
-| Build | tsup; ESM y declaraciones, una entrada por colección |
-| Pruebas | Vitest; unitarias, snapshots y compatibilidad de navegador |
-| Estilo | Biome |
-| Versionado | Changesets; contrato de SVG ligado a versiones |
-| CI | GitHub Actions: lint, tipos, tests, build, tamaño y paquete |
-| Galería | Vite + TypeScript; despliegue estático en GitHub Pages |
+| Área       | Decisión                                                    |
+| ---------- | ----------------------------------------------------------- |
+| Lenguaje   | TypeScript estricto                                         |
+| Workspace  | pnpm, versión fijada y lockfile versionado                  |
+| Build      | tsup; ESM y declaraciones, una entrada por colección        |
+| Pruebas    | Vitest; unitarias, snapshots y compatibilidad de navegador  |
+| Estilo     | Biome                                                       |
+| Versionado | Changesets; contrato de SVG ligado a versiones              |
+| CI         | GitHub Actions: lint, tipos, tests, build, tamaño y paquete |
+| Galería    | Vite + TypeScript; despliegue estático en GitHub Pages      |
 
-No se promete CommonJS en la primera versión. Los mínimos de Node, pnpm, TypeScript y navegadores se fijarán al arrancar la implementación, tras verificar las versiones compatibles de estas herramientas. React será una dependencia peer del adaptador, no del núcleo. Las dependencias del servidor HTTP quedarán en su paquete.
+La salida actual es ESM y tipos, sin CommonJS. Desarrollo: Node `^24.11.0 || >=26.0.0`, pnpm 11.25.0, TypeScript 5.9.3, tsup 9.0.0, Vitest 5.0.5, Biome 2.6.2, Changesets 3.0.3, Vite 8.3.5 y Playwright 1.64.1. Las versiones y dependencias transitivas están fijadas por manifiesto y lockfile. La verificación local usa Node 24.21/Chromium en Windows; las otras combinaciones del workflow esperan ejecución remota. React será una dependencia peer del adaptador, no del núcleo.
 
-El workspace raíz y la galería serán privados para npm. Cada paquete distribuible definirá `files` con una lista positiva (`dist`, licencia, README y avisos requeridos), su mapa `exports` y su contenido real revisado mediante pack en modo dry run. No se publicará el monorepo completo. Véanse las [reglas de higiene](REPOSITORY_HYGIENE.md).
+El workspace raíz y la galería son privados para npm. El núcleo define `files` con lista positiva y un único export público raíz hasta que se implementen las colecciones. `pnpm check:package` verifica los cinco archivos del tarball, tamaños máximos de 24 KiB ESM y 8 KiB gzip, ausencia de dependencias de ejecución y patrones de credenciales, y una instalación real offline en un directorio temporal con importación ESM y comprobación de tipos. El ejemplo de SVG tiene un objetivo orientativo de 4 KiB. La licencia se copia desde la raíz durante el build y no se duplica en Git. Véanse las [reglas de higiene](REPOSITORY_HYGIENE.md).
 
 ## 7. Calidad y decisiones pendientes
 
-El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). Los puntos pendientes son operativos: disponibilidad y propiedad de nombres npm, versiones mínimas de herramientas, glifos concretos con sus licencias y límites medidos de tamaño/rendimiento. No impiden preparar la documentación; sí deben resolverse antes de los hitos que dependan de ellos.
+El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 0 tiene 38 pruebas unitarias, snapshots de 20 semillas y dos pruebas de Chromium, además de controles de tipos, paquete e higiene. Los glifos de píxel son originales; Monograma y Misión aún necesitan su decisión tipográfica y revisión de licencias.
+
+Los tres nombres propuestos devolvieron 404 en el registro público el 2026-10-23. Sigue pendiente acreditar/reservar el scope antes de publicar; el 404 no concede propiedad. También quedan pendientes la primera ejecución remota del CI y la matriz real de compatibilidad para Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
