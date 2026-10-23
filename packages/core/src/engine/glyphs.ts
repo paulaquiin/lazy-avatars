@@ -1,4 +1,4 @@
-import { svgElement } from './svg.js';
+import { svgElement, svgNumber } from './svg.js';
 
 // Original 3×5 pixel glyphs; rows are separated by /. No external font assets.
 const glyphs: Readonly<Record<string, string>> = Object.freeze({
@@ -40,6 +40,30 @@ const glyphs: Readonly<Record<string, string>> = Object.freeze({
   9: '111/101/111/001/110',
   '?': '110/001/010/000/010',
 });
+
+/** Compact pixel paths for LCDs; keeps the existing rect-based public helper stable. */
+export function renderPixelPath(
+  text: string,
+  x: number,
+  y: number,
+  pixel: number,
+  fill: string,
+): string {
+  const d = Array.from(text)
+    .flatMap((char, index) =>
+      (glyphs[char] ?? glyphs['?'] ?? '')
+        .split('/')
+        .flatMap((row, dy) =>
+          Array.from(row, (bit, dx) =>
+            bit === '1'
+              ? `M${svgNumber(x + (index * 4 + dx) * pixel)} ${svgNumber(y + dy * pixel)}h${svgNumber(pixel)}v${svgNumber(pixel)}h-${svgNumber(pixel)}Z`
+              : '',
+          ),
+        ),
+    )
+    .join('');
+  return svgElement('path', { d, fill });
+}
 
 export function renderPixelGlyphs(
   text: string,

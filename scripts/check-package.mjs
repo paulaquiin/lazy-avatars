@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { findSecretKinds } from './check-repository.mjs';
@@ -27,7 +27,17 @@ const allowed = new Set([
   'LICENSE',
   'dist/index.js',
   'dist/index.d.ts',
+  ...['mosaic', 'monogram', 'rack', 'siesta'].flatMap((id) => [`dist/${id}.js`, `dist/${id}.d.ts`]),
 ]);
+for (const path of paths) {
+  if (/^dist\/(?:chunk-[\w-]+\.js|types-[\w-]+\.d\.ts)$/.test(path)) allowed.add(path);
+}
+if (manifestHasChangelog()) allowed.add('CHANGELOG.md');
+function manifestHasChangelog() {
+  return JSON.parse(readFileSync(join(core, 'package.json'), 'utf8')).files.includes(
+    'CHANGELOG.md',
+  );
+}
 assert.deepEqual(
   [...paths].sort(),
   [...allowed].sort(),
@@ -53,7 +63,43 @@ for (const conditions of Object.values(manifest.exports)) {
   for (const target of Object.values(conditions))
     assert(paths.includes(target.replace(/^\.\//, '')), `Missing export ${target}`);
 }
-const code = readFileSync(join(core, 'dist/index.js'), 'utf8');
+function graph(entry) {
+  const visited = new Set();
+  function visit(path) {
+    if (visited.has(path)) return;
+    assert(paths.includes(path), `Missing dependency ${path}`);
+    visited.add(path);
+    const text = readFileSync(join(core, path), 'utf8');
+    for (const match of text.matchAll(/\b(?:from\s*|import\s*)['"](\.[^'"]+)['"]/g)) {
+      let target = posix.normalize(posix.join(posix.dirname(path), match[1]));
+      if (path.endsWith('.d.ts')) target = target.replace(/\.js$/, '.d.ts');
+      visit(target);
+    }
+  }
+  visit(entry);
+  return visited;
+}
+const rootGraph = graph('dist/index.js');
+const code = [...rootGraph].map((path) => readFileSync(join(core, path), 'utf8')).join('\n');
+const reachable = new Set();
+for (const [subpath, conditions] of Object.entries(manifest.exports)) {
+  for (const target of Object.values(conditions))
+    for (const path of graph(target.replace(/^\.\//, ''))) reachable.add(path);
+  const moduleCode = [...graph(conditions.import.replace(/^\.\//, ''))]
+    .map((path) => readFileSync(join(core, path), 'utf8'))
+    .join('\n');
+  for (const [id, name] of Object.entries({
+    mosaic: 'Mosaico',
+    monogram: 'Monograma',
+    rack: 'Rack',
+    siesta: 'Siesta',
+  })) {
+    if (subpath !== `./${id}`)
+      assert(!moduleCode.includes(`name: "${name}"`), `${subpath} unexpectedly imports ${id}`);
+  }
+}
+for (const path of paths.filter((path) => path.startsWith('dist/')))
+  assert(reachable.has(path), `Orphan distribution file ${path}`);
 assert(
   !/\bfrom\s*["'][^.'"]|\bimport\s*(?:\(\s*)?["'][^.'"]/.test(code),
   'Unexpected external runtime import',
@@ -85,6 +131,16 @@ try {
   run(['install', '--offline', '--ignore-scripts', '--lockfile=false'], temporary);
   const consumer = `import assert from 'node:assert/strict';
 import { createAvatar, themes, svgElement } from 'lazy-avatars';
+import { mosaic } from 'lazy-avatars/mosaic';
+import { monogram } from 'lazy-avatars/monogram';
+import { rack } from 'lazy-avatars/rack';
+import { siesta } from 'lazy-avatars/siesta';
+for (const collection of [mosaic, monogram, rack, siesta]) {
+  const avatar = createAvatar(collection, { seed: 'consumer-demo', palette: 'night' });
+  assert.equal(avatar, createAvatar(collection, { seed: 'consumer-demo', palette: 'night' }));
+  assert(avatar.startsWith('<svg'));
+  if (Buffer.byteLength(avatar) > 4096) console.warn('::warning::Collection SVG exceeds the 4 KiB advisory budget: ' + collection.id);
+}
 const dot = { id: 'smoke', name: 'Smoke', outputVersion: 1, palettes: themes.mono, usesInitials: false, render: ({ palette }) => svgElement('circle', { cx: 40, cy: 40, r: 20, fill: palette.primary }) };
 const svg = createAvatar(dot, { seed: 'consumer-demo' });
 assert.equal(svg, createAvatar(dot, { seed: 'consumer-demo' }));
@@ -100,6 +156,13 @@ console.log('Installed package: ESM import and SVG generation passed.');
   writeFileSync(
     join(temporary, 'consumer.ts'),
     `import { createAvatar, themes, type Collection } from 'lazy-avatars';
+import { rack } from 'lazy-avatars/rack';
+import { mosaic } from 'lazy-avatars/mosaic';
+createAvatar(rack, { seed: 'demo', options: { status: 'warn' } });
+// @ts-expect-error distributed collection declarations retain enum validation
+createAvatar(rack, { seed: 'demo', options: { status: 'invalid' } });
+// @ts-expect-error distributed subpaths keep their own options
+createAvatar(mosaic, { seed: 'demo', options: { status: 'warn' } });
 const c: Collection<{ kind: 'dot' }> = { id: 'smoke', name: 'Smoke', outputVersion: 1, palettes: themes.mono, usesInitials: false, render: () => '' };
 createAvatar(c, { seed: 'demo', options: { kind: 'dot' } });
 // @ts-expect-error public declarations preserve collection-specific options

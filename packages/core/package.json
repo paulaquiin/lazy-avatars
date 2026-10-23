@@ -21,6 +21,22 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./mosaic": {
+      "types": "./dist/mosaic.d.ts",
+      "import": "./dist/mosaic.js"
+    },
+    "./monogram": {
+      "types": "./dist/monogram.d.ts",
+      "import": "./dist/monogram.js"
+    },
+    "./rack": {
+      "types": "./dist/rack.d.ts",
+      "import": "./dist/rack.js"
+    },
+    "./siesta": {
+      "types": "./dist/siesta.d.ts",
+      "import": "./dist/siesta.js"
     }
   },
   "engines": {
