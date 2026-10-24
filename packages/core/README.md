@@ -1,7 +1,13 @@
 # lazy-avatars
 
-Dependency-free, deterministic SVG avatars. Version 0.1.0 is prepared; the first
-npm publication still requires an authenticated maintainer session.
+Dependency-free, deterministic SVG avatars. Four original collections: Mosaic,
+Monogram, Rack and Siesta.
+
+```sh
+npm install lazy-avatars@0.1.0
+```
+
+ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
 
 [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [Source and license](https://github.com/paulaquiin/lazy-avatars)
 
