@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: motor y fases 1–3 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores de fase 4 están implementados como paquetes preparados, sin publicar en npm; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+Estado: motor y fases 1–4 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores de fase 4 están implementados como paquetes preparados, sin publicar en npm; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 
 ## 1. Decisión principal
 

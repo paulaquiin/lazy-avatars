@@ -1,5 +1,16 @@
 # Publicaciones de lazy-avatars
 
+## Adaptadores de fase 4 · preparados, sin publicar
+
+`@lazy-avatars/react`, `@lazy-avatars/web-component`, `@lazy-avatars/cli` y
+`@lazy-avatars/http` tienen versión inicial 0.1.0 y tarballs revisados con
+instalación aislada, imports, bin ejecutable y tipos verificados. Los nombres
+siguen siendo provisionales: acreditar el scope antes de intentar publicarlos.
+No hay nuevas publicaciones npm ni tags de estos paquetes; el núcleo permanece
+en 0.3.0. Para empaquetar dependencias `workspace:`, usar `pnpm pack`, que las
+resuelve a versiones de consumo. `pnpm check:integrations` revisa la distribución.
+La imagen Docker se prueba sin publicarla. Véase [INTEGRATIONS.md](INTEGRATIONS.md).
+
 ## v0.3.0 · publicada
 
 Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Trece colecciones;

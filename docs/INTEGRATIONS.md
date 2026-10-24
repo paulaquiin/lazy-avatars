@@ -81,8 +81,13 @@ de HTTP se detallan en su README.
 `pnpm check:docker` construye y arranca una imagen sin permisos root y con sistema
 de archivos de solo lectura. Comprueba salud, MIME, SVG exacto, rechazo de opciones
 y uid. El workflow exige esta prueba en Linux antes de desplegar Pages. El motor
-Docker local no estaba disponible al iniciar la fase; el resultado remoto se
-registrará al terminar el CI. No se publica imagen ni se despliega un servicio.
+Docker local no estaba disponible; la imagen se construyó y arrancó correctamente
+en [CI Linux](https://github.com/paulaquiin/lazy-avatars/actions/runs/40130418438/job/120981016230).
+No se publica imagen ni se despliega un servicio.
 
 Referencias de implementación: [IDs e hidratación de React](https://react.dev/reference/react/useId)
 y [ciclo de vida de custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements).
+
+La matriz remota cubre Linux/Node 24.11 y 26, y Windows/Node 24. El resultado de
+cada commit y su despliegue de Pages se consulta en [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+Los 260 snapshots anteriores y el código del núcleo 0.3.0 siguen intactos.
