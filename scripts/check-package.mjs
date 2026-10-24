@@ -37,6 +37,10 @@ const allowed = new Set([
     'deco',
     'latte',
     'constellation',
+    'tinbot',
+    'orbit',
+    'mission',
+    'helmet',
   ].flatMap((id) => [`dist/${id}.js`, `dist/${id}.d.ts`]),
 ]);
 for (const path of paths) {
@@ -108,6 +112,10 @@ for (const [subpath, conditions] of Object.entries(manifest.exports)) {
     deco: 'Déco',
     latte: 'Latte',
     constellation: 'Constelación',
+    tinbot: 'Hojalata',
+    orbit: 'Órbita',
+    mission: 'Misión',
+    helmet: 'Casco',
   })) {
     if (subpath !== `./${id}`)
       assert(!moduleCode.includes(`name: "${name}"`), `${subpath} unexpectedly imports ${id}`);
@@ -155,7 +163,11 @@ import { pantry } from 'lazy-avatars/pantry';
 import { deco } from 'lazy-avatars/deco';
 import { latte } from 'lazy-avatars/latte';
 import { constellation } from 'lazy-avatars/constellation';
-for (const collection of [mosaic, monogram, rack, siesta, origami, pantry, deco, latte, constellation]) {
+import { tinbot } from 'lazy-avatars/tinbot';
+import { orbit } from 'lazy-avatars/orbit';
+import { mission } from 'lazy-avatars/mission';
+import { helmet } from 'lazy-avatars/helmet';
+for (const collection of [mosaic, monogram, rack, siesta, origami, pantry, deco, latte, constellation, tinbot, orbit, mission, helmet]) {
   const avatar = createAvatar(collection, { seed: 'consumer-demo', palette: 'night' });
   assert.equal(avatar, createAvatar(collection, { seed: 'consumer-demo', palette: 'night' }));
   assert(avatar.startsWith('<svg'));
@@ -183,11 +195,21 @@ import { pantry } from 'lazy-avatars/pantry';
 import { deco } from 'lazy-avatars/deco';
 import { latte } from 'lazy-avatars/latte';
 import { constellation } from 'lazy-avatars/constellation';
+import { tinbot } from 'lazy-avatars/tinbot';
+import { orbit } from 'lazy-avatars/orbit';
+import { mission } from 'lazy-avatars/mission';
+import { helmet } from 'lazy-avatars/helmet';
 createAvatar(origami, { seed: 'demo', options: { animal: 'owl' } });
 createAvatar(pantry, { seed: 'demo', options: { food: 'egg' } });
 createAvatar(deco, { seed: 'demo', options: { motif: 'sun' } });
 createAvatar(latte, { seed: 'demo', options: { art: 'rosetta' } });
 createAvatar(constellation, { seed: 'demo' });
+createAvatar(tinbot, { seed: 'demo', options: { antenna: 'double', eyes: 'gauges' } });
+createAvatar(orbit, { seed: 'demo', options: { ring: 'wide', surface: 'bands' } });
+createAvatar(mission, { seed: 'demo', options: { badge: 'shield', planet: 'striped' } });
+createAvatar(helmet, { seed: 'demo', options: { visor: 'angular', reflection: 'ringed' } });
+// @ts-expect-error distributed phase 3 enums remain specific
+createAvatar(helmet, { seed: 'demo', options: { reflection: 'unknown' } });
 // @ts-expect-error distributed phase 2 enums reject invalid values
 createAvatar(origami, { seed: 'demo', options: { animal: 'dog' } });
 createAvatar(rack, { seed: 'demo', options: { status: 'warn' } });

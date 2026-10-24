@@ -43,3 +43,23 @@ createAvatar(deco, { seed: 'demo', options: { motif: 'moon' } });
 createAvatar(latte, { seed: 'demo', options: { art: 'cat' } });
 // @ts-expect-error options from other collections do not leak into Origami
 createAvatar(origami, { seed: 'demo', options: { food: 'egg' } });
+
+import { helmet } from '../packages/core/src/collections/helmet/index.js';
+import { mission } from '../packages/core/src/collections/mission/index.js';
+import { orbit } from '../packages/core/src/collections/orbit/index.js';
+import { tinbot } from '../packages/core/src/collections/tinbot/index.js';
+
+createAvatar(tinbot, { seed: 'demo', options: { eyes: 'gauges' } });
+createAvatar(orbit, { seed: 'demo', options: { ring: 'wide' } });
+createAvatar(mission, { seed: 'demo', options: { badge: 'hexagon' } });
+createAvatar(helmet, { seed: 'demo', options: { reflection: 'ringed' } });
+// @ts-expect-error Tinbot eyes reject unknown variants
+createAvatar(tinbot, { seed: 'demo', options: { eyes: 'round' } });
+// @ts-expect-error Orbit ring rejects unknown variants
+createAvatar(orbit, { seed: 'demo', options: { ring: 'double' } });
+// @ts-expect-error Mission badge rejects unknown variants
+createAvatar(mission, { seed: 'demo', options: { badge: 'diamond' } });
+// @ts-expect-error Helmet reflection rejects unknown variants
+createAvatar(helmet, { seed: 'demo', options: { reflection: 'planet' } });
+// @ts-expect-error collection-specific options do not leak
+createAvatar(orbit, { seed: 'demo', options: { eyes: 'gauges' } });

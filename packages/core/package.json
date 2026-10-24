@@ -58,6 +58,22 @@
     "./constellation": {
       "types": "./dist/constellation.d.ts",
       "import": "./dist/constellation.js"
+    },
+    "./tinbot": {
+      "types": "./dist/tinbot.d.ts",
+      "import": "./dist/tinbot.js"
+    },
+    "./orbit": {
+      "types": "./dist/orbit.d.ts",
+      "import": "./dist/orbit.js"
+    },
+    "./mission": {
+      "types": "./dist/mission.d.ts",
+      "import": "./dist/mission.js"
+    },
+    "./helmet": {
+      "types": "./dist/helmet.d.ts",
+      "import": "./dist/helmet.js"
     }
   },
   "engines": {
