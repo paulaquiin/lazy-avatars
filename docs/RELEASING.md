@@ -1,16 +1,28 @@
 # Publicaciones de lazy-avatars
 
-## v0.3.0 · preparada
+## v0.3.0 · publicada
 
-Trece colecciones con motor y 180 snapshots anteriores intactos. 117 pruebas
-unitarias y 26 de Chromium aprobadas localmente; 36 archivos permitidos.
-Publicación e instalación desde npm pendientes. Véase [PHASE3_REVIEW.md](PHASE3_REVIEW.md).
+Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Trece colecciones;
+motor y 180 snapshots de las nueve colecciones anteriores intactos.
+- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0); `latest` apunta a `0.3.0`.
+- Commit publicado y tag `v0.3.0`: `2e95df87d40f381f2f30ef5e272926f1e46da647`.
+- [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40097531749): Linux/Node 24.11 y 26, Windows/Node 24 y Pages aprobados.
+- 117 pruebas unitarias y 26 de Chromium aprobadas; galería pública comprobada con las trece colecciones y comparación espacial en móvil.
+- Instalación desde npm en carpeta vacía y caché nueva: trece subrutas ESM, SVG, URI de datos, determinismo y declaraciones TypeScript comprobados.
+- 36 archivos permitidos; 25 175 bytes comprimidos / 89 044 bytes descomprimidos; sin dependencias de ejecución, credenciales ni herramientas internas.
+- Integridad idéntica al tarball local revisado:
+
+```text
+sha512-K3wruex13D7acmYaqZGbc5Ft8mStnHZ1okamqicpuKSCkiiqYEdZ4E+GCmLRKTnL9+Z2VFznpJpnfIVemNIcqg==
+```
+
+Evidencia y límites en [PHASE3_REVIEW.md](PHASE3_REVIEW.md).
 
 ## v0.2.0 · publicada
 
 Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Nueve colecciones;
 motor y los 80 snapshots de las cuatro colecciones anteriores intactos.
-- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.2.0); `latest` apunta a `0.2.0`.
+- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.2.0); en su publicación, `latest` apuntaba a `0.2.0`.
 - Commit publicado y tag `v0.2.0`: `5f71c88555689abf839123ef36fc498e78705ba8`.
 - [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40094477852): Linux/Node 24.11 y 26, Windows/Node 24 y Pages aprobados.
 - Instalación desde npm en carpeta vacía y caché nueva; nueve subrutas ESM, SVG, URI de datos, determinismo y declaraciones TypeScript comprobados.
@@ -58,12 +70,12 @@ no repetir una publicación aceptada mientras se procesa.
    no hay herramientas internas, fuentes de desarrollo, fixtures, credenciales,
    mapas de fuentes, logs ni archivos ajenos. Ejecutar después
    `npm publish --access public`, completando la autenticación que solicite npm.
-6. Verificar `npm view lazy-avatars@0.2.0 version dist.integrity` e instalar esa
+6. Verificar `npm view lazy-avatars@0.3.0 version dist.integrity` e instalar esa
    versión desde el registro en una carpeta vacía. Usar la versión objetivo en
-   estos comandos (por ejemplo `0.2.0` y `v0.2.0` para fase 2). Probar el motor y las cuatro
+   estos comandos (por ejemplo `0.3.0` y `v0.3.0` para fase 3). Probar el motor y las trece
    subrutas, sin depender del workspace.
 7. Solo tras confirmar la publicación, etiquetar el commit publicado con
-   `git tag v0.2.0` y subirlo con `git push origin v0.2.0`. Actualizar el estado de
+   `git tag v0.3.0` y subirlo con `git push origin v0.3.0`. Actualizar el estado de
    publicación de los README y la guía para reflejar el resultado comprobado.
 
 Para siguientes versiones: añadir un changeset, ejecutar `pnpm changeset version`

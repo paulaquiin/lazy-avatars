@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. Thirteen original
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 3 · v0.3.0 prepared.** Thirteen collections, including Tinbot, Orbit, Mission and Helmet. npm publication and registry installation are pending; the previous published version is 0.2.0. See [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+> **Phase 3 · v0.3.0 published.** Thirteen original collections are available on [npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0). Registry installation, all thirteen imports, public TypeScript declarations and tarball integrity were verified on 2026-10-24. The previous nine collections retain identical output. See [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
 
 ## Use
 

@@ -14,4 +14,6 @@ Registry installation, all nine subpaths, types and tarball integrity were verif
 The v0.2.0 tag points at the exact published commit.
 The formatter is disabled for changeset Markdown to preserve YAML frontmatter.
 
-Version 0.3.0 is prepared for thirteen collections; publication and registry verification are pending.
+Version 0.3.0 was published on 2026-10-24 after successful CI and maintainer 2FA.
+All thirteen subpaths, public types and tarball integrity passed registry installation checks.
+The v0.3.0 tag points at the exact published commit.

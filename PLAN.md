@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 3 implementada: trece colecciones y comparación de la familia espacial. v0.3.0 preparada; publicación y verificación desde npm pendientes. El motor y los 180 snapshots de las nueve colecciones anteriores se conservan byte a byte.
+> **Estado:** fase 3 implementada: trece colecciones y comparación de la familia espacial. v0.3.0 publicada y verificada desde npm con trece subrutas, tipos e integridad; CI y Pages aprobados para el commit publicado. El motor y los 180 snapshots de las nueve colecciones anteriores se conservan byte a byte.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -391,7 +391,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 3 · v0.3: robots y familia espacial
 
-**Estado al 2026-10-24:** Hojalata, Órbita, Misión y Casco implementadas con opciones tipadas, cinco paletas propias por colección y veinte snapshots por colección. 117 pruebas unitarias y 26 de Chromium aprobadas localmente. Revisión visual de 11 520 avatares y comparador espacial; glifos sans originales MIT. v0.3.0 preparada, publicación e instalación desde npm pendientes. Evidencia y límites en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+**Estado al 2026-10-24:** Hojalata, Órbita, Misión y Casco implementadas con opciones tipadas, cinco paletas propias por colección y veinte snapshots por colección. 117 pruebas unitarias y 26 de Chromium aprobadas localmente. Revisión visual de 11 520 avatares y comparador espacial; glifos sans originales MIT. v0.3.0 publicada desde `2e95df8`, con CI y Pages aprobados; instalación aislada desde npm, trece subrutas, tipos e integridad verificados. Evidencia y límites en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
 
 **Depende de:** fase 2. **Objetivo:** completar las 13 colecciones y diferenciar los estilos espaciales.
 1. Implementar Hojalata, Órbita, Misión y Casco.
@@ -464,3 +464,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** publicada v0.2.0 tras autorización 2FA desde `5f71c88`, con CI completo y Pages aprobados. Tarball de 28 archivos verificado por integridad e instalación desde npm con caché nueva; nueve subrutas, SVG, URI, determinismo y tipos correctos. Tag `v0.2.0` sobre el commit publicado.
 
 - **2026-10-24:** implementada fase 3 con cuatro colecciones, glifos sans originales de Misión y comparador espacial. 180 snapshots anteriores intactos; 117 pruebas unitarias y 26 de navegador aprobadas. Preparada v0.3.0.
+
+- **2026-10-24:** publicada y verificada v0.3.0 tras autorización 2FA desde `2e95df8`, con CI y Pages aprobados. Instalación desde npm con caché nueva: trece colecciones, SVG, URI, determinismo y tipos correctos. Tarball de 36 archivos con integridad idéntica al revisado; tag `v0.3.0` sobre el commit publicado. Fase 3 cerrada.

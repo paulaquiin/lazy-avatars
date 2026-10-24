@@ -1,7 +1,7 @@
 # Revisión de fase 3 · robots y familia espacial
 
 Fecha: 2026-10-24. Hojalata, Órbita, Misión y Casco completan trece colecciones.
-v0.3.0 preparada; publicación y verificación desde npm pendientes.
+v0.3.0 publicada y verificada desde npm con trece subrutas, tipos e integridad; CI y Pages aprobados para el commit publicado.
 
 ## Implementación y licencias
 

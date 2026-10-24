@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Trece cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Fase 3 · v0.3.0 preparada.** Trece colecciones, incluidas Hojalata, Órbita, Misión y Casco. Publicación e instalación desde npm pendientes; la versión anterior publicada es 0.2.0. Revisión en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+> **Fase 3 · v0.3.0 publicada.** Trece colecciones originales disponibles en [npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0). Instalación desde el registro, trece subrutas, tipos TypeScript e integridad del paquete verificados el 2026-10-24. Las nueve colecciones anteriores conservan su salida. Revisión en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
 
 ## Uso
 

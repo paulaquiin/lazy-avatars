@@ -107,7 +107,7 @@ El workspace raíz y la galería son privados para npm. El núcleo define `files
 
 ## 7. Calidad y decisiones pendientes
 
-El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 3 tiene 117 pruebas unitarias, 20 snapshots por colección más la figura del motor y 26 pruebas de Chromium. El paquete se prueba instalado fuera del monorepo con todos sus exports y tipos. Los glifos de píxel de Rack, los trazos serif de Monograma y los sans de Misión son originales MIT. El CI publica solo apps/gallery/dist tras aprobar la matriz. v0.3.0 preparada; publicación y verificación desde npm pendientes. No hay tokens en el repo.
+El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 3 tiene 117 pruebas unitarias, 20 snapshots por colección más la figura del motor y 26 pruebas de Chromium. El paquete se prueba instalado fuera del monorepo con todos sus exports y tipos. Los glifos de píxel de Rack, los trazos serif de Monograma y los sans de Misión son originales MIT. El CI publica solo apps/gallery/dist tras aprobar la matriz. v0.3.0 publicada y verificada desde npm con trece subrutas, tipos e integridad; CI y Pages aprobados para el commit publicado. No hay tokens en el repo.
 
 El núcleo `lazy-avatars@0.1.0` se publicó el 2026-10-24. Los futuros paquetes `@lazy-avatars/*` siguen pendientes de acreditar/reservar su scope; un 404 no concede propiedad. La matriz remota de CI ya se ejecuta en GitHub; sigue pendiente comprobar compatibilidad real con Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
 
