@@ -391,12 +391,12 @@ function render(updateUrl = true): void {
       'aria-pressed',
       String(button.dataset.collection === collectionSelect.value),
     );
+  themeSelect.disabled = customPalette.checked;
+  for (const role of roles) colorFields[role].disabled = !customPalette.checked;
   try {
     const current = options();
     const collection = descriptor().collection;
     const svg = createAvatar(collection, current);
-    themeSelect.disabled = customPalette.checked;
-    for (const role of roles) colorFields[role].disabled = !customPalette.checked;
     const preview = required<HTMLElement>('#palette-preview');
     const contrast = required<HTMLElement>('#palette-contrast');
     preview.replaceChildren();
@@ -432,6 +432,9 @@ function render(updateUrl = true): void {
       );
     } else if (view === 'palettes')
       stage.replaceChildren(
+        ...(customPalette.checked
+          ? [figure(current.seed, 80, 'Personalizada', { palette: paletteValue() })]
+          : []),
         figure(current.seed, 80, 'Propias', { palette: collection.palettes }),
         ...Object.keys(themes).map((palette) =>
           figure(current.seed, 80, labels[palette] ?? palette, { palette: palette as ThemeId }),

@@ -139,6 +139,10 @@ test('custom palette validates, previews contrast, restores URL and is present i
   await expect(page.locator('#download')).toBeDisabled();
   await page.locator('#color-ink').fill('#123');
   await expect(page.locator('#download')).toBeEnabled();
+  await page.locator('[data-view="palettes"]').click();
+  await expect(page.locator('#sizes figure')).toHaveCount(7);
+  await expect(page.locator('#sizes figure').first()).toContainText('Personalizada');
   await page.locator('#custom-palette').uncheck();
+  await expect(page.locator('#sizes figure')).toHaveCount(6);
   await expect(page.locator('#theme')).toBeEnabled();
 });

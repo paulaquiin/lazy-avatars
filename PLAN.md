@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 3 implementada: trece colecciones y comparación de la familia espacial. v0.3.0 publicada y verificada desde npm con trece subrutas, tipos e integridad; CI y Pages aprobados para el commit publicado. El motor y los 180 snapshots de las nueve colecciones anteriores se conservan byte a byte.
+> **Estado:** fase 4 implementada localmente: React, web component, CLI, HTTP/Docker y editor de paletas. Adaptadores preparados y revisados como tarballs, sin publicar en npm; scope provisional. Núcleo publicado 0.3.0 intacto. Cierre remoto de matriz, Docker y Pages pendiente de CI.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -402,6 +402,8 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 4 · Integraciones
 
+**Estado al 2026-10-24:** cuatro adaptadores 0.1.0 preparados con ejemplos ejecutables, SSR/hidratación, errores de transporte y revisión de distribución. Editor de cinco colores con contraste y URL restaurable. 123 pruebas unitarias y 29 de navegador; comprobación completa local y Docker remoto en curso. No se publica ningún adaptador ni servicio público. Véase [INTEGRATIONS.md](docs/INTEGRATIONS.md).
+
 **Depende de:** fase 3 y API del núcleo revisada. **Objetivo:** adaptar el mismo motor sin duplicarlo.
 1. Paquete React con tipos, accesibilidad, IDs por instancia y comportamiento SSR/hidratación probado.
 2. Web component `<lazy-avatar collection="rack" seed="demo-server-01">`, con atributos documentados y registro explícito de las colecciones usadas.
@@ -466,3 +468,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** implementada fase 3 con cuatro colecciones, glifos sans originales de Misión y comparador espacial. 180 snapshots anteriores intactos; 117 pruebas unitarias y 26 de navegador aprobadas. Preparada v0.3.0.
 
 - **2026-10-24:** publicada y verificada v0.3.0 tras autorización 2FA desde `2e95df8`, con CI y Pages aprobados. Instalación desde npm con caché nueva: trece colecciones, SVG, URI, determinismo y tipos correctos. Tarball de 36 archivos con integridad idéntica al revisado; tag `v0.3.0` sobre el commit publicado. Fase 3 cerrada.
+
+- **2026-10-24:** fase 4 implementada sin cambiar el núcleo 0.3.0 ni sus colecciones. Cuatro adaptadores preparados como tarballs; scope pendiente de acreditar. React 19 como peer, web component con registro explícito, CLI, HTTP con caché y límites, Docker con contexto positivo y editor de paletas. CI Docker requerido antes de Pages.

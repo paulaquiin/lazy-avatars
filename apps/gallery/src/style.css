@@ -416,3 +416,7 @@ footer {
   border-radius: 4px;
   font-size: 10px;
 }
+
+.stage {
+  align-content: start;
+}

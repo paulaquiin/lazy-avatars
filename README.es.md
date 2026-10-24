@@ -61,9 +61,18 @@ Al insertar SVG inline, proporciona un `idPrefix` distinto por instancia. Las da
 
 ## Galería
 
-Permite elegir colección, semilla, forma, tema, transparencia y variantes. Incluye tamaños de 24–128 px, variedad con 12/60 identidades ficticias, comparación de los cinco temas y las paletas propias, y ejemplos de miembros, comentarios, perfil y servidores. Las hojas de contacto se pueden revisar a 24, 32, 64 y 128 px, sobre páginas claras u oscuras. Permite copiar código de API/imagen y descargar SVG. La vista Familia espacial compara Constelación, Órbita, Misión y Casco con la misma semilla a 32/64/128 px. React se reserva para la fase 4.
+Permite elegir colección, semilla, forma, tema, transparencia y variantes. Incluye tamaños de 24–128 px, variedad con 12/60 identidades ficticias, comparación de los cinco temas y las paletas propias, y ejemplos de miembros, comentarios, perfil y servidores. Las hojas de contacto se pueden revisar a 24, 32, 64 y 128 px, sobre páginas claras u oscuras. Permite copiar código de API/imagen y descargar SVG. La vista Familia espacial compara Constelación, Órbita, Misión y Casco con la misma semilla a 32/64/128 px. La pestaña React genera código del adaptador.
 
 La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Usa nombres y hosts ficticios; el hash no anonimiza. No hay solicitudes de imágenes o fuentes remotas ni analítica.
+
+## Integraciones
+
+La fase 4 añade React (SSR/hidratación e IDs por instancia), web component con
+registro explícito, CLI de SVG y HTTP autoalojable con Docker. Los cuatro
+adaptadores están preparados como tarballs revisados, **sin publicar en npm**;
+el scope `@lazy-avatars` es provisional. Consulta [ejemplos y contratos](docs/INTEGRATIONS.md).
+El núcleo publicado continúa en 0.3.0, con salida intacta. La galería incorpora
+editor de cinco colores, validación, contraste y ejemplos de código React.
 
 ## Desarrollo
 
@@ -78,15 +87,15 @@ pnpm dev
 
 En Linux usa `pnpm exec playwright install --with-deps chromium`. `pnpm dev` compila el núcleo, lo deja en observación e inicia la galería en la URL de Vite (normalmente `http://127.0.0.1:5173`). `pnpm typecheck` también compila primero las declaraciones para funcionar desde un checkout limpio.
 
-Comprobaciones individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete o navegador por separado. `pnpm format` aplica formato y arreglos seguros; `pnpm changeset` registra cambios públicos.
+Comprobaciones individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm check:integrations`, `pnpm test:browser`, `pnpm check:docker`. Compila antes de comprobar el paquete o navegador por separado. `pnpm format` aplica formato y arreglos seguros; `pnpm changeset` registra cambios públicos.
 
-Hay 117 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, 26 pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
+Hay 123 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, 29 pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
 
 Git contiene fuentes públicas, documentación, arte revisado, scripts reproducibles del proyecto, pruebas y lockfile. El [.gitignore](.gitignore) excluye herramientas internas, estado de asistentes, credenciales, dependencias y builds. `check:repo` revisa rutas, patrones habituales de credenciales e historial disponible sin mostrar valores; no sustituye una auditoría exhaustiva. npm usa una lista positiva: entradas/chunks/tipos compilados, README, licencia, changelog y manifiesto. Consulta las [reglas de publicación](docs/REPOSITORY_HYGIENE.md).
 
 ## Fases siguientes
 
-La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable, seguidos del contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
+La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable. La fase 5 prepara el contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
 
 ## Licencia y usos permitidos
 

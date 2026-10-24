@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: motor y fases 1–3 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores corresponden a la fase 4. El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+Estado: motor y fases 1–3 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores de fase 4 están implementados como paquetes preparados, sin publicar en npm; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 
 ## 1. Decisión principal
 
@@ -103,7 +103,7 @@ El SVG no tendrá scripts, manejadores de eventos ni recursos externos. No acept
 
 La salida actual es ESM y tipos, sin CommonJS. Desarrollo: Node `^24.11.0 || >=26.0.0`, pnpm 11.25.0, TypeScript 5.9.3, tsup 9.0.0, Vitest 5.0.5, Biome 2.6.2, Changesets 3.0.3, Vite 8.3.5 y Playwright 1.64.1. Las versiones y dependencias transitivas están fijadas por manifiesto y lockfile. La verificación local usa Node 24.21/Chromium en Windows; los resultados de las otras combinaciones se registran en GitHub Actions. React será una dependencia peer del adaptador, no del núcleo.
 
-El workspace raíz y la galería son privados para npm. El núcleo define `files` con lista positiva y el export raíz del motor y subrutas separadas para mosaic, monogram, rack, siesta, origami, pantry, deco, latte y constellation. `pnpm check:package` verifica una lista positiva de entradas, chunks y tipos alcanzables, junto con README, licencia, changelog y manifiesto, tamaños máximos de 24 KiB ESM y 8 KiB gzip para el grafo alcanzable del motor, ausencia de dependencias de ejecución y patrones de credenciales, y una instalación real offline en un directorio temporal con importación ESM y comprobación de tipos. El ejemplo de SVG tiene un objetivo orientativo de 4 KiB. La licencia se copia desde la raíz durante el build y no se duplica en Git. Véanse las [reglas de higiene](REPOSITORY_HYGIENE.md).
+El workspace raíz y la galería son privados para npm. El núcleo define `files` con lista positiva y el export raíz del motor y subrutas separadas para mosaic, monogram, rack, siesta, origami, pantry, deco, latte, constellation, tinbot, orbit, mission y helmet. `pnpm check:package` verifica una lista positiva de entradas, chunks y tipos alcanzables, junto con README, licencia, changelog y manifiesto, tamaños máximos de 24 KiB ESM y 8 KiB gzip para el grafo alcanzable del motor, ausencia de dependencias de ejecución y patrones de credenciales, y una instalación real offline en un directorio temporal con importación ESM y comprobación de tipos. El ejemplo de SVG tiene un objetivo orientativo de 4 KiB. La licencia se copia desde la raíz durante el build y no se duplica en Git. Véanse las [reglas de higiene](REPOSITORY_HYGIENE.md).
 
 ## 7. Calidad y decisiones pendientes
 
@@ -114,3 +114,19 @@ El núcleo `lazy-avatars@0.1.0` se publicó el 2026-10-24. Los futuros paquetes 
 Las cinco colecciones de fase 2 añaden exclusivamente módulos de dibujo/paletas y subrutas: no cambian el motor ni los snapshots de fase 1. Déco y Constelación usan trazos principales de 2.5 unidades del viewBox y selección de contraste de 3:1. El paquete preparado contiene 28 archivos permitidos; el grafo raíz conserva 16 380 bytes ESM y 5 408 bytes gzip. v0.2.0 está publicada y verificada desde el registro con las nueve subrutas y tipos públicos; véase [la revisión de fase 2](PHASE2_REVIEW.md).
 
 Las cuatro colecciones de fase 3 amplían subrutas sin cambiar el motor ni los 180 snapshots anteriores. Sus clips tienen IDs por instancia; Órbita separa anillos traseros y delanteros, Casco recorta los reflejos al visor y Misión usa glifos sans propios. El paquete preparado contiene 36 archivos permitidos; el grafo raíz conserva 16 380 bytes ESM / 5 408 bytes gzip. Véase [la revisión de fase 3](PHASE3_REVIEW.md).
+
+## 8. Integraciones de fase 4
+
+React y el web component consumen colecciones explícitas; no importan el catálogo.
+React usa useId con escape reversible y conserva el contrato accesible del SVG.
+El web component es seguro al importarlo sin DOM y registra un custom element solo
+al llamar a su función; cada instancia aísla el SVG en un shadow root.
+CLI y HTTP importan las trece subrutas y comparten únicamente un parser de transporte
+y catálogo internos al build (`shared/`), que se incluyen en sus entradas. El motor
+se mantiene como dependencia externa y su arte no se duplica en los adaptadores.
+HTTP solo arranca con listen o su bin; no tiene dependencias de framework/red ajenas
+a Node. React es peer, no dependencia del núcleo. Los cuatro tarballs se instalan
+fuera del workspace para comprobar API, binarios y tipos; sus nombres npm son
+provisionales y no están publicados. La galería estática continúa sin React.
+La imagen HTTP se prueba en CI como usuario no root y con sistema de archivos
+solo lectura; Pages depende tanto de la matriz como de ese smoke test Docker.
