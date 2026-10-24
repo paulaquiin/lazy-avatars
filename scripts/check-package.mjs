@@ -27,7 +27,17 @@ const allowed = new Set([
   'LICENSE',
   'dist/index.js',
   'dist/index.d.ts',
-  ...['mosaic', 'monogram', 'rack', 'siesta'].flatMap((id) => [`dist/${id}.js`, `dist/${id}.d.ts`]),
+  ...[
+    'mosaic',
+    'monogram',
+    'rack',
+    'siesta',
+    'origami',
+    'pantry',
+    'deco',
+    'latte',
+    'constellation',
+  ].flatMap((id) => [`dist/${id}.js`, `dist/${id}.d.ts`]),
 ]);
 for (const path of paths) {
   if (/^dist\/(?:chunk-[\w-]+\.js|types-[\w-]+\.d\.ts)$/.test(path)) allowed.add(path);
@@ -93,6 +103,11 @@ for (const [subpath, conditions] of Object.entries(manifest.exports)) {
     monogram: 'Monograma',
     rack: 'Rack',
     siesta: 'Siesta',
+    origami: 'Origami',
+    pantry: 'Despensa',
+    deco: 'Déco',
+    latte: 'Latte',
+    constellation: 'Constelación',
   })) {
     if (subpath !== `./${id}`)
       assert(!moduleCode.includes(`name: "${name}"`), `${subpath} unexpectedly imports ${id}`);
@@ -135,7 +150,12 @@ import { mosaic } from 'lazy-avatars/mosaic';
 import { monogram } from 'lazy-avatars/monogram';
 import { rack } from 'lazy-avatars/rack';
 import { siesta } from 'lazy-avatars/siesta';
-for (const collection of [mosaic, monogram, rack, siesta]) {
+import { origami } from 'lazy-avatars/origami';
+import { pantry } from 'lazy-avatars/pantry';
+import { deco } from 'lazy-avatars/deco';
+import { latte } from 'lazy-avatars/latte';
+import { constellation } from 'lazy-avatars/constellation';
+for (const collection of [mosaic, monogram, rack, siesta, origami, pantry, deco, latte, constellation]) {
   const avatar = createAvatar(collection, { seed: 'consumer-demo', palette: 'night' });
   assert.equal(avatar, createAvatar(collection, { seed: 'consumer-demo', palette: 'night' }));
   assert(avatar.startsWith('<svg'));
@@ -158,6 +178,18 @@ console.log('Installed package: ESM import and SVG generation passed.');
     `import { createAvatar, themes, type Collection } from 'lazy-avatars';
 import { rack } from 'lazy-avatars/rack';
 import { mosaic } from 'lazy-avatars/mosaic';
+import { origami } from 'lazy-avatars/origami';
+import { pantry } from 'lazy-avatars/pantry';
+import { deco } from 'lazy-avatars/deco';
+import { latte } from 'lazy-avatars/latte';
+import { constellation } from 'lazy-avatars/constellation';
+createAvatar(origami, { seed: 'demo', options: { animal: 'owl' } });
+createAvatar(pantry, { seed: 'demo', options: { food: 'egg' } });
+createAvatar(deco, { seed: 'demo', options: { motif: 'sun' } });
+createAvatar(latte, { seed: 'demo', options: { art: 'rosetta' } });
+createAvatar(constellation, { seed: 'demo' });
+// @ts-expect-error distributed phase 2 enums reject invalid values
+createAvatar(origami, { seed: 'demo', options: { animal: 'dog' } });
 createAvatar(rack, { seed: 'demo', options: { status: 'warn' } });
 // @ts-expect-error distributed collection declarations retain enum validation
 createAvatar(rack, { seed: 'demo', options: { status: 'invalid' } });

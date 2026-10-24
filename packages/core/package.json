@@ -38,6 +38,26 @@
     "./siesta": {
       "types": "./dist/siesta.d.ts",
       "import": "./dist/siesta.js"
+    },
+    "./origami": {
+      "types": "./dist/origami.d.ts",
+      "import": "./dist/origami.js"
+    },
+    "./pantry": {
+      "types": "./dist/pantry.d.ts",
+      "import": "./dist/pantry.js"
+    },
+    "./deco": {
+      "types": "./dist/deco.d.ts",
+      "import": "./dist/deco.js"
+    },
+    "./latte": {
+      "types": "./dist/latte.d.ts",
+      "import": "./dist/latte.js"
+    },
+    "./constellation": {
+      "types": "./dist/constellation.d.ts",
+      "import": "./dist/constellation.js"
     }
   },
   "engines": {

@@ -1,14 +1,29 @@
 import { XMLValidator } from 'fast-xml-parser';
 import { describe, expect, it } from 'vitest';
 import { contactSeeds } from '../fixtures/contact-seeds.js';
+import { constellation } from '../packages/core/src/collections/constellation/index.js';
+import { deco } from '../packages/core/src/collections/deco/index.js';
+import { latte } from '../packages/core/src/collections/latte/index.js';
 import { monogram } from '../packages/core/src/collections/monogram/index.js';
 import { mosaic } from '../packages/core/src/collections/mosaic/index.js';
+import { origami } from '../packages/core/src/collections/origami/index.js';
+import { pantry } from '../packages/core/src/collections/pantry/index.js';
 import { rack, statusColors } from '../packages/core/src/collections/rack/index.js';
 import { siesta } from '../packages/core/src/collections/siesta/index.js';
 import type { Collection } from '../packages/core/src/index.js';
 import { createAvatar, themes } from '../packages/core/src/index.js';
 
-const collections: readonly Collection<object>[] = [mosaic, monogram, rack, siesta];
+const collections: readonly Collection<object>[] = [
+  mosaic,
+  monogram,
+  rack,
+  siesta,
+  origami,
+  pantry,
+  deco,
+  latte,
+  constellation,
+];
 
 for (const collection of collections) {
   describe(collection.id, () => {
