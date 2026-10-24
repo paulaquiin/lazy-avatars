@@ -1,10 +1,11 @@
 # lazy-avatars
 
-Dependency-free, deterministic SVG avatars. Nine original collections: Mosaic,
-Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte and Constellation.
+Dependency-free, deterministic SVG avatars. Thirteen original collections: Mosaic,
+Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte, Constellation, Tinbot, Orbit,
+Mission and Helmet.
 
 ```sh
-npm install lazy-avatars@0.2.0
+npm install lazy-avatars@0.3.0
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -33,12 +34,16 @@ const src = createAvatarDataUri(rack, { seed: 'demo-host-01' });
 | `lazy-avatars/deco`          | `deco`          | `motif: 'fan' / 'arches' / 'sun'`                                                                                                 |
 | `lazy-avatars/latte`         | `latte`         | `art: 'heart' / 'tulip' / 'rosetta' / 'rings'`                                                                                    |
 | `lazy-avatars/constellation` | `constellation` | No collection-specific options                                                                                                    |
+| `lazy-avatars/tinbot`        | `tinbot`        | `antenna`: `single`, `double`, `dome`; `eyes`: `gauges`, `visor`, `mixed`; `mouth`: `grille`, `smile`, `dots`                     |
+| `lazy-avatars/orbit`         | `orbit`         | `surface`: `bands`, `craters`; `ring`: `none`, `thin`, `wide`; `moon`: `none`, `small`                                            |
+| `lazy-avatars/mission`       | `mission`       | `badge`: `shield`, `round`, `hexagon`; `planet`: `striped`, `ringed`, `cratered`; `rocket`: `upright`, `tilted`                   |
+| `lazy-avatars/helmet`        | `helmet`        | `visor`: `round`, `wide`, `angular`; `reflection`: `ringed`, `cratered`, `crescent`; `antenna`: `none`, `single`, `double`        |
 
 All collections have outputVersion 1. Visual options default to seeded selection;
 Rack status defaults to off. It is a supplied display value, not live monitoring:
 include a textual label with status LEDs. Each subpath retains typed options and
 imports only its own artwork and shared engine helpers. Monogram serif paths and
-Rack pixel glyphs are original MIT artwork, without third-party fonts. All five
+Rack pixel glyphs and Mission sans paths are original MIT artwork, without third-party fonts. All five
 phase 2 collections use original MIT paths and palettes. Deco and constellation
 main lines are 1 px at 32 px, with at least 3:1 foreground/background contrast.
 Light themes use dark constellation lines; global themes recolor food and coffee.
@@ -82,5 +87,5 @@ bytes. Forks are derived from the root uint32 hash plus the complete path serial
 as JSON; they do not consume their parent. Fork names and output versions are part of
 the stability contract. Hashes can collide and do not anonymize personal data.
 
-Code, documentation and original pixel glyphs: MIT; preserve the included license
+Code, documentation and original artwork, including all glyphs: MIT; preserve the included license
 when redistributing copies or substantial portions. No third-party font is bundled.

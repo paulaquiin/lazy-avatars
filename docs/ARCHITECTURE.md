@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: motor y fases 1–2 implementados, con nueve colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores y las cuatro colecciones de fase 3 son futuros. El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+Estado: motor y fases 1–3 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los adaptadores corresponden a la fase 4. El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 
 ## 1. Decisión principal
 
@@ -107,8 +107,10 @@ El workspace raíz y la galería son privados para npm. El núcleo define `files
 
 ## 7. Calidad y decisiones pendientes
 
-El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 2 tiene 88 pruebas unitarias, 20 snapshots por colección más la figura del motor y 17 pruebas de Chromium. El paquete se prueba instalado fuera del monorepo con todos sus exports y tipos. Los glifos de píxel de Rack y los trazos serif de Monograma son originales MIT; Misión queda para una fase posterior. El CI publica solo apps/gallery/dist tras aprobar la matriz. v0.2.0 está publicada en npm y se ha verificado su instalación desde el registro, con las nueve subrutas y tipos públicos. No hay tokens en el repo.
+El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 3 tiene 117 pruebas unitarias, 20 snapshots por colección más la figura del motor y 26 pruebas de Chromium. El paquete se prueba instalado fuera del monorepo con todos sus exports y tipos. Los glifos de píxel de Rack, los trazos serif de Monograma y los sans de Misión son originales MIT. El CI publica solo apps/gallery/dist tras aprobar la matriz. v0.3.0 preparada; publicación y verificación desde npm pendientes. No hay tokens en el repo.
 
 El núcleo `lazy-avatars@0.1.0` se publicó el 2026-10-24. Los futuros paquetes `@lazy-avatars/*` siguen pendientes de acreditar/reservar su scope; un 404 no concede propiedad. La matriz remota de CI ya se ejecuta en GitHub; sigue pendiente comprobar compatibilidad real con Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
 
 Las cinco colecciones de fase 2 añaden exclusivamente módulos de dibujo/paletas y subrutas: no cambian el motor ni los snapshots de fase 1. Déco y Constelación usan trazos principales de 2.5 unidades del viewBox y selección de contraste de 3:1. El paquete preparado contiene 28 archivos permitidos; el grafo raíz conserva 16 380 bytes ESM y 5 408 bytes gzip. v0.2.0 está publicada y verificada desde el registro con las nueve subrutas y tipos públicos; véase [la revisión de fase 2](PHASE2_REVIEW.md).
+
+Las cuatro colecciones de fase 3 amplían subrutas sin cambiar el motor ni los 180 snapshots anteriores. Sus clips tienen IDs por instancia; Órbita separa anillos traseros y delanteros, Casco recorta los reflejos al visor y Misión usa glifos sans propios. El paquete preparado contiene 36 archivos permitidos; el grafo raíz conserva 16 380 bytes ESM / 5 408 bytes gzip. Véase [la revisión de fase 3](PHASE3_REVIEW.md).

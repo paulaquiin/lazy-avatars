@@ -371,3 +371,20 @@ footer {
     align-items: start;
   }
 }
+
+.space {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.space-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+@media (max-width: 800px) {
+  .space {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,5 +1,11 @@
 # Publicaciones de lazy-avatars
 
+## v0.3.0 · preparada
+
+Trece colecciones con motor y 180 snapshots anteriores intactos. 117 pruebas
+unitarias y 26 de Chromium aprobadas localmente; 36 archivos permitidos.
+Publicación e instalación desde npm pendientes. Véase [PHASE3_REVIEW.md](PHASE3_REVIEW.md).
+
 ## v0.2.0 · publicada
 
 Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Nueve colecciones;

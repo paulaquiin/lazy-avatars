@@ -1,13 +1,17 @@
 import { expect, test } from '@playwright/test';
 import { constellation } from '../../packages/core/src/collections/constellation/index.js';
 import { deco } from '../../packages/core/src/collections/deco/index.js';
+import { helmet } from '../../packages/core/src/collections/helmet/index.js';
 import { latte } from '../../packages/core/src/collections/latte/index.js';
+import { mission } from '../../packages/core/src/collections/mission/index.js';
 import { monogram } from '../../packages/core/src/collections/monogram/index.js';
 import { mosaic } from '../../packages/core/src/collections/mosaic/index.js';
+import { orbit } from '../../packages/core/src/collections/orbit/index.js';
 import { origami } from '../../packages/core/src/collections/origami/index.js';
 import { pantry } from '../../packages/core/src/collections/pantry/index.js';
 import { rack, statusColors } from '../../packages/core/src/collections/rack/index.js';
 import { siesta } from '../../packages/core/src/collections/siesta/index.js';
+import { tinbot } from '../../packages/core/src/collections/tinbot/index.js';
 import type { Collection } from '../../packages/core/src/index.js';
 import { createAvatar } from '../../packages/core/src/index.js';
 
@@ -21,6 +25,10 @@ for (const collection of [
   deco,
   latte,
   constellation,
+  tinbot,
+  orbit,
+  mission,
+  helmet,
 ] as readonly Collection<object>[]) {
   test(`${collection.id}: browser and Node have identical bytes across themes, shapes and Unicode`, async ({
     page,
@@ -139,13 +147,17 @@ for (const [collection, key, values] of [
   ['pantry', 'food', ['donut', 'citrus', 'egg', 'avocado']],
   ['deco', 'motif', ['fan', 'arches', 'sun']],
   ['latte', 'art', ['heart', 'tulip', 'rosetta', 'rings']],
+  ['tinbot', 'antenna', ['single', 'double', 'dome']],
+  ['orbit', 'ring', ['none', 'thin', 'wide']],
+  ['mission', 'badge', ['shield', 'round', 'hexagon']],
+  ['helmet', 'visor', ['round', 'wide', 'angular']],
 ] as const) {
   test(`${collection}: forces each option, restores URL and fits mobile contact sheets`, async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/?collection=${collection}&seed=Review&view=variety&count=60&contactSize=32`);
-    await expect(page.locator('#collection option')).toHaveCount(9);
+    await expect(page.locator('#collection option')).toHaveCount(13);
     const outputs: string[] = [];
     for (const value of values) {
       await page.locator(`#option-${key}`).selectOption(value);
@@ -176,4 +188,36 @@ test('constellation has no option controls and drops options from other collecti
   await expect(page.locator('#output')).toHaveText(
     createAvatar(constellation, { seed: 'Ada Moss' }),
   );
+});
+
+test('compares the space family without leaking selected collection options', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(
+    '/?collection=mission&seed=Ada%20Moss&badge=hexagon&rocket=tilted&view=space&theme=night',
+  );
+  await expect(page.locator('.space-card')).toHaveCount(4);
+  await expect(page.locator('.space-card img')).toHaveCount(12);
+  for (const [index, collection] of (
+    [constellation, orbit, mission, helmet] as readonly Collection<object>[]
+  ).entries()) {
+    const src = await page
+      .locator('.space-card')
+      .nth(index)
+      .locator('img')
+      .first()
+      .getAttribute('src');
+    expect(decodeURIComponent(src?.split(',')[1] ?? '')).toBe(
+      createAvatar(collection, { seed: 'Ada Moss', size: 32, palette: 'night', options: {} }),
+    );
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.reload();
+  await expect(page.locator('.space-card')).toHaveCount(4);
+  await page.locator('button[data-space-collection="helmet"]').click();
+  await expect(page.getByLabel('Colección', { exact: true })).toHaveValue('helmet');
+  await expect(page.locator('#option-reflection')).toBeVisible();
+  await expect(page).toHaveURL(/view=sizes/);
+  expect(errors).toEqual([]);
 });

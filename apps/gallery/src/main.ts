@@ -2,13 +2,17 @@ import type { AvatarOptions, Collection, Shape, ThemeId } from 'lazy-avatars';
 import { createAvatar, createAvatarDataUri, themes } from 'lazy-avatars';
 import { constellation } from 'lazy-avatars/constellation';
 import { deco } from 'lazy-avatars/deco';
+import { helmet } from 'lazy-avatars/helmet';
 import { latte } from 'lazy-avatars/latte';
+import { mission } from 'lazy-avatars/mission';
 import { monogram } from 'lazy-avatars/monogram';
 import { mosaic } from 'lazy-avatars/mosaic';
+import { orbit } from 'lazy-avatars/orbit';
 import { origami } from 'lazy-avatars/origami';
 import { pantry } from 'lazy-avatars/pantry';
 import { rack } from 'lazy-avatars/rack';
 import { siesta } from 'lazy-avatars/siesta';
+import { tinbot } from 'lazy-avatars/tinbot';
 import { contactSeeds } from '../../../fixtures/contact-seeds.js';
 import './style.css';
 
@@ -17,6 +21,38 @@ interface Descriptor {
   fields: Readonly<Record<string, { label: string; values: readonly string[] }>>;
 }
 const registry: Readonly<Record<string, Descriptor>> = {
+  tinbot: {
+    collection: tinbot,
+    fields: {
+      antenna: { label: 'Antena', values: ['single', 'double', 'dome'] },
+      eyes: { label: 'Ojos', values: ['gauges', 'visor', 'mixed'] },
+      mouth: { label: 'Boca', values: ['grille', 'smile', 'dots'] },
+    },
+  },
+  orbit: {
+    collection: orbit,
+    fields: {
+      surface: { label: 'Superficie', values: ['bands', 'craters'] },
+      ring: { label: 'Anillo', values: ['none', 'thin', 'wide'] },
+      moon: { label: 'Luna', values: ['none', 'small'] },
+    },
+  },
+  mission: {
+    collection: mission,
+    fields: {
+      badge: { label: 'Insignia', values: ['shield', 'round', 'hexagon'] },
+      planet: { label: 'Planeta', values: ['striped', 'ringed', 'cratered'] },
+      rocket: { label: 'Cohete', values: ['upright', 'tilted'] },
+    },
+  },
+  helmet: {
+    collection: helmet,
+    fields: {
+      visor: { label: 'Visor', values: ['round', 'wide', 'angular'] },
+      reflection: { label: 'Reflejo', values: ['ringed', 'cratered', 'crescent'] },
+      antenna: { label: 'Antena', values: ['none', 'single', 'double'] },
+    },
+  },
   origami: {
     collection: origami,
     fields: { animal: { label: 'Animal', values: ['fox', 'cat', 'bear', 'owl'] } },
@@ -59,6 +95,27 @@ const registry: Readonly<Record<string, Descriptor>> = {
   },
 };
 const labels: Readonly<Record<string, string>> = {
+  single: 'Una',
+  double: 'Dos',
+  dome: 'Cúpula',
+  gauges: 'Manómetros',
+  visor: 'Visor',
+  mixed: 'Desparejados',
+  grille: 'Rejilla',
+  dots: 'Puntos',
+  bands: 'Franjas',
+  craters: 'Cráteres',
+  thin: 'Fino',
+  wide: 'Amplio',
+  small: 'Pequeña',
+  hexagon: 'Hexágono',
+  striped: 'Con franjas',
+  ringed: 'Con anillo',
+  cratered: 'Con cráteres',
+  upright: 'Vertical',
+  tilted: 'Inclinado',
+  angular: 'Angular',
+  crescent: 'Creciente',
   fox: 'Zorro',
   cat: 'Gato',
   bear: 'Oso',
@@ -89,7 +146,7 @@ const labels: Readonly<Record<string, string>> = {
   zzz: 'Zzz',
   mask: 'Antifaz',
   blanket: 'Manta',
-  none: 'Sin accesorio',
+  none: 'Sin elemento',
   round: 'Redonda',
   pear: 'Pera',
   cloud: 'Nube',
@@ -103,7 +160,7 @@ const labels: Readonly<Record<string, string>> = {
   earth: 'Tierra',
   mono: 'Monocromo',
 };
-const views = ['sizes', 'variety', 'context', 'palettes'];
+const views = ['sizes', 'variety', 'context', 'palettes', 'space'];
 function required<T extends HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
   if (!element) throw new Error(`Missing element: ${selector}`);
@@ -271,6 +328,31 @@ function contextView(): HTMLElement[] {
   servers.append(table);
   return [members, comment, profile, servers];
 }
+function spaceView(): HTMLElement[] {
+  const family: readonly [Collection<object>, string][] = [
+    [constellation, 'Trazos y estrellas'],
+    [orbit, 'Planeta con volumen'],
+    [mission, 'Insignia con iniciales'],
+    [helmet, 'Personaje astronauta'],
+  ];
+  return family.map(([collection, description]) => {
+    const card = node('article', undefined, 'context-card space-card');
+    const button = node('button', collection.name);
+    button.type = 'button';
+    button.dataset.spaceCollection = collection.id;
+    button.addEventListener('click', () => {
+      collectionSelect.value = collection.id;
+      view = 'sizes';
+      buildFields();
+      render();
+    });
+    const examples = node('div', undefined, 'space-examples');
+    for (const size of [32, 64, 128])
+      examples.append(image(seedInput.value, size, { options: {} }, collection));
+    card.append(button, node('p', description), examples);
+    return card;
+  });
+}
 function render(updateUrl = true): void {
   document.documentElement.dataset.theme = dark.checked ? 'dark' : 'light';
   stage.className = `stage ${view}`;
@@ -304,6 +386,7 @@ function render(updateUrl = true): void {
           figure(current.seed, 80, labels[palette] ?? palette, { palette: palette as ThemeId }),
         ),
       );
+    else if (view === 'space') stage.replaceChildren(...spaceView());
     else stage.replaceChildren(...contextView());
     output.textContent = svg;
     code.textContent =

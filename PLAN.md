@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 2 implementada: nueve colecciones y galería con sus controles. v0.2.0 publicada en npm y comprobada mediante instalación desde el registro, con CI y Pages en verde para el commit publicado. El motor y los 80 snapshots de las colecciones de fase 1 se conservan byte a byte.
+> **Estado:** fase 3 implementada: trece colecciones y comparación de la familia espacial. v0.3.0 preparada; publicación y verificación desde npm pendientes. El motor y los 180 snapshots de las nueve colecciones anteriores se conservan byte a byte.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -391,6 +391,8 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 3 · v0.3: robots y familia espacial
 
+**Estado al 2026-10-24:** Hojalata, Órbita, Misión y Casco implementadas con opciones tipadas, cinco paletas propias por colección y veinte snapshots por colección. 117 pruebas unitarias y 26 de Chromium aprobadas localmente. Revisión visual de 11 520 avatares y comparador espacial; glifos sans originales MIT. v0.3.0 preparada, publicación e instalación desde npm pendientes. Evidencia y límites en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+
 **Depende de:** fase 2. **Objetivo:** completar las 13 colecciones y diferenciar los estilos espaciales.
 1. Implementar Hojalata, Órbita, Misión y Casco.
 2. Revisar reflejos, anillos, siluetas y glifos de Misión; documentar cada variante principal y cómo forzarla.
@@ -429,7 +431,7 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 | 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                  | Base: código/API y README principal en inglés; `README.es.md` añadido                                                                           |
 | 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`     | `lazy-avatars@0.1.0` publicado el 2026-10-24; scope de los futuros adaptadores pendiente de acreditar/reservar                                  |
 | 3   | Licencia                                   | MIT / Apache-2.0                             | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                                         |
-| 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL                   | Monograma usa paths serif originales MIT; Misión queda pendiente de su fase                                                                     |
+| 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL                   | Monograma usa paths serif y Misión paths sans originales MIT; sin fuentes de terceros                                                           |
 | 5   | Mayúsculas en la semilla                   | Respetar / ignorar                           | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                                                     |
 | 6   | Tamaño mínimo garantizado                  | 24 px / 32 px                                | 32 px                                                                                                                                           |
 | 7   | API HTTP                                   | Servicio público propio / solo autoalojable  | Solo autoalojable, para evitar costes y abusos                                                                                                  |
@@ -460,3 +462,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** implementada fase 2: Origami, Despensa, Déco, Latte y Constelación; opciones forzadas, nueve subrutas, galería y controles ampliados. 80 snapshots anteriores intactos, arte original MIT y núcleo sin cambios. Se corrige Biome para conservar el frontmatter de Changesets y se prepara v0.2.0.
 
 - **2026-10-24:** publicada v0.2.0 tras autorización 2FA desde `5f71c88`, con CI completo y Pages aprobados. Tarball de 28 archivos verificado por integridad e instalación desde npm con caché nueva; nueve subrutas, SVG, URI, determinismo y tipos correctos. Tag `v0.2.0` sobre el commit publicado.
+
+- **2026-10-24:** implementada fase 3 con cuatro colecciones, glifos sans originales de Misión y comparador espacial. 180 snapshots anteriores intactos; 117 pruebas unitarias y 26 de navegador aprobadas. Preparada v0.3.0.
