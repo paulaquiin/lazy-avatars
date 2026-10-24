@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. Nine original col
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 2 · v0.2.0 prepared.** Origami, Pantry, Déco, Latte and Constellation join the original four collections. This branch contains all nine; npm still serves v0.1.0 with four collections until v0.2.0 publication is completed. See [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
+> **Phase 2 · v0.2.0 published.** Nine original collections are available on [npm](https://www.npmjs.com/package/lazy-avatars/v/0.2.0). Registry installation, all nine imports and public TypeScript declarations were verified on 2026-10-24. The original four collections retain identical output. See [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
 
 ## Use
 

@@ -1,7 +1,10 @@
 # Revisión de fase 2 · 2026-10-24
 
-Estado: cinco colecciones nuevas implementadas y revisadas; v0.2.0 preparada.
-Publicación npm y tag pendientes de CI y comprobación del registro. Todas usan
+Estado: cinco colecciones nuevas implementadas, revisadas y publicadas en
+[npm v0.2.0](https://www.npmjs.com/package/lazy-avatars/v/0.2.0) desde `5f71c88`,
+con CI completo y Pages en verde. La instalación desde el registro con caché nueva
+verifica las nueve subrutas, SVG, URI de datos, determinismo y tipos. El tarball
+coincide por integridad con el paquete revisado; tag `v0.2.0` en el commit publicado. Todas usan
 arte y paletas originales bajo MIT, sin imágenes, fuentes o recursos de terceros.
 
 ## Catálogo y variación

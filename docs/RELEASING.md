@@ -1,11 +1,19 @@
 # Publicaciones de lazy-avatars
 
-## v0.2.0 · preparada
+## v0.2.0 · publicada
 
-Nueve colecciones y 28 archivos de distribución revisados. Motor y salida de las
-cuatro colecciones anteriores intactos. Pendiente de CI del commit preparado,
-autorización npm, comprobación desde el registro y creación del tag. La publicación
-requiere aprobación 2FA del mantenedor; no guardar tokens en Git.
+Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Nueve colecciones;
+motor y los 80 snapshots de las cuatro colecciones anteriores intactos.
+- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.2.0); `latest` apunta a `0.2.0`.
+- Commit publicado y tag `v0.2.0`: `5f71c88555689abf839123ef36fc498e78705ba8`.
+- [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40094477852): Linux/Node 24.11 y 26, Windows/Node 24 y Pages aprobados.
+- Instalación desde npm en carpeta vacía y caché nueva; nueve subrutas ESM, SVG, URI de datos, determinismo y declaraciones TypeScript comprobados.
+- 28 archivos permitidos; 19 761 bytes comprimidos / 65 382 bytes descomprimidos; sin dependencias de ejecución ni credenciales.
+- Integridad idéntica al tarball local revisado:
+
+```text
+sha512-NBDzn6YWjE0XLdJJjpJEd4fEiikPHWsYP7cLG4RgwOw27DlIwcNM3m3w2/PCjO8QcYynMGRc9Crno44l8Zr0Dw==
+```
 
 ## v0.1.0 · publicada
 
@@ -14,7 +22,7 @@ publicada y comprobada desde el registro público. La autorización 2FA se compl
 en el navegador del mantenedor; no se guardaron credenciales en Git.
 - Commit publicado y tag `v0.1.0`: `5642202739582d539c535ed0373330fcccd286d3`.
 - [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40091913799): matriz Linux/Node 24.11 y 26, Windows/Node 24 y Pages en verde.
-- `latest` apunta a `0.1.0`; instalación real con caché nueva fuera del workspace.
+- En su publicación, `latest` apuntaba a `0.1.0`; instalación real con caché nueva fuera del workspace.
 - Motor y cuatro subrutas ESM, SVG, URI de datos, determinismo y tipos públicos comprobados.
 - Tarball: 18 archivos permitidos, sin dependencias de ejecución. Su integridad coincide con el paquete local revisado:
 
@@ -44,12 +52,12 @@ no repetir una publicación aceptada mientras se procesa.
    no hay herramientas internas, fuentes de desarrollo, fixtures, credenciales,
    mapas de fuentes, logs ni archivos ajenos. Ejecutar después
    `npm publish --access public`, completando la autenticación que solicite npm.
-6. Verificar `npm view lazy-avatars@0.1.0 version dist.integrity` e instalar esa
+6. Verificar `npm view lazy-avatars@0.2.0 version dist.integrity` e instalar esa
    versión desde el registro en una carpeta vacía. Usar la versión objetivo en
    estos comandos (por ejemplo `0.2.0` y `v0.2.0` para fase 2). Probar el motor y las cuatro
    subrutas, sin depender del workspace.
 7. Solo tras confirmar la publicación, etiquetar el commit publicado con
-   `git tag v0.1.0` y subirlo con `git push origin v0.1.0`. Actualizar el estado de
+   `git tag v0.2.0` y subirlo con `git push origin v0.2.0`. Actualizar el estado de
    publicación de los README y la guía para reflejar el resultado comprobado.
 
 Para siguientes versiones: añadir un changeset, ejecutar `pnpm changeset version`

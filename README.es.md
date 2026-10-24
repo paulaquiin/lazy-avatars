@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Nueve cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Fase 2 · v0.2.0 preparada.** Origami, Despensa, Déco, Latte y Constelación se suman a las cuatro colecciones originales. El código de esta rama incluye las nueve; npm aún ofrece v0.1.0 con cuatro colecciones hasta completar la publicación de v0.2.0. Revisión en [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
+> **Fase 2 · v0.2.0 publicada.** Nueve colecciones originales disponibles en [npm](https://www.npmjs.com/package/lazy-avatars/v/0.2.0). Instalación desde el registro, nueve subrutas y tipos TypeScript verificados el 2026-10-24. Las cuatro colecciones anteriores conservan su salida. Revisión en [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
 
 ## Uso
 
