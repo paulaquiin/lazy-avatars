@@ -6,5 +6,5 @@ existing output changes. Before 1.0, use a minor release for incompatible change
 and record the output change explicitly. From 1.0 onward, use a major release.
 
 Version 0.1.0 has been prepared with Changesets. The first npm publication still
-requires an authenticated maintainer session; it is not an automatic CI step.
+requires completing npm 2FA with an authenticated maintainer; it is not an automatic CI step.
 See docs/RELEASING.md for the reviewed publication procedure.

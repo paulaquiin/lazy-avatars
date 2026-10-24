@@ -1,7 +1,7 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 1 implementada: Mosaico, Monograma, Rack, Siesta y galería completa. v0.1.0 preparada; la primera publicación npm necesita una sesión autenticada. El CI y el despliegue de Pages se verifican para el último commit.
-> **Última actualización:** 2026-10-23
+> **Estado:** fase 1 implementada: Mosaico, Monograma, Rack, Siesta y galería completa. v0.1.0 preparada; la primera publicación npm requiere completar 2FA (sesión iniciada). El CI y el despliegue de Pages se verifican para el último commit.
+> **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
 
@@ -366,7 +366,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 1 · v0.1: validar el motor con 4 colecciones
 
-**Estado al 2026-10-23:** cuatro colecciones y galería implementadas; 57 pruebas unitarias, 20 snapshots por colección y siete pruebas en Chromium. v0.1.0 se instala y comprueba fuera del monorepo, con grafos que verifican el aislamiento. Pages se despliega tras CI verde. La publicación npm sigue pendiente de autenticación (ENEEDAUTH); no se da por publicada. Revisión y límites en [PHASE1_REVIEW.md](docs/PHASE1_REVIEW.md).
+**Estado al 2026-10-23:** cuatro colecciones y galería implementadas; 57 pruebas unitarias, 20 snapshots por colección y siete pruebas en Chromium. v0.1.0 se instala y comprueba fuera del monorepo, con grafos que verifican el aislamiento. Pages se despliega tras CI verde. Actualización 2026-10-24: la sesión npm está iniciada; el intento de publicación devuelve E403 por requerir 2FA. No se da por publicada. Revisión y límites en [PHASE1_REVIEW.md](docs/PHASE1_REVIEW.md).
 
 **Depende de:** fase 0. **Objetivo:** primera versión pequeña que valide todos los mecanismos del motor.
 1. **Mosaico:** validar composición geométrica, orientaciones y paletas.
@@ -450,3 +450,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-23:** se suben los commits a GitHub. El primer CI descubre que los tipos de la galería necesitan el build previo del núcleo; se corrige `pnpm typecheck` y se valida desde una copia limpia sin `dist`. Los resultados de cada commit se consultan en GitHub Actions.
 
 - **2026-10-23:** se implementan las cuatro colecciones de fase 1, la galería ampliada y el despliegue condicionado a CI. Changesets prepara v0.1.0; npm continúa pendiente de sesión autenticada. Todos los glifos e ilustraciones añadidos son originales MIT.
+
+- **2026-10-24:** sesión npm verificada y CI completo del commit `b5fc39c` en verde. Publicación intentada y detenida por npm con E403: requiere completar 2FA. Sin publicación ni tag de versión todavía.

@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Cuatro col
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Fase 1 · v0.1.0 preparada.** Mosaico, Monograma, Rack y Siesta están implementadas. La primera publicación npm requiere iniciar sesión: no se da por disponible el paquete en el registro. La galería estática se despliega en GitHub Pages cuando pasan todos los trabajos del CI.
+> **Fase 1 · v0.1.0 preparada.** Mosaico, Monograma, Rack y Siesta están implementadas. La cuenta npm ya tiene sesión iniciada; publicar requiere completar 2FA: no se da por disponible el paquete en el registro. La galería estática se despliega en GitHub Pages cuando pasan todos los trabajos del CI.
 
 ## Uso
 

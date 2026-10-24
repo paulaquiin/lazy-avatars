@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. Four original col
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 1 · v0.1.0 prepared.** Mosaic, Monogram, Rack and Siesta are implemented. The first npm publication is pending an authenticated npm session; do not assume the package is already available from the registry. The static gallery deploys to GitHub Pages after all CI checks pass.
+> **Phase 1 · v0.1.0 prepared.** Mosaic, Monogram, Rack and Siesta are implemented. The first npm publication is pending npm two-factor authentication (the account is signed in); do not assume the package is already available from the registry. The static gallery deploys to GitHub Pages after all CI checks pass.
 
 ## Use
 

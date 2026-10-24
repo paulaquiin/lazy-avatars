@@ -1,7 +1,9 @@
 # Primera publicación · v0.1.0
 
-Estado: paquete preparado y verificado. `npm whoami` devuelve `ENEEDAUTH` en la
-sesión de preparación; no se ha publicado v0.1.0 ni creado un tag de release.
+Estado al 2026-10-24: paquete preparado y verificado; sesión npm autenticada.
+El primer intento de publicación devuelve `E403`: npm exige autenticación de dos
+factores para publicar. v0.1.0 todavía no está publicada y no hay tag de release.
+El CI completo y Pages del commit `b5fc39c` han pasado.
 No confundir un commit subido o una galería desplegada con una publicación npm.
 
 ## Publicar desde una sesión autenticada
@@ -9,7 +11,10 @@ No confundir un commit subido o una galería desplegada con una publicación npm
 1. Iniciar sesión con `npm login` en una terminal del mantenedor. No copiar tokens,
    contraseñas ni códigos de recuperación al repositorio o a un chat. `.npmrc`
    está excluido por Git; no usar una configuración autenticada como ejemplo.
-2. Verificar `npm whoami`, la cuenta elegida y la disponibilidad del nombre
+2. Activar 2FA en la cuenta npm y completar cualquier desafío en el navegador o
+   terminal del mantenedor, sin copiar códigos al chat. Véase la
+   [configuración oficial de 2FA](https://docs.npmjs.com/configuring-two-factor-authentication/).
+   Verificar `npm whoami`, la cuenta elegida y la disponibilidad del nombre
    `lazy-avatars`. Un error de autorización o red no prueba disponibilidad.
 3. Comprobar árbol limpio, `main` sincronizada y CI verde para el commit exacto.
    Instalar desde lockfile y ejecutar `pnpm check`; revisar LICENSE y CHANGELOG.
