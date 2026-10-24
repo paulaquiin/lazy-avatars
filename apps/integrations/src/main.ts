@@ -1,4 +1,4 @@
-import { registerLazyAvatar } from '@lazy-avatars/web-component';
+import { registerLazyAvatar } from '@paulaquiin/lazy-avatars-web-component';
 import { orbit } from 'lazy-avatars/orbit';
 import { rack } from 'lazy-avatars/rack';
 import { createElement } from 'react';

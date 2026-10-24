@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 4 implementada y verificada: React, web component, CLI, HTTP/Docker y editor de paletas. Adaptadores preparados y revisados como tarballs, sin publicar en npm; scope provisional. Núcleo publicado 0.3.0 intacto. Docker aprobado en CI Linux; los resultados de la matriz y Pages para cada commit están en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+> **Estado:** fase 5 en preparación: cinco candidatos 1.0.0, contrato estable, migración, compatibilidad, contribuciones y marca Siesta MIT. Scope @paulaquiin aprobado para adaptadores. Publicación y verificación npm pendientes; núcleo 0.3.0 aún publicado.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -254,9 +254,9 @@ lazy-avatars/
 │   │       ├── themes/        # temas globales
 │   │       └── collections/
 │   │           └── rack/      # index.ts, palettes.ts, README.md, snapshots
-│   ├── react/             # @lazy-avatars/react (fase 4)
+│   ├── react/             # @paulaquiin/lazy-avatars-react (fase 4)
 │   ├── web-component/     # <lazy-avatar> (fase 4)
-│   ├── cli/               # @lazy-avatars/cli (fase 4)
+│   ├── cli/               # @paulaquiin/lazy-avatars-cli (fase 4)
 │   └── http/              # adaptador autoalojable + Dockerfile (fase 4)
 ├── apps/
 │   └── gallery/           # galería y banco de pruebas (GitHub Pages)
@@ -407,13 +407,15 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 **Depende de:** fase 3 y API del núcleo revisada. **Objetivo:** adaptar el mismo motor sin duplicarlo.
 1. Paquete React con tipos, accesibilidad, IDs por instancia y comportamiento SSR/hidratación probado.
 2. Web component `<lazy-avatar collection="rack" seed="demo-server-01">`, con atributos documentados y registro explícito de las colecciones usadas.
-3. CLI para exportar SVG y reportar errores por stderr/código de salida. Comando objetivo: `npx @lazy-avatars/cli rack demo-server-01 > avatar.svg` (nombre sujeto a disponibilidad).
+3. CLI para exportar SVG y reportar errores por stderr/código de salida. Comando objetivo: `npx @paulaquiin/lazy-avatars-cli rack demo-server-01 > avatar.svg` (nombre sujeto a disponibilidad).
 4. API HTTP autoalojable (`/rack/demo-server-01.svg`) con Dockerfile, validación de rutas/opciones, límites de entrada, cabeceras y caché definidos. No desplegar un servicio público del proyecto.
 5. Editor de los cinco roles de paleta en la galería con validación y previsualización de contraste.
 
 **Cierre verificable:** ejemplos ejecutables de cada integración, equivalencia visual con el núcleo, dependencias contenidas en sus adaptadores y tests de errores. React funciona con varias instancias y SSR sin colisiones; CLI genera SVG válido; imagen Docker arranca y responde con tipo MIME correcto. Cada paquete pasa revisión de distribución y licencia.
 
 ### Fase 5 · v1.0
+
+**Estado al 2026-10-24:** preparada 1.0.0 sin cambios de renderizado ni nuevos tests. Contrato y migración en [STABILITY.md](docs/STABILITY.md), matriz y medidas en [COMPATIBILITY.md](docs/COMPATIBILITY.md), identidad original MIT en `assets/brand`, contribuciones bilingües y anuncio solo como borrador. Adaptadores bajo @paulaquiin aprobado por la mantenedora; CI y publicación pendientes.
 
 **Depende de:** fase 4 y revisión de todos los contratos. **Objetivo:** comprometer estabilidad pública sobre una versión comprobada.
 1. Congelar API, IDs públicos de colecciones/temas y contrato `outputVersion`; documentar migraciones y política de cambios incompatibles.
@@ -431,7 +433,7 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 | #   | Decisión                                   | Opciones                                     | Propuesta                                                                                                                                       |
 | --- | ------------------------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                  | Base: código/API y README principal en inglés; `README.es.md` añadido                                                                           |
-| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`     | `lazy-avatars@0.1.0` publicado el 2026-10-24; scope de los futuros adaptadores pendiente de acreditar/reservar                                  |
+| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`     | Núcleo lazy-avatars y cuatro adaptadores @paulaquiin/lazy-avatars-*; scope elegido por la mantenedora para 1.0                                  |
 | 3   | Licencia                                   | MIT / Apache-2.0                             | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                                         |
 | 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL                   | Monograma usa paths serif y Misión paths sans originales MIT; sin fuentes de terceros                                                           |
 | 5   | Mayúsculas en la semilla                   | Respetar / ignorar                           | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                                                     |
@@ -472,3 +474,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** fase 4 implementada sin cambiar el núcleo 0.3.0 ni sus colecciones. Cuatro adaptadores preparados como tarballs; scope pendiente de acreditar. React 19 como peer, web component con registro explícito, CLI, HTTP con caché y límites, Docker con contexto positivo y editor de paletas. CI Docker requerido antes de Pages.
 
 - **2026-10-24:** verificados los tarballs de fase 4, 123 pruebas unitarias y 29 de navegador; revisión visual del editor en escritorio y móvil. Docker construido y arrancado en CI Linux: healthcheck, SVG/MIME, validación, uid 1000 y sistema de archivos de solo lectura aprobados ([ejecución](https://github.com/paulaquiin/lazy-avatars/actions/runs/40130418438/job/120981016230)). El núcleo publicado 0.3.0 conserva sus 260 snapshots.
+
+- **2026-10-24:** la mantenedora elige publicar los adaptadores bajo @paulaquiin al no existir @lazy-avatars. Preparada versión 1.0.0 para núcleo y cuatro adaptadores, sin modificar motor, colecciones ni snapshots. Contrato estable, migración de nombres, identidad Siesta MIT, avisos, compatibilidad y medidas manuales. Se reutilizan las pruebas existentes.

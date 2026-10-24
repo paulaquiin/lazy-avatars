@@ -4,14 +4,14 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Trece cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Fase 3 · v0.3.0 publicada.** Trece colecciones originales disponibles en [npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0). Instalación desde el registro, trece subrutas, tipos TypeScript e integridad del paquete verificados el 2026-10-24. Las nueve colecciones anteriores conservan su salida. Revisión en [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+> **Candidata 1.0 preparada.** Núcleo y cuatro adaptadores en 1.0.0. Publicación e instalación desde npm pendientes; el núcleo anterior publicado es 0.3.0. Renderizado intacto. Consulta [estabilidad/migración](docs/STABILITY.md), [entornos verificados](docs/COMPATIBILITY.md) y [publicación](docs/RELEASING.md).
 
 ## Uso
 
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@0.3.0
+npm install lazy-avatars@1.0.0
 ```
 
 Importa el motor y la colección que necesites:
@@ -67,12 +67,12 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-La fase 4 añade React (SSR/hidratación e IDs por instancia), web component con
-registro explícito, CLI de SVG y HTTP autoalojable con Docker. Los cuatro
-adaptadores están preparados como tarballs revisados, **sin publicar en npm**;
-el scope `@lazy-avatars` es provisional. Consulta [ejemplos y contratos](docs/INTEGRATIONS.md).
-El núcleo publicado continúa en 0.3.0, con salida intacta. La galería incorpora
-editor de cinco colores, validación, contraste y ejemplos de código React.
+React (`@paulaquiin/lazy-avatars-react`), web component
+(`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
+y HTTP/Docker autoalojable (`@paulaquiin/lazy-avatars-http`) comparten núcleo ^1.0.0.
+Preparados para publicar bajo el scope del mantenedor; consulta
+[ejemplos y contratos](docs/INTEGRATIONS.md). La galería permite editar cinco
+colores, revisar contraste y copiar código React. Sin API de imágenes alojada.
 
 ## Desarrollo
 
@@ -95,8 +95,10 @@ Git contiene fuentes públicas, documentación, arte revisado, scripts reproduci
 
 ## Fases siguientes
 
-La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable. La fase 5 prepara el contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
+La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable. La fase 5 prepara la publicación estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
 
 ## Licencia y usos permitidos
 
 [MIT](LICENSE) cubre código, documentación y arte original, incluidos los avatares generados íntegramente con ese arte. Se permiten uso personal, educativo, interno y comercial, modificación y redistribución. Conserva copyright y licencia al redistribuir copias o partes sustanciales. No obliga a publicar el código de tu aplicación. Se proporciona sin garantía. Los futuros recursos de terceros conservarán sus propias condiciones y avisos.
+
+Contribuir: [guía](CONTRIBUTING.md). [Identidad Siesta](assets/brand/README.md) original MIT; [avisos de terceros](THIRD_PARTY_NOTICES.md).

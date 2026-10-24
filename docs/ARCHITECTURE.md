@@ -17,9 +17,9 @@ lazy-avatars/
 │   │       ├── engine/        # hash, rng, svg, color, initials y glyphs
 │   │       ├── themes/        # temas y roles de color
 │   │       └── collections/   # una carpeta por colección
-│   ├── react/                 # fase 4: @lazy-avatars/react
+│   ├── react/                 # fase 4: @paulaquiin/lazy-avatars-react
 │   ├── web-component/         # fase 4: elemento <lazy-avatar>
-│   ├── cli/                   # fase 4: @lazy-avatars/cli
+│   ├── cli/                   # fase 4: @paulaquiin/lazy-avatars-cli
 │   └── http/                  # fase 4: servidor autoalojable y Dockerfile
 ├── apps/
 │   └── gallery/               # Vite + TypeScript, sin framework
@@ -109,7 +109,7 @@ El workspace raíz y la galería son privados para npm. El núcleo define `files
 
 El orden de implementación y los criterios verificables están en las [fases de la guía](../PLAN.md#9-hoja-de-ruta). La fase 3 tiene 117 pruebas unitarias, 20 snapshots por colección más la figura del motor y 26 pruebas de Chromium. El paquete se prueba instalado fuera del monorepo con todos sus exports y tipos. Los glifos de píxel de Rack, los trazos serif de Monograma y los sans de Misión son originales MIT. El CI publica solo apps/gallery/dist tras aprobar la matriz. v0.3.0 publicada y verificada desde npm con trece subrutas, tipos e integridad; CI y Pages aprobados para el commit publicado. No hay tokens en el repo.
 
-El núcleo `lazy-avatars@0.1.0` se publicó el 2026-10-24. Los futuros paquetes `@lazy-avatars/*` siguen pendientes de acreditar/reservar su scope; un 404 no concede propiedad. La matriz remota de CI ya se ejecuta en GitHub; sigue pendiente comprobar compatibilidad real con Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
+El núcleo `lazy-avatars@0.1.0` se publicó el 2026-10-24. Los adaptadores 1.0 usan el scope @paulaquiin elegido por la mantenedora; reemplaza el scope provisional @lazy-avatars. La matriz remota de CI ya se ejecuta en GitHub; sigue pendiente comprobar compatibilidad real con Deno, Bun y edge. Los scripts públicos de comprobación son parte reproducible del proyecto; las herramientas privadas o de esta sesión quedan excluidas.
 
 Las cinco colecciones de fase 2 añaden exclusivamente módulos de dibujo/paletas y subrutas: no cambian el motor ni los snapshots de fase 1. Déco y Constelación usan trazos principales de 2.5 unidades del viewBox y selección de contraste de 3:1. El paquete preparado contiene 28 archivos permitidos; el grafo raíz conserva 16 380 bytes ESM y 5 408 bytes gzip. v0.2.0 está publicada y verificada desde el registro con las nueve subrutas y tipos públicos; véase [la revisión de fase 2](PHASE2_REVIEW.md).
 
@@ -130,3 +130,11 @@ fuera del workspace para comprobar API, binarios y tipos; sus nombres npm son
 provisionales y no están publicados. La galería estática continúa sin React.
 La imagen HTTP se prueba en CI como usuario no root y con sistema de archivos
 solo lectura; Pages depende tanto de la matriz como de ese smoke test Docker.
+
+## 9. Contrato estable 1.0
+
+La fase 5 conserva motor, colecciones y snapshots de 0.3.0. API e IDs públicos se
+fijan en [STABILITY.md](STABILITY.md), con versiones mayores para cambios de bytes
+y outputVersion de cada colección afectada. Los adaptadores pasan del scope
+provisional a @paulaquiin, aprobado por la mantenedora, y apuntan al núcleo ^1.0.0.
+Compatibilidad y límites medidos en [COMPATIBILITY.md](COMPATIBILITY.md).

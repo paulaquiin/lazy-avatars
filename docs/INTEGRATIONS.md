@@ -1,18 +1,17 @@
 # Integraciones · fase 4
 
-Los cuatro adaptadores están preparados en el workspace y se verifican instalados
-desde tarballs fuera del monorepo. Todavía no están publicados en npm: el scope
-`@lazy-avatars` es provisional y debe acreditarse antes de publicar. El núcleo
-publicado sigue siendo `lazy-avatars@0.3.0`, con trece colecciones y salida intacta.
-La fase 4 exige distribuciones revisadas y ejemplos ejecutables; no publica una
-API de imágenes alojada por el proyecto.
+Los cuatro adaptadores 1.0.0 usan el scope del mantenedor `@paulaquiin` y núcleo
+^1.0.0. Candidatos preparados: publicación y comprobación desde npm pendientes.
+Sustituyen los nombres provisionales `@lazy-avatars/*` que nunca se publicaron.
+Los ejemplos ejecutables y la instalación aislada de tarballs conservan el mismo
+motor, sin desplegar una API de imágenes del proyecto.
 
-| Integración   | Paquete preparado                   | Dependencias de ejecución      | Ejemplo y contrato                            |
-| ------------- | ----------------------------------- | ------------------------------ | --------------------------------------------- |
-| React         | `@lazy-avatars/react@0.1.0`         | React 19 y núcleo como peers   | [README](../packages/react/README.md)         |
-| Web component | `@lazy-avatars/web-component@0.1.0` | Núcleo como peer               | [README](../packages/web-component/README.md) |
-| CLI           | `@lazy-avatars/cli@0.1.0`           | Núcleo                         | [README](../packages/cli/README.md)           |
-| HTTP          | `@lazy-avatars/http@0.1.0`          | Núcleo y módulos estándar Node | [README y Docker](../packages/http/README.md) |
+| Integración   | Paquete preparado                              | Dependencias de ejecución      | Ejemplo y contrato                            |
+| ------------- | ---------------------------------------------- | ------------------------------ | --------------------------------------------- |
+| React         | `@paulaquiin/lazy-avatars-react@1.0.0`         | React 19 y núcleo como peers   | [README](../packages/react/README.md)         |
+| Web component | `@paulaquiin/lazy-avatars-web-component@1.0.0` | Núcleo como peer               | [README](../packages/web-component/README.md) |
+| CLI           | `@paulaquiin/lazy-avatars-cli@1.0.0`           | Núcleo                         | [README](../packages/cli/README.md)           |
+| HTTP          | `@paulaquiin/lazy-avatars-http@1.0.0`          | Núcleo y módulos estándar Node | [README y Docker](../packages/http/README.md) |
 
 ## Ejecutar desde un checkout
 
@@ -20,8 +19,8 @@ API de imágenes alojada por el proyecto.
 pnpm install --frozen-lockfile
 pnpm build
 pnpm --filter @lazy-avatars/integration-examples preview
-pnpm --filter @lazy-avatars/cli exec node dist/bin.js rack demo-server-01
-pnpm --filter @lazy-avatars/http exec node dist/bin.js
+pnpm --filter @paulaquiin/lazy-avatars-cli exec node dist/bin.js rack demo-server-01
+pnpm --filter @paulaquiin/lazy-avatars-http exec node dist/bin.js
 ```
 
 El primer ejemplo sirve una página con HTML React generado durante el build e
@@ -47,7 +46,7 @@ dependencias ya instalado y una sustitución temporal para asegurar que todos lo
 adaptadores usan el tarball del núcleo revisado, sin obtener otra versión de red.
 
 Cada adaptador tiene inventario positivo: README, MIT, manifiesto y entradas ESM
-con tipos; CLI/HTTP añaden su bin con shebang. Son 5/5/7/7 archivos respectivamente.
+con tipos; CLI/HTTP añaden su bin con shebang. Son 6/6/8/8 archivos respectivamente (incluyen changelog).
 La comprobación revisa patrones de credenciales, dependencias, ausencia de arte
 del núcleo embebido, imports, SVG, SSR, CLI ejecutable y declaraciones TypeScript.
 Builds, tarballs, capturas y herramientas privadas permanecen fuera de Git.

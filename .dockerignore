@@ -19,6 +19,7 @@
 !packages/http/
 !packages/http/package.json
 !packages/http/README.md
+!packages/http/CHANGELOG.md
 !packages/http/tsup.config.ts
 !packages/http/tsconfig.json
 !packages/http/src/

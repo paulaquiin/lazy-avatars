@@ -1,15 +1,17 @@
-# @lazy-avatars/cli
+# @paulaquiin/lazy-avatars-cli
 
-SVG export CLI. MIT. Prepared as a local tarball; not published to npm. The
-`@lazy-avatars` scope is provisional, so the guide's future `npx` command is not
-yet an available registry command. The executable name in the tarball is
-`lazy-avatars`; its only runtime dependency is `lazy-avatars`.
+SVG export CLI, version 1.0.0. MIT. The executable is `lazy-avatars`; its only
+runtime dependency is lazy-avatars ^1.0.0. ESM and public types are also exported.
+
+```sh
+npx @paulaquiin/lazy-avatars-cli@1.0.0 rack demo-server-01 > avatar.svg
+```
 
 Run from this checkout after `pnpm install --frozen-lockfile` and `pnpm build`:
 
 ```sh
-pnpm --filter @lazy-avatars/cli exec node dist/bin.js rack demo-server-01 --theme night --options '{"status":"warn"}' > avatar.svg
-pnpm --filter @lazy-avatars/cli exec node dist/bin.js --help
+pnpm --filter @paulaquiin/lazy-avatars-cli exec node dist/bin.js rack demo-server-01 --theme night --options '{"status":"warn"}' > avatar.svg
+pnpm --filter @paulaquiin/lazy-avatars-cli exec node dist/bin.js --help
 ```
 
 Use the shell's JSON quoting rules; PowerShell single quotes work for these values.

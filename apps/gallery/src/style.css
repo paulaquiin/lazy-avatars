@@ -420,3 +420,16 @@ footer {
 .stage {
   align-content: start;
 }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.brand .eyebrow {
+  margin: 0;
+}
+.brand img {
+  flex: none;
+}

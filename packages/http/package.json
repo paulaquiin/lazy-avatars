@@ -1,6 +1,6 @@
 {
-  "name": "@lazy-avatars/http",
-  "version": "0.1.0",
+  "name": "@paulaquiin/lazy-avatars-http",
+  "version": "1.0.0",
   "description": "Original SVG avatars: http integration",
   "type": "module",
   "license": "MIT",
@@ -12,7 +12,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
@@ -33,5 +34,9 @@
   },
   "bin": {
     "lazy-avatars-http": "./dist/bin.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

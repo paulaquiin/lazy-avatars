@@ -7,10 +7,10 @@ COPY packages/http packages/http
 COPY shared shared
 RUN pnpm install --frozen-lockfile \
     && pnpm --filter lazy-avatars build \
-    && pnpm --filter @lazy-avatars/http build \
+    && pnpm --filter @paulaquiin/lazy-avatars-http build \
     && mkdir /out \
     && pnpm --filter lazy-avatars pack --out /out/core.tgz \
-    && pnpm --filter @lazy-avatars/http pack --out /out/http.tgz
+    && pnpm --filter @paulaquiin/lazy-avatars-http pack --out /out/http.tgz
 
 FROM node:24.21.0-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
@@ -22,4 +22,4 @@ RUN npm install --ignore-scripts --omit=dev --no-audit --no-fund /tmp/avatars/co
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD ["node", "-e", "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
-CMD ["node", "node_modules/@lazy-avatars/http/dist/bin.js"]
+CMD ["node", "node_modules/@paulaquiin/lazy-avatars-http/dist/bin.js"]

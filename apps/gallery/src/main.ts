@@ -445,7 +445,7 @@ function render(updateUrl = true): void {
     output.textContent = svg;
     code.textContent =
       codeMode === 'react'
-        ? `import { Avatar } from '@lazy-avatars/react';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\n// Adaptador preparado en el repositorio, aún no publicado en npm.\n<Avatar collection={${collection.id}} {...${JSON.stringify({ ...current, title: `Avatar · ${current.seed}` }, null, 2)}} />`
+        ? `import { Avatar } from '@paulaquiin/lazy-avatars-react';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\n// Adaptador 1.0.0 candidato; consulta el estado de publicación.\n<Avatar collection={${collection.id}} {...${JSON.stringify({ ...current, title: `Avatar · ${current.seed}` }, null, 2)}} />`
         : codeMode === 'api'
           ? `import { createAvatar } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst svg = createAvatar(${collection.id}, ${JSON.stringify(current, null, 2)});`
           : `import { createAvatarDataUri } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst img = document.createElement('img');\nimg.src = createAvatarDataUri(${collection.id}, ${JSON.stringify(current, null, 2)});\nimg.alt = ${JSON.stringify(`Avatar · ${current.seed}`)};\ndocument.body.append(img);`;

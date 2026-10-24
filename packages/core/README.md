@@ -5,7 +5,7 @@ Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte, Constellation, Tinbot, Or
 Mission and Helmet.
 
 ```sh
-npm install lazy-avatars@0.3.0
+npm install lazy-avatars@1.0.0
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -89,3 +89,8 @@ the stability contract. Hashes can collide and do not anonymize personal data.
 
 Code, documentation and original artwork, including all glyphs: MIT; preserve the included license
 when redistributing copies or substantial portions. No third-party font is bundled.
+
+Stable 1.0 preserves 0.3.0 SVG output. Changes to existing valid SVG bytes require
+a major release and the affected collection outputVersion increment. Pin versions
+or store SVG for historical output. See the repository stability/migration and
+compatibility documents. Code, glyphs and Siesta branding are original MIT.

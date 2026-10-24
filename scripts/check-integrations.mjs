@@ -34,7 +34,14 @@ try {
   for (const name of ['react', 'web-component', 'cli', 'http']) {
     const folder = join(root, 'packages', name);
     const info = JSON.parse(run(['pack', '--dry-run', '--json'], folder));
-    const expected = ['package.json', 'README.md', 'LICENSE', 'dist/index.js', 'dist/index.d.ts'];
+    const expected = [
+      'package.json',
+      'README.md',
+      'LICENSE',
+      'CHANGELOG.md',
+      'dist/index.js',
+      'dist/index.d.ts',
+    ];
     if (name === 'cli' || name === 'http') expected.push('dist/bin.js', 'dist/bin.d.ts');
     assert.deepEqual(
       info.files.map((f) => f.path).sort(),
@@ -94,8 +101,8 @@ try {
     join(temporary, 'consumer.mjs'),
     `import assert from 'node:assert/strict';
 import {createElement} from 'react'; import {renderToString} from 'react-dom/server';
-import {Avatar} from '@lazy-avatars/react'; import {registerLazyAvatar} from '@lazy-avatars/web-component';
-import {run} from '@lazy-avatars/cli'; import {createAvatarServer} from '@lazy-avatars/http';
+import {Avatar} from '@paulaquiin/lazy-avatars-react'; import {registerLazyAvatar} from '@paulaquiin/lazy-avatars-web-component';
+import {run} from '@paulaquiin/lazy-avatars-cli'; import {createAvatarServer} from '@paulaquiin/lazy-avatars-http';
 import {createAvatar} from 'lazy-avatars'; import {rack} from 'lazy-avatars/rack';
 const options={seed:'demo',idPrefix:'consumer',title:'Demo'};
 const html=renderToString(createElement(Avatar,{collection:rack,...options}));
@@ -108,24 +115,24 @@ console.log('Installed adapters: React SSR, SSR-safe web import, CLI SVG and ine
     execFileSync(process.execPath, ['consumer.mjs'], { cwd: temporary, encoding: 'utf8' }).trim(),
   );
   const manifest = JSON.parse(
-    readFileSync(join(temporary, 'node_modules/@lazy-avatars/cli/package.json'), 'utf8'),
+    readFileSync(join(temporary, 'node_modules/@paulaquiin/lazy-avatars-cli/package.json'), 'utf8'),
   );
   assert.equal(
     manifest.dependencies['lazy-avatars'],
-    '^0.3.0',
+    `^${JSON.parse(readFileSync(join(root, 'packages/core/package.json'), 'utf8')).version}`,
     'Pack must resolve workspace protocol',
   );
   const svg = execFileSync(
     process.execPath,
-    ['node_modules/@lazy-avatars/cli/dist/bin.js', 'rack', 'demo'],
+    ['node_modules/@paulaquiin/lazy-avatars-cli/dist/bin.js', 'rack', 'demo'],
     { cwd: temporary, encoding: 'utf8' },
   );
   assert.equal(svg, createAvatar(rack, { seed: 'demo' }));
   writeFileSync(
     join(temporary, 'consumer.ts'),
-    `import {Avatar} from '@lazy-avatars/react';
-import {rack} from 'lazy-avatars/rack';import {registerLazyAvatar} from '@lazy-avatars/web-component';
-import {run} from '@lazy-avatars/cli';import {createAvatarServer} from '@lazy-avatars/http';
+    `import {Avatar} from '@paulaquiin/lazy-avatars-react';
+import {rack} from 'lazy-avatars/rack';import {registerLazyAvatar} from '@paulaquiin/lazy-avatars-web-component';
+import {run} from '@paulaquiin/lazy-avatars-cli';import {createAvatarServer} from '@paulaquiin/lazy-avatars-http';
 Avatar({collection:rack,seed:'demo',options:{status:'warn'}});
 // @ts-expect-error invalid collection option must remain rejected
 Avatar({collection:rack,seed:'demo',options:{status:'invalid'}});

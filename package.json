@@ -21,7 +21,8 @@
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm check:repo && pnpm check:package && pnpm check:integrations && pnpm test:browser",
     "changeset": "changeset",
     "check:integrations": "node scripts/check-integrations.mjs",
-    "check:docker": "node scripts/check-docker.mjs"
+    "check:docker": "node scripts/check-docker.mjs",
+    "benchmark": "node scripts/benchmark.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.2",

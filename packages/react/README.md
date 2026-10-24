@@ -1,11 +1,14 @@
-# @lazy-avatars/react
+# @paulaquiin/lazy-avatars-react
 
-React 19 adapter for `lazy-avatars`. MIT. Prepared as a local tarball; not published
-to npm. The `@lazy-avatars` scope remains provisional. React and the core are peer
-dependencies; this package bundles neither React nor collection artwork.
+React 19 adapter for `lazy-avatars`, version 1.0.0. MIT. React and core ^1.0.0
+are peer dependencies; neither React nor collection artwork is bundled.
+
+```sh
+npm install lazy-avatars@1.0.0 @paulaquiin/lazy-avatars-react@1.0.0 react@19
+```
 
 ```tsx
-import { Avatar } from '@lazy-avatars/react';
+import { Avatar } from '@paulaquiin/lazy-avatars-react';
 import { rack } from 'lazy-avatars/rack';
 
 <Avatar

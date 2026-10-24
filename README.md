@@ -4,14 +4,14 @@ Deterministic SVG avatars for people, teams, servers and bots. Thirteen original
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 3 · v0.3.0 published.** Thirteen original collections are available on [npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0). Registry installation, all thirteen imports, public TypeScript declarations and tarball integrity were verified on 2026-10-24. The previous nine collections retain identical output. See [PHASE3_REVIEW.md](docs/PHASE3_REVIEW.md).
+> **1.0 release candidate prepared.** Core and four adapters target 1.0.0. npm publication and registry installation are pending; the previous published core is 0.3.0. Rendering remains unchanged. See [stability/migration](docs/STABILITY.md), [verified environments](docs/COMPATIBILITY.md) and [release status](docs/RELEASING.md).
 
 ## Use
 
 Install the ESM package (Node.js 24.11+ on 24.x, or 26+, and modern browser bundlers):
 
 ```sh
-npm install lazy-avatars@0.3.0
+npm install lazy-avatars@1.0.0
 ```
 
 Import the engine and the collection you need:
@@ -67,12 +67,12 @@ The URL stores the current state, including the seed. Sharing a gallery URL shar
 
 ## Integrations
 
-Phase 4 adds React (SSR/hydration and per-instance IDs), an explicitly registered
-web component, SVG CLI and self-hosted HTTP server with Docker. These four
-adapters are prepared as reviewed local tarballs, **not published to npm**; the
-`@lazy-avatars` scope is provisional. See [runnable examples and contracts](docs/INTEGRATIONS.md).
-The published core remains 0.3.0; its output is unchanged. The gallery also has
-a five-role palette editor, validation, contrast preview and React code examples.
+React (`@paulaquiin/lazy-avatars-react`), web component
+(`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
+and self-hosted HTTP/Docker (`@paulaquiin/lazy-avatars-http`) share core ^1.0.0.
+They are prepared for publication under the maintainer scope. See
+[examples and contracts](docs/INTEGRATIONS.md). The gallery includes five-role
+palette editing, contrast preview and copyable React code. No hosted image API.
 
 ## Develop
 
@@ -95,8 +95,10 @@ Git contains public source, documentation, reviewed artwork, reproducible projec
 
 ## Roadmap
 
-Phase 0 provides the engine and tools. Phases 1–3 complete thirteen collections and the gallery. Phase 4 provides React/web component/CLI/self-hosted HTTP integrations. Phase 5 prepares the stable 1.0 contract. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
+Phase 0 provides the engine and tools. Phases 1–3 complete thirteen collections and the gallery. Phase 4 provides React/web component/CLI/self-hosted HTTP integrations. Phase 5 prepares the stable 1.0 release. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
 
 ## License
 
 [MIT](LICENSE) covers code, documentation and original artwork, including generated avatars made entirely from that artwork. Personal, educational, internal and commercial use, modification and redistribution are allowed. Preserve the copyright and license when redistributing copies or substantial portions. You do not need to publish your application's source. The software is supplied without warranty. Future third-party assets retain their own terms and notices.
+
+Contributing: [guide](CONTRIBUTING.md). Original MIT [Siesta identity](assets/brand/README.md); [third-party notices](THIRD_PARTY_NOTICES.md).

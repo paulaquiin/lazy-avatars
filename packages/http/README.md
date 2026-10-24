@@ -1,13 +1,16 @@
-# @lazy-avatars/http
+# @paulaquiin/lazy-avatars-http
 
-Self-hosted SVG HTTP server. MIT. Prepared as a local tarball; not published to
-npm. The `@lazy-avatars` scope remains provisional. No public project image API
-is deployed. The only runtime dependency is `lazy-avatars`.
+Self-hosted SVG HTTP server, version 1.0.0. MIT. No public project image API
+is deployed. Its only runtime dependency is lazy-avatars ^1.0.0.
+
+```sh
+npx @paulaquiin/lazy-avatars-http@1.0.0
+```
 
 After `pnpm build`, run locally:
 
 ```sh
-pnpm --filter @lazy-avatars/http exec node dist/bin.js
+pnpm --filter @paulaquiin/lazy-avatars-http exec node dist/bin.js
 curl 'http://127.0.0.1:3000/rack/demo-server-01.svg?theme=night&options=%7B%22status%22%3A%22warn%22%7D'
 ```
 

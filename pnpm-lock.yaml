@@ -59,10 +59,10 @@ importers:
 
   apps/integrations:
     dependencies:
-      '@lazy-avatars/react':
+      '@paulaquiin/lazy-avatars-react':
         specifier: workspace:*
         version: link:../../packages/react
-      '@lazy-avatars/web-component':
+      '@paulaquiin/lazy-avatars-web-component':
         specifier: workspace:*
         version: link:../../packages/web-component
       lazy-avatars:

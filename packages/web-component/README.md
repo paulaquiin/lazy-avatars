@@ -1,12 +1,15 @@
-# @lazy-avatars/web-component
+# @paulaquiin/lazy-avatars-web-component
 
-Native custom element with explicit artwork registration. MIT. Prepared as a local
-tarball, not published to npm; the `@lazy-avatars` scope remains provisional.
-The core is a peer dependency. Importing this module is safe on the server;
-calling registration requires a browser with Custom Elements and Shadow DOM.
+Native custom element, version 1.0.0, with explicit artwork registration. MIT.
+Core ^1.0.0 is a peer dependency. Module import is safe on the server; calling
+registration requires a browser with Custom Elements and Shadow DOM.
+
+```sh
+npm install lazy-avatars@1.0.0 @paulaquiin/lazy-avatars-web-component@1.0.0
+```
 
 ```ts
-import { registerLazyAvatar } from '@lazy-avatars/web-component';
+import { registerLazyAvatar } from '@paulaquiin/lazy-avatars-web-component';
 import { rack } from 'lazy-avatars/rack';
 registerLazyAvatar({ collections: [rack] });
 ```

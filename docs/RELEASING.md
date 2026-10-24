@@ -1,21 +1,20 @@
 # Publicaciones de lazy-avatars
 
-## Adaptadores de fase 4 · preparados, sin publicar
+## v1.0.0 · candidata preparada
 
-`@lazy-avatars/react`, `@lazy-avatars/web-component`, `@lazy-avatars/cli` y
-`@lazy-avatars/http` tienen versión inicial 0.1.0 y tarballs revisados con
-instalación aislada, imports, bin ejecutable y tipos verificados. Los nombres
-siguen siendo provisionales: acreditar el scope antes de intentar publicarlos.
-No hay nuevas publicaciones npm ni tags de estos paquetes; el núcleo permanece
-en 0.3.0. Para empaquetar dependencias `workspace:`, usar `pnpm pack`, que las
-resuelve a versiones de consumo. `pnpm check:integrations` revisa la distribución.
-La imagen Docker se prueba sin publicarla. Véase [INTEGRATIONS.md](INTEGRATIONS.md).
+Núcleo y cuatro adaptadores 1.0.0 bajo @paulaquiin. Scope aprobado por la mantenedora;
+API y salidas de 0.3.0 intactas. Publicación e instalación desde npm pendientes.
+Los adaptadores incluyen changelog; inventarios positivos de 6/6/8/8 archivos,
+núcleo 36. Se publican con `pnpm publish --publish-branch main --access public`
+para resolver referencias workspace, después de CI verde del commit exacto.
+No hay nuevas pruebas: se reutiliza la validación existente para el cierre.
+[Contrato](STABILITY.md), [compatibilidad](COMPATIBILITY.md), [integraciones](INTEGRATIONS.md).
 
 ## v0.3.0 · publicada
 
 Publicada el 2026-10-24 tras autorización 2FA del mantenedor. Trece colecciones;
 motor y 180 snapshots de las nueve colecciones anteriores intactos.
-- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0); `latest` apunta a `0.3.0`.
+- [Paquete npm](https://www.npmjs.com/package/lazy-avatars/v/0.3.0); en su publicación, `latest` apuntaba a `0.3.0`.
 - Commit publicado y tag `v0.3.0`: `2e95df87d40f381f2f30ef5e272926f1e46da647`.
 - [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40097531749): Linux/Node 24.11 y 26, Windows/Node 24 y Pages aprobados.
 - 117 pruebas unitarias y 26 de Chromium aprobadas; galería pública comprobada con las trece colecciones y comparación espacial en móvil.

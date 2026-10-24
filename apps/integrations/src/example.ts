@@ -1,4 +1,4 @@
-import { Avatar } from '@lazy-avatars/react';
+import { Avatar } from '@paulaquiin/lazy-avatars-react';
 import { orbit } from 'lazy-avatars/orbit';
 import { createElement, useState } from 'react';
 

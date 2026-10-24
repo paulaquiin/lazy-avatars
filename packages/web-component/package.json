@@ -1,6 +1,6 @@
 {
-  "name": "@lazy-avatars/web-component",
-  "version": "0.1.0",
+  "name": "@paulaquiin/lazy-avatars-web-component",
+  "version": "1.0.0",
   "description": "Original SVG avatars: web-component integration",
   "type": "module",
   "license": "MIT",
@@ -12,7 +12,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
@@ -29,9 +30,13 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "lazy-avatars": "^0.3.0"
+    "lazy-avatars": "^1.0.0"
   },
   "devDependencies": {
     "lazy-avatars": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
