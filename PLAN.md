@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 5 en preparación: cinco candidatos 1.0.0, contrato estable, migración, compatibilidad, contribuciones y marca Siesta MIT. Scope @paulaquiin aprobado para adaptadores. Publicación y verificación npm pendientes; núcleo 0.3.0 aún publicado.
+> **Estado:** fase 5 cerrada: núcleo y cuatro adaptadores 1.0.0 publicados e instalados desde npm con caché nueva. API estable, migración, compatibilidad, contribuciones y marca Siesta MIT documentadas. Motor y 260 snapshots de 0.3.0 intactos. CI/Docker/Pages aprobados para el commit publicado; anuncio preparado sin enviar.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -415,7 +415,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 5 · v1.0
 
-**Estado al 2026-10-24:** preparada 1.0.0 sin cambios de renderizado ni nuevos tests. Contrato y migración en [STABILITY.md](docs/STABILITY.md), matriz y medidas en [COMPATIBILITY.md](docs/COMPATIBILITY.md), identidad original MIT en `assets/brand`, contribuciones bilingües y anuncio solo como borrador. Adaptadores bajo @paulaquiin aprobado por la mantenedora; CI y publicación pendientes.
+**Estado al 2026-10-24:** preparada 1.0.0 sin cambios de renderizado ni nuevos tests. Contrato y migración en [STABILITY.md](docs/STABILITY.md), matriz y medidas en [COMPATIBILITY.md](docs/COMPATIBILITY.md), identidad original MIT en `assets/brand`, contribuciones bilingües y anuncio solo como borrador. Adaptadores bajo @paulaquiin aprobado por la mantenedora. Publicados desde `d5d7c43` tras CI completo, Docker y Pages aprobados; instalación, tipos y CLI verificados desde npm.
 
 **Depende de:** fase 4 y revisión de todos los contratos. **Objetivo:** comprometer estabilidad pública sobre una versión comprobada.
 1. Congelar API, IDs públicos de colecciones/temas y contrato `outputVersion`; documentar migraciones y política de cambios incompatibles.
@@ -476,3 +476,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** verificados los tarballs de fase 4, 123 pruebas unitarias y 29 de navegador; revisión visual del editor en escritorio y móvil. Docker construido y arrancado en CI Linux: healthcheck, SVG/MIME, validación, uid 1000 y sistema de archivos de solo lectura aprobados ([ejecución](https://github.com/paulaquiin/lazy-avatars/actions/runs/40130418438/job/120981016230)). El núcleo publicado 0.3.0 conserva sus 260 snapshots.
 
 - **2026-10-24:** la mantenedora elige publicar los adaptadores bajo @paulaquiin al no existir @lazy-avatars. Preparada versión 1.0.0 para núcleo y cuatro adaptadores, sin modificar motor, colecciones ni snapshots. Contrato estable, migración de nombres, identidad Siesta MIT, avisos, compatibilidad y medidas manuales. Se reutilizan las pruebas existentes.
+
+- **2026-10-24:** fase 5 cerrada. Publicados los cinco paquetes 1.0.0 desde `d5d7c43` tras CI verde y autorización npm. Archivos publicados comparados con los tarballs revisados, integridad SHA-512 validada e instalación con caché nueva correcta: trece colecciones, adaptadores, tipos y CLI. Tag `v1.0.0` sobre el commit publicado. Sin nuevas pruebas unitarias/de navegador ni difusión del anuncio.

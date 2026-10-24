@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. Thirteen original
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **1.0 release candidate prepared.** Core and four adapters target 1.0.0. npm publication and registry installation are pending; the previous published core is 0.3.0. Rendering remains unchanged. See [stability/migration](docs/STABILITY.md), [verified environments](docs/COMPATIBILITY.md) and [release status](docs/RELEASING.md).
+> **1.0.0 published.** Thirteen original collections and four adapters are available on npm. Fresh installation, public types, CLI and artifact contents were verified on 2026-10-24. Core rendering is unchanged from 0.3.0. See [stability/migration](docs/STABILITY.md), [verified environments](docs/COMPATIBILITY.md) and [release record](docs/RELEASING.md).
 
 ## Use
 
@@ -70,7 +70,7 @@ The URL stores the current state, including the seed. Sharing a gallery URL shar
 React (`@paulaquiin/lazy-avatars-react`), web component
 (`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
 and self-hosted HTTP/Docker (`@paulaquiin/lazy-avatars-http`) share core ^1.0.0.
-They are prepared for publication under the maintainer scope. See
+All five packages are published on npm under the documented names. See
 [examples and contracts](docs/INTEGRATIONS.md). The gallery includes five-role
 palette editing, contrast preview and copyable React code. No hosted image API.
 
@@ -95,7 +95,7 @@ Git contains public source, documentation, reviewed artwork, reproducible projec
 
 ## Roadmap
 
-Phase 0 provides the engine and tools. Phases 1–3 complete thirteen collections and the gallery. Phase 4 provides React/web component/CLI/self-hosted HTTP integrations. Phase 5 prepares the stable 1.0 release. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
+Phase 0 provides the engine and tools. Phases 1–3 complete thirteen collections and the gallery. Phase 4 provides React/web component/CLI/self-hosted HTTP integrations. Phase 5 completes the stable 1.0 release. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
 
 ## License
 

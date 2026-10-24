@@ -1,6 +1,6 @@
 # Arquitectura de lazy-avatars
 
-Estado: motor y fases 1–4 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores de fase 4 están implementados como paquetes preparados, sin publicar en npm; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
+Estado: motor y fases 1–5 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores están publicados en 1.0.0 bajo @paulaquiin; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
 
 ## 1. Decisión principal
 
@@ -30,7 +30,7 @@ lazy-avatars/
 └── LICENSE
 ```
 
-Los directorios de código se crearán en su fase, sin paquetes vacíos. Los nombres npm son provisionales hasta comprobar su disponibilidad.
+Los directorios de código se crearán en su fase, sin paquetes vacíos. Los nombres estables de los adaptadores usan @paulaquiin; véase la migración de 1.0.
 
 ## 2. Dependencias y responsabilidades
 
@@ -126,8 +126,8 @@ y catálogo internos al build (`shared/`), que se incluyen en sus entradas. El m
 se mantiene como dependencia externa y su arte no se duplica en los adaptadores.
 HTTP solo arranca con listen o su bin; no tiene dependencias de framework/red ajenas
 a Node. React es peer, no dependencia del núcleo. Los cuatro tarballs se instalan
-fuera del workspace para comprobar API, binarios y tipos; sus nombres npm son
-provisionales y no están publicados. La galería estática continúa sin React.
+fuera del workspace para comprobar API, binarios y tipos; sus nombres npm usan
+el scope @paulaquiin y están publicados en 1.0.0. La galería estática continúa sin React.
 La imagen HTTP se prueba en CI como usuario no root y con sistema de archivos
 solo lectura; Pages depende tanto de la matriz como de ese smoke test Docker.
 
@@ -138,3 +138,7 @@ fijan en [STABILITY.md](STABILITY.md), con versiones mayores para cambios de byt
 y outputVersion de cada colección afectada. Los adaptadores pasan del scope
 provisional a @paulaquiin, aprobado por la mantenedora, y apuntan al núcleo ^1.0.0.
 Compatibilidad y límites medidos en [COMPATIBILITY.md](COMPATIBILITY.md).
+
+Los cinco paquetes 1.0.0 están publicados y verificados desde npm. Registro de
+archivos e integridad en [RELEASING.md](RELEASING.md). Se mantienen 123 pruebas
+unitarias y 29 de navegador existentes; la fase 5 no añadió nuevas suites.

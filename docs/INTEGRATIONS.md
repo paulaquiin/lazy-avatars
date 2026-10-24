@@ -1,12 +1,12 @@
 # Integraciones · fase 4
 
 Los cuatro adaptadores 1.0.0 usan el scope del mantenedor `@paulaquiin` y núcleo
-^1.0.0. Candidatos preparados: publicación y comprobación desde npm pendientes.
+^1.0.0. Los cinco paquetes 1.0.0 están publicados e instalados desde npm con caché nueva.
 Sustituyen los nombres provisionales `@lazy-avatars/*` que nunca se publicaron.
 Los ejemplos ejecutables y la instalación aislada de tarballs conservan el mismo
 motor, sin desplegar una API de imágenes del proyecto.
 
-| Integración   | Paquete preparado                              | Dependencias de ejecución      | Ejemplo y contrato                            |
+| Integración   | Paquete                                        | Dependencias de ejecución      | Ejemplo y contrato                            |
 | ------------- | ---------------------------------------------- | ------------------------------ | --------------------------------------------- |
 | React         | `@paulaquiin/lazy-avatars-react@1.0.0`         | React 19 y núcleo como peers   | [README](../packages/react/README.md)         |
 | Web component | `@paulaquiin/lazy-avatars-web-component@1.0.0` | Núcleo como peer               | [README](../packages/web-component/README.md) |

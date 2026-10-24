@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-24",
+  "sourceCommit": "d5d7c431153eb9d5ea9f542e92cceaaec38f9870",
+  "sourceCi": "https://github.com/paulaquiin/lazy-avatars/actions/runs/40133844169",
+  "verification": "Published file contents match reviewed artifacts; SHA-512 integrity validated; fresh registry installation of all five packages, thirteen collections, adapter exports, public types and npm exec CLI passed.",
+  "packages": [
+    {
+      "name": "lazy-avatars",
+      "version": "1.0.0",
+      "integrity": "sha512-r8PPJgybo9ZMZGut5oxpv26xqEtIgUyXOZagR0xzEa/yfRWxKdoqh+vlhsY5/6eIrxmNd4rj6ElLnUK/oXH41g==",
+      "files": 36,
+      "bytes": 25784
+    },
+    {
+      "name": "@paulaquiin/lazy-avatars-react",
+      "version": "1.0.0",
+      "integrity": "sha512-Kmj8IOEEC7RFdxxpqrxX8UWmGn5J8LZMekLKCR6pW6lW7aC7TgB0lK+eQEnKz/aw1jPqdHgu0FjMxGOT99SH8A==",
+      "files": 6,
+      "bytes": 2960
+    },
+    {
+      "name": "@paulaquiin/lazy-avatars-web-component",
+      "version": "1.0.0",
+      "integrity": "sha512-Ylqbd3OlvgNvcuvQDcE9JuUu57KV2gpKm6Vj581TocGrI63ISg3MzPfHoFylCTm80e1rfGZc1vdMyDWH1tWfXg==",
+      "files": 6,
+      "bytes": 3867
+    },
+    {
+      "name": "@paulaquiin/lazy-avatars-cli",
+      "version": "1.0.0",
+      "integrity": "sha512-Fa05S9QghdYaMouII96mAktAANcc+FaFNxVCOaKph9JcMLSsih+1wbj3ZRmVhYaICeLnxwh3wfMu9blgkJF8PQ==",
+      "files": 8,
+      "bytes": 3987
+    },
+    {
+      "name": "@paulaquiin/lazy-avatars-http",
+      "version": "1.0.0",
+      "integrity": "sha512-Izir6pzSJCPz77ClXGvoEYb2pCwVcfFXVdO/jLVajVtoVxY/IsvahEs6OFjwR8Pd39xzSwJmMtkPKsZlGk24vQ==",
+      "files": 8,
+      "bytes": 5406
+    }
+  ]
+}

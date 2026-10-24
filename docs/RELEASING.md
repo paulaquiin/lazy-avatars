@@ -1,14 +1,27 @@
 # Publicaciones de lazy-avatars
 
-## v1.0.0 · candidata preparada
+## v1.0.0 · publicada
 
-Núcleo y cuatro adaptadores 1.0.0 bajo @paulaquiin. Scope aprobado por la mantenedora;
-API y salidas de 0.3.0 intactas. Publicación e instalación desde npm pendientes.
-Los adaptadores incluyen changelog; inventarios positivos de 6/6/8/8 archivos,
-núcleo 36. Se publican con `pnpm publish --publish-branch main --access public`
-para resolver referencias workspace, después de CI verde del commit exacto.
-No hay nuevas pruebas: se reutiliza la validación existente para el cierre.
-[Contrato](STABILITY.md), [compatibilidad](COMPATIBILITY.md), [integraciones](INTEGRATIONS.md).
+Publicada el 2026-10-24 con autorización de cuenta npm. Núcleo y cuatro adaptadores
+bajo @paulaquiin; `latest` apunta a 1.0.0 en los cinco paquetes.
+- Commit publicado y tag `v1.0.0`: `d5d7c431153eb9d5ea9f542e92cceaaec38f9870`.
+- [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40133844169): Linux/Node 24.11 y 26, Windows/Node 24, Docker y Pages aprobados.
+- Sin cambios del motor, colecciones o 260 snapshots de 0.3.0. No se añadieron pruebas.
+- Cada payload publicado coincide con los archivos revisados; integridad SHA-512 validada. pnpm no añadió gitHead a los metadatos npm: el origen queda acreditado por esta comparación, el commit y el tag.
+- Instalación desde el registro en carpeta vacía y caché nueva: cinco paquetes, trece colecciones, SVG/URI/determinismo, exports de adaptadores, SSR, tipos públicos y CLI mediante npm exec aprobados.
+- [Registro de versiones e integridades](releases/v1.0.0.json). Los adaptadores se publicaron con pnpm, resolviendo workspace a ^1.0.0.
+- [Contrato/migración](STABILITY.md), [compatibilidad y medidas](COMPATIBILITY.md), [marca original MIT](../assets/brand/README.md), [anuncio solo como borrador](ANNOUNCEMENT.md).
+
+| Paquete 1.0.0                                                                                                          | Archivos permitidos | Bytes tarball |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------: | ------------: |
+| [lazy-avatars](https://www.npmjs.com/package/lazy-avatars/v/1.0.0)                                                     |                  36 |         25784 |
+| [@paulaquiin/lazy-avatars-react](https://www.npmjs.com/package/@paulaquiin/lazy-avatars-react/v/1.0.0)                 |                   6 |          2960 |
+| [@paulaquiin/lazy-avatars-web-component](https://www.npmjs.com/package/@paulaquiin/lazy-avatars-web-component/v/1.0.0) |                   6 |          3867 |
+| [@paulaquiin/lazy-avatars-cli](https://www.npmjs.com/package/@paulaquiin/lazy-avatars-cli/v/1.0.0)                     |                   8 |          3987 |
+| [@paulaquiin/lazy-avatars-http](https://www.npmjs.com/package/@paulaquiin/lazy-avatars-http/v/1.0.0)                   |                   8 |          5406 |
+
+Sin credenciales, herramientas internas, builds de desarrollo ni archivos ajenos
+en Git o en los paquetes. No se publica un servicio HTTP ni se envía el anuncio.
 
 ## v0.3.0 · publicada
 

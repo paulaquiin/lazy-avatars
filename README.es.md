@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Trece cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Candidata 1.0 preparada.** Núcleo y cuatro adaptadores en 1.0.0. Publicación e instalación desde npm pendientes; el núcleo anterior publicado es 0.3.0. Renderizado intacto. Consulta [estabilidad/migración](docs/STABILITY.md), [entornos verificados](docs/COMPATIBILITY.md) y [publicación](docs/RELEASING.md).
+> **1.0.0 publicada.** Trece colecciones originales y cuatro adaptadores disponibles en npm. Instalación con caché nueva, tipos públicos, CLI y archivos publicados verificados el 2026-10-24. El núcleo conserva las salidas de 0.3.0. Consulta [estabilidad/migración](docs/STABILITY.md), [compatibilidad](docs/COMPATIBILITY.md) y [publicación](docs/RELEASING.md).
 
 ## Uso
 
@@ -70,7 +70,7 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 React (`@paulaquiin/lazy-avatars-react`), web component
 (`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
 y HTTP/Docker autoalojable (`@paulaquiin/lazy-avatars-http`) comparten núcleo ^1.0.0.
-Preparados para publicar bajo el scope del mantenedor; consulta
+Los cinco paquetes están publicados en npm; consulta
 [ejemplos y contratos](docs/INTEGRATIONS.md). La galería permite editar cinco
 colores, revisar contraste y copiar código React. Sin API de imágenes alojada.
 
@@ -95,7 +95,7 @@ Git contiene fuentes públicas, documentación, arte revisado, scripts reproduci
 
 ## Fases siguientes
 
-La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable. La fase 5 prepara la publicación estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
+La fase 0 aporta motor y herramientas; las fases 1–3 completan trece colecciones y la galería. La fase 4 incorpora adaptadores React/web component/CLI/HTTP autoalojable. La fase 5 cierra la publicación estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
 
 ## Licencia y usos permitidos
 
