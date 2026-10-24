@@ -1,6 +1,6 @@
 ---
-
-## "lazy-avatars": minor
+"lazy-avatars": minor
+---
 
 Add five original MIT collections through isolated ESM subpaths: Origami
 (`animal`: fox, cat, bear, owl), Despensa (`food`: donut, citrus, egg, avocado),
