@@ -4,9 +4,16 @@ export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
   use: { baseURL: 'http://127.0.0.1:4173', browserName: 'chromium', headless: true },
-  webServer: {
-    command: 'pnpm --filter @lazy-avatars/gallery preview --port 4173 --strictPort',
-    url: 'http://127.0.0.1:4173',
-    reuseExistingServer: false,
-  },
+  webServer: [
+    {
+      command: 'pnpm --filter @lazy-avatars/gallery preview --port 4173 --strictPort',
+      url: 'http://127.0.0.1:4173',
+      reuseExistingServer: false,
+    },
+    {
+      command: 'pnpm --filter @lazy-avatars/integration-examples preview --port 4175 --strictPort',
+      url: 'http://127.0.0.1:4175',
+      reuseExistingServer: false,
+    },
+  ],
 });

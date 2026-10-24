@@ -1,0 +1,19 @@
+{
+  "name": "@lazy-avatars/integration-examples",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "dev": "vite --host 127.0.0.1"
+  },
+  "dependencies": {
+    "lazy-avatars": "workspace:*",
+    "@lazy-avatars/react": "workspace:*",
+    "@lazy-avatars/web-component": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
+}

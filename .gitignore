@@ -69,5 +69,5 @@ desktop.ini
 /artifacts/
 
 # Copied from the canonical root license during package builds.
-/packages/core/LICENSE
+/packages/*/LICENSE
 /.playwright/

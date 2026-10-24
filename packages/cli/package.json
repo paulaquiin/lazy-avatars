@@ -1,0 +1,37 @@
+{
+  "name": "@lazy-avatars/cli",
+  "version": "0.1.0",
+  "description": "Original SVG avatars: cli integration",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulaquiin/lazy-avatars.git",
+    "directory": "packages/cli"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": "^24.11.0 || >=26.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lazy-avatars": "workspace:^"
+  },
+  "bin": {
+    "lazy-avatars": "./dist/bin.js"
+  }
+}

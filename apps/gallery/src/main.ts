@@ -1,5 +1,11 @@
-import type { AvatarOptions, Collection, Shape, ThemeId } from 'lazy-avatars';
-import { createAvatar, createAvatarDataUri, themes } from 'lazy-avatars';
+import type { AvatarOptions, Collection, Palette, Shape, ThemeId } from 'lazy-avatars';
+import {
+  contrastRatio,
+  createAvatar,
+  createAvatarDataUri,
+  normalizeColor,
+  themes,
+} from 'lazy-avatars';
 import { constellation } from 'lazy-avatars/constellation';
 import { deco } from 'lazy-avatars/deco';
 import { helmet } from 'lazy-avatars/helmet';
@@ -188,6 +194,16 @@ const code = required<HTMLElement>('#code');
 const status = required<HTMLElement>('#status');
 const download = required<HTMLButtonElement>('#download');
 const feedback = required<HTMLElement>('#copy-feedback');
+const customPalette = required<HTMLInputElement>('#custom-palette');
+const roles = ['background', 'primary', 'secondary', 'accent', 'ink'] as const;
+const colorFields = Object.fromEntries(
+  roles.map((role) => [role, required<HTMLInputElement>(`#color-${role}`)]),
+) as Record<(typeof roles)[number], HTMLInputElement>;
+function paletteValue(): Palette {
+  return Object.fromEntries(
+    roles.map((role) => [role, colorFields[role].value]),
+  ) as unknown as Palette;
+}
 let view = 'sizes';
 let codeMode = 'api';
 let downloadUri = '';
@@ -217,7 +233,11 @@ function options(): AvatarOptions<object> {
     seed: seedInput.value,
     shape: shapeSelect.value as Shape,
     background: !transparent.checked,
-    ...(themeSelect.value === 'auto' ? {} : { palette: themeSelect.value as ThemeId }),
+    ...(customPalette.checked
+      ? { palette: paletteValue() }
+      : themeSelect.value === 'auto'
+        ? {}
+        : { palette: themeSelect.value as ThemeId }),
     ...(Object.keys(selected).length ? { options: selected } : {}),
   };
 }
@@ -252,6 +272,10 @@ function persist(): void {
     shape: shapeSelect.value,
     view,
   });
+  if (customPalette.checked) {
+    params.set('custom', '1');
+    for (const role of roles) params.set(`color-${role}`, colorFields[role].value);
+  }
   if (transparent.checked) params.set('background', '0');
   if (dark.checked) params.set('dark', '1');
   if (contactSheet.checked) params.set('count', '60');
@@ -276,6 +300,9 @@ function load(): void {
   contactSize.value = ['24', '32', '64', '128'].includes(params.get('contactSize') ?? '')
     ? (params.get('contactSize') ?? '64')
     : '64';
+  customPalette.checked = params.get('custom') === '1';
+  for (const role of roles)
+    if (params.has(`color-${role}`)) colorFields[role].value = params.get(`color-${role}`) ?? '';
   buildFields(params);
 }
 function contextView(): HTMLElement[] {
@@ -368,6 +395,30 @@ function render(updateUrl = true): void {
     const current = options();
     const collection = descriptor().collection;
     const svg = createAvatar(collection, current);
+    themeSelect.disabled = customPalette.checked;
+    for (const role of roles) colorFields[role].disabled = !customPalette.checked;
+    const preview = required<HTMLElement>('#palette-preview');
+    const contrast = required<HTMLElement>('#palette-contrast');
+    preview.replaceChildren();
+    contrast.textContent = '';
+    if (customPalette.checked) {
+      const p = paletteValue();
+      for (const role of roles) {
+        const swatch = node('span', role);
+        swatch.style.backgroundColor = normalizeColor(p[role]);
+        swatch.style.color =
+          contrastRatio(p[role], '#000') >= contrastRatio(p[role], '#fff') ? '#000' : '#fff';
+        preview.append(swatch);
+      }
+      contrast.textContent =
+        ['primary', 'secondary', 'accent', 'ink']
+          .map(
+            (role) =>
+              `${role}/background: ${contrastRatio(p[role as keyof Palette], p.background).toFixed(2)}:1`,
+          )
+          .join(' · ') +
+        '. Referencia visual; no certifica accesibilidad. Revisa también el fondo real si usas transparencia.';
+    }
     if (view === 'sizes')
       stage.replaceChildren(
         ...[24, 32, 48, 64, 128].map((size) => figure(current.seed, size, `${size} px`)),
@@ -390,14 +441,18 @@ function render(updateUrl = true): void {
     else stage.replaceChildren(...contextView());
     output.textContent = svg;
     code.textContent =
-      codeMode === 'api'
-        ? `import { createAvatar } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst svg = createAvatar(${collection.id}, ${JSON.stringify(current, null, 2)});`
-        : `import { createAvatarDataUri } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst img = document.createElement('img');\nimg.src = createAvatarDataUri(${collection.id}, ${JSON.stringify(current, null, 2)});\nimg.alt = ${JSON.stringify(`Avatar · ${current.seed}`)};\ndocument.body.append(img);`;
+      codeMode === 'react'
+        ? `import { Avatar } from '@lazy-avatars/react';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\n// Adaptador preparado en el repositorio, aún no publicado en npm.\n<Avatar collection={${collection.id}} {...${JSON.stringify({ ...current, title: `Avatar · ${current.seed}` }, null, 2)}} />`
+        : codeMode === 'api'
+          ? `import { createAvatar } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst svg = createAvatar(${collection.id}, ${JSON.stringify(current, null, 2)});`
+          : `import { createAvatarDataUri } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst img = document.createElement('img');\nimg.src = createAvatarDataUri(${collection.id}, ${JSON.stringify(current, null, 2)});\nimg.alt = ${JSON.stringify(`Avatar · ${current.seed}`)};\ndocument.body.append(img);`;
     status.textContent = `${new TextEncoder().encode(svg).length} bytes · ${collection.name}${collection.id === 'rack' ? ` · estado representado: ${labels[String(current.options && 'status' in current.options ? current.options.status : 'off')] ?? 'Apagado'}` : ''}`;
     downloadUri = createAvatarDataUri(collection, current);
     download.disabled = false;
     if (updateUrl) persist();
   } catch (error) {
+    required<HTMLElement>('#palette-preview').replaceChildren();
+    required<HTMLElement>('#palette-contrast').textContent = '';
     stage.replaceChildren();
     output.textContent = '';
     code.textContent = '';

@@ -20,9 +20,24 @@ importers:
       '@types/node':
         specifier: 24.10.0
         version: 24.10.0
+      '@types/react':
+        specifier: 19.3.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 19.3.0
+        version: 19.3.0(@types/react@19.3.0)
       fast-xml-parser:
         specifier: 5.11.2
         version: 5.11.2
+      lazy-avatars:
+        specifier: workspace:*
+        version: link:packages/core
+      react:
+        specifier: 19.3.1
+        version: 19.3.1
+      react-dom:
+        specifier: 19.3.1
+        version: 19.3.1(react@19.3.1)
       tsup:
         specifier: 9.0.0
         version: 9.0.0(postcss@8.5.31)(typescript@5.9.3)(yaml@2.9.1)
@@ -42,7 +57,53 @@ importers:
         specifier: workspace:*
         version: link:../../packages/core
 
+  apps/integrations:
+    dependencies:
+      '@lazy-avatars/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@lazy-avatars/web-component':
+        specifier: workspace:*
+        version: link:../../packages/web-component
+      lazy-avatars:
+        specifier: workspace:*
+        version: link:../../packages/core
+      react:
+        specifier: 19.3.1
+        version: 19.3.1
+      react-dom:
+        specifier: 19.3.1
+        version: 19.3.1(react@19.3.1)
+
+  packages/cli:
+    dependencies:
+      lazy-avatars:
+        specifier: workspace:^
+        version: link:../core
+
   packages/core: {}
+
+  packages/http:
+    dependencies:
+      lazy-avatars:
+        specifier: workspace:^
+        version: link:../core
+
+  packages/react:
+    dependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+    devDependencies:
+      lazy-avatars:
+        specifier: workspace:^
+        version: link:../core
+
+  packages/web-component:
+    devDependencies:
+      lazy-avatars:
+        specifier: workspace:^
+        version: link:../core
 
 packages:
 
@@ -636,6 +697,14 @@ packages:
   '@types/node@24.10.0':
     resolution: {integrity: sha512-qzQZRBqkFsYyaSWXuEHc2WR9c0a0CXwiE5FWUvn7ZM+vdy1uZLfCunD38UzhuB7YN/J11ndbDBcTmOdxJo9Q7A==}
 
+  '@types/react-dom@19.3.0':
+    resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
+    peerDependencies:
+      '@types/react': ^19.3.0
+
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
+
   '@vitest/mocker@5.0.5':
     resolution: {integrity: sha512-xLL3lkDegJZw+MGoGaCCsFayDZthGgpAtr3Vziyfc4p7xH89K7KRPcRBBh/kEYm0Aqkt5DtTmkYpBtRV/FrHZg==}
     peerDependencies:
@@ -693,6 +762,9 @@ packages:
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
+
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
@@ -935,6 +1007,15 @@ packages:
     resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  react-dom@19.3.1:
+    resolution: {integrity: sha512-Y0bARz53lhEC1NMCASs0/j+faB/zqt3R8hpvg1e8+61ZVJ4UL0UdC4cBbXfZMcIuhrfgeILTLe+ZeBCavQPtKQ==}
+    peerDependencies:
+      react: ^19.3.1
+
+  react@19.3.1:
+    resolution: {integrity: sha512-QNhWdt7nrgVWWQG58QuGsAR3jv3Hbe4mb4vz7w2csnHavciZJgda1CPNaldF6eVxv90ud3jUXpKlHL69gO38yw==}
+    engines: {node: '>=0.10.0'}
+
   readdirp@5.1.1:
     resolution: {integrity: sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA==}
     engines: {node: '>= 20.19.0'}
@@ -952,6 +1033,9 @@ packages:
     resolution: {integrity: sha512-QVCvQUTGDN6JRwi3jVGCY3H4aTHvi9rX0LyoBMkGUvdh/Z6O51CzcLz85BWZaTCDGhl6ySGqYZs+xI1jmPqGcw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
+
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   semver@7.8.5:
     resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
@@ -1550,6 +1634,14 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
+    dependencies:
+      '@types/react': 19.3.0
+
+  '@types/react@19.3.0':
+    dependencies:
+      csstype: 3.2.3
+
   '@vitest/mocker@5.0.5(vite@8.3.5(@types/node@24.10.0)(esbuild@0.28.2)(yaml@2.9.1))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
@@ -1587,6 +1679,8 @@ snapshots:
   confbox@0.1.8: {}
 
   consola@3.4.2: {}
+
+  csstype@3.2.3: {}
 
   detect-libc@2.1.2: {}
 
@@ -1800,6 +1894,13 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
+  react-dom@19.3.1(react@19.3.1):
+    dependencies:
+      react: 19.3.1
+      scheduler: 0.28.0
+
+  react@19.3.1: {}
+
   readdirp@5.1.1: {}
 
   resolve-from@5.0.0: {}
@@ -1856,6 +1957,8 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.65.0
       '@rollup/rollup-win32-x64-msvc': 4.65.0
       fsevents: 2.3.3
+
+  scheduler@0.28.0: {}
 
   semver@7.8.5: {}
 

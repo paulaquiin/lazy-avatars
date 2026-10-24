@@ -388,3 +388,31 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.palette-editor {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 0;
+}
+.palette-editor legend {
+  font-size: 13px;
+}
+.palette-editor input:not([type="checkbox"]) {
+  width: 100%;
+  font-family: monospace;
+}
+.palette-editor label {
+  display: block;
+  margin-top: 8px;
+}
+#palette-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+#palette-preview span {
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 10px;
+}

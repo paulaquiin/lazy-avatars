@@ -22,6 +22,19 @@
       <label for="theme">Tema</label><select id="theme"><option value="auto">Auto · paletas propias</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select>
       <label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
       <div id="collection-options" class="option-fields"></div>
+      <fieldset class="palette-editor"><legend>Paleta personalizada</legend>
+        <label class="check"><input id="custom-palette" type="checkbox" /> Usar mis cinco colores</label>
+        <div id="palette-fields">
+          <label for="color-background">Color · background</label><input id="color-background" value="#f1eddf" maxlength="7" spellcheck="false" />
+          <label for="color-primary">Color · primary</label><input id="color-primary" value="#315647" maxlength="7" spellcheck="false" />
+          <label for="color-secondary">Color · secondary</label><input id="color-secondary" value="#a5b6a1" maxlength="7" spellcheck="false" />
+          <label for="color-accent">Color · accent</label><input id="color-accent" value="#c49550" maxlength="7" spellcheck="false" />
+          <label for="color-ink">Color · ink</label><input id="color-ink" value="#253c35" maxlength="7" spellcheck="false" />
+        </div>
+        <p class="hint">Formato #RGB o #RRGGBB. Al activarla, sustituye al tema.</p>
+        <div id="palette-preview"></div>
+        <p id="palette-contrast" class="hint" aria-live="polite"></p>
+      </fieldset>
       <label class="check"><input id="transparent" type="checkbox" /> Fondo transparente</label>
       <label class="check"><input id="dark" type="checkbox" /> Página oscura</label>
       <p class="hint">Todo se dibuja en tu navegador. La URL contiene la semilla: usa datos ficticios al compartirla.</p>
@@ -41,8 +54,8 @@
   </section>
   <section class="source" aria-label="Ejemplos de uso">
       <div class="source-heading"><h2>Llévatelo a tu proyecto</h2><button id="copy-code" type="button">Copiar código</button></div>
-      <p class="hint">Instala <code>npm install lazy-avatars@0.3.0</code>. Trece colecciones disponibles en <a href="https://www.npmjs.com/package/lazy-avatars/v/0.3.0">npm</a>. Código en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
-    <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" disabled>React · próximamente</button></div>
+      <p class="hint">Instala <code>npm install lazy-avatars@0.3.0</code>. Trece colecciones disponibles en <a href="https://www.npmjs.com/package/lazy-avatars/v/0.3.0">npm</a>. Adaptadores de fase 4 preparados en el repositorio (aún sin publicar en npm). Código en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
+    <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" data-code="react" aria-pressed="false">React</button></div>
     <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
     <details><summary>Ver SVG de 64 px</summary><pre><code id="output"></code></pre></details>
   </section>
