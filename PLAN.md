@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 1 implementada: Mosaico, Monograma, Rack, Siesta y galería completa. v0.1.0 preparada; la primera publicación npm requiere completar 2FA (sesión iniciada). El CI y el despliegue de Pages se verifican para el último commit.
+> **Estado:** fase 1 implementada: Mosaico, Monograma, Rack, Siesta y galería completa. v0.1.0 publicada en npm el 2026-10-24 y comprobada mediante instalación desde el registro. El CI y el despliegue de Pages se verifican para el último commit.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -366,7 +366,7 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 1 · v0.1: validar el motor con 4 colecciones
 
-**Estado al 2026-10-23:** cuatro colecciones y galería implementadas; 57 pruebas unitarias, 20 snapshots por colección y siete pruebas en Chromium. v0.1.0 se instala y comprueba fuera del monorepo, con grafos que verifican el aislamiento. Pages se despliega tras CI verde. Actualización 2026-10-24: la sesión npm está iniciada; el intento de publicación devuelve E403 por requerir 2FA. No se da por publicada. Revisión y límites en [PHASE1_REVIEW.md](docs/PHASE1_REVIEW.md).
+**Estado al 2026-10-23:** cuatro colecciones y galería implementadas; 57 pruebas unitarias, 20 snapshots por colección y siete pruebas en Chromium. v0.1.0 se instala y comprueba fuera del monorepo, con grafos que verifican el aislamiento. Pages se despliega tras CI verde. Actualización 2026-10-24: v0.1.0 publicada tras completar 2FA, con instalación desde el registro, cuatro subrutas y tipos públicos verificados; integridad idéntica al tarball revisado. Revisión y límites en [PHASE1_REVIEW.md](docs/PHASE1_REVIEW.md).
 
 **Depende de:** fase 0. **Objetivo:** primera versión pequeña que valide todos los mecanismos del motor.
 1. **Mosaico:** validar composición geométrica, orientaciones y paletas.
@@ -425,7 +425,7 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 | #   | Decisión                                   | Opciones                                     | Propuesta                                                                                                                                       |
 | --- | ------------------------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | Idioma del código, la API y el README      | Inglés / español / bilingüe                  | Base: código/API y README principal en inglés; `README.es.md` añadido                                                                           |
-| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`     | Comprobados: los tres nombres propuestos devuelven 404 el 2026-10-23; reserva y propiedad pendientes antes de publicar                          |
+| 2   | Nombre en npm                              | `lazy-avatars` / scope `@lazy-avatars/*`     | `lazy-avatars@0.1.0` publicado el 2026-10-24; scope de los futuros adaptadores pendiente de acreditar/reservar                                  |
 | 3   | Licencia                                   | MIT / Apache-2.0                             | MIT añadida para código, documentación y arte original; terceros conservan sus términos                                                         |
 | 4   | Glifos de Monograma y Misión               | Diseño propio / fuente OFL                   | Monograma usa paths serif originales MIT; Misión queda pendiente de su fase                                                                     |
 | 5   | Mayúsculas en la semilla                   | Respetar / ignorar                           | Respetar (`Ana` ≠ `ana`) y documentar que los emails se pasen en minúsculas                                                                     |
@@ -452,3 +452,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-23:** se implementan las cuatro colecciones de fase 1, la galería ampliada y el despliegue condicionado a CI. Changesets prepara v0.1.0; npm continúa pendiente de sesión autenticada. Todos los glifos e ilustraciones añadidos son originales MIT.
 
 - **2026-10-24:** sesión npm verificada y CI completo del commit `b5fc39c` en verde. Publicación intentada y detenida por npm con E403: requiere completar 2FA. Sin publicación ni tag de versión todavía.
+
+- **2026-10-24:** completada la autorización 2FA y publicada v0.1.0 desde `5642202`, con CI y Pages en verde. Instalación desde npm en directorio vacío y caché nueva: motor, cuatro colecciones, SVG, URI de datos, determinismo y tipos públicos correctos. Integridad del tarball verificada; tag `v0.1.0` sobre el commit publicado.

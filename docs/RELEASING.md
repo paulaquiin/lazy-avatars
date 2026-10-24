@@ -1,10 +1,21 @@
 # Primera publicación · v0.1.0
 
-Estado al 2026-10-24: paquete preparado y verificado; sesión npm autenticada.
-El primer intento de publicación devuelve `E403`: npm exige autenticación de dos
-factores para publicar. v0.1.0 todavía no está publicada y no hay tag de release.
-El CI completo y Pages del commit `b5fc39c` han pasado.
-No confundir un commit subido o una galería desplegada con una publicación npm.
+Estado al 2026-10-24: [lazy-avatars@0.1.0](https://www.npmjs.com/package/lazy-avatars/v/0.1.0)
+publicada y comprobada desde el registro público. La autorización 2FA se completó
+en el navegador del mantenedor; no se guardaron credenciales en Git.
+- Commit publicado y tag `v0.1.0`: `5642202739582d539c535ed0373330fcccd286d3`.
+- [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40091913799): matriz Linux/Node 24.11 y 26, Windows/Node 24 y Pages en verde.
+- `latest` apunta a `0.1.0`; instalación real con caché nueva fuera del workspace.
+- Motor y cuatro subrutas ESM, SVG, URI de datos, determinismo y tipos públicos comprobados.
+- Tarball: 18 archivos permitidos, sin dependencias de ejecución. Su integridad coincide con el paquete local revisado:
+
+```text
+sha512-oh33QwixRHHLQc0QdfKZH48pT69drZHwt664JHD8zhheh0ZaDSt3YE+h7vsdlUeamYxM7hHLy7Xx33NOd9RU0g==
+```
+
+npm puede confirmar el envío antes de que la versión esté disponible. Esperar a
+que el registro sirva la versión y comprobar su instalación antes de etiquetar;
+no repetir una publicación aceptada mientras se procesa.
 
 ## Publicar desde una sesión autenticada
 

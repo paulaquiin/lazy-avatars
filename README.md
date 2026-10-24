@@ -4,11 +4,17 @@ Deterministic SVG avatars for people, teams, servers and bots. Four original col
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 1 · v0.1.0 prepared.** Mosaic, Monogram, Rack and Siesta are implemented. The first npm publication is pending npm two-factor authentication (the account is signed in); do not assume the package is already available from the registry. The static gallery deploys to GitHub Pages after all CI checks pass.
+> **Phase 1 · v0.1.0 published.** Mosaic, Monogram, Rack and Siesta are available on [npm](https://www.npmjs.com/package/lazy-avatars/v/0.1.0). Registry installation, all four collection imports and public TypeScript declarations were verified on 2026-10-24. The static gallery deploys to GitHub Pages after all CI checks pass.
 
 ## Use
 
-The following imports work in the built workspace and prepared package:
+Install the ESM package (Node.js 24.11+ on 24.x, or 26+, and modern browser bundlers):
+
+```sh
+npm install lazy-avatars@0.1.0
+```
+
+Import the engine and the collection you need:
 
 ```ts
 import { createAvatar, createAvatarDataUri } from 'lazy-avatars';

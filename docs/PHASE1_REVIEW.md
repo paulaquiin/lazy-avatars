@@ -43,7 +43,9 @@ revisión son temporales y permanecen en `.tools/`, excluida de Git y npm.
 
 ## Publicación
 
-v0.1.0 está preparada mediante Changesets. La galería se publica tras CI verde.
-La primera publicación npm queda pendiente de completar 2FA (E403), con sesión ya iniciada: el procedimiento
-está en [RELEASING.md](RELEASING.md). No se marca esa parte como completada sin
-comprobar la versión real en el registro.
+v0.1.0 se publicó en [npm](https://www.npmjs.com/package/lazy-avatars/v/0.1.0) el
+2026-10-24 desde el commit `5642202`, con CI completo y Pages en verde. Una
+instalación desde el registro en un directorio vacío con caché nueva verificó
+las cuatro subrutas, SVG, URI de datos, determinismo y declaraciones TypeScript.
+La integridad del tarball coincide con el paquete local revisado de 18 archivos.
+El procedimiento y la evidencia están en [RELEASING.md](RELEASING.md).
