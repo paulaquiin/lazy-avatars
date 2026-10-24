@@ -1,10 +1,10 @@
 # lazy-avatars
 
-Dependency-free, deterministic SVG avatars. Four original collections: Mosaic,
-Monogram, Rack and Siesta.
+Dependency-free, deterministic SVG avatars. Nine original collections: Mosaic,
+Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte and Constellation.
 
 ```sh
-npm install lazy-avatars@0.1.0
+npm install lazy-avatars@0.2.0
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -22,18 +22,27 @@ const svg = createAvatar(rack, {
 const src = createAvatarDataUri(rack, { seed: 'demo-host-01' });
 ```
 
-| Subpath                 | Export     | Options                                                                                                                           |
-| ----------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `lazy-avatars/mosaic`   | `mosaic`   | `tile: 'arcs' / 'triangles'`                                                                                                      |
-| `lazy-avatars/monogram` | `monogram` | `frame: 'circle' / 'shield' / 'diamond'`                                                                                          |
-| `lazy-avatars/rack`     | `rack`     | `status: 'ok' / 'warn' / 'down' / 'off'`; `unit: 'disks' / 'vent'`                                                                |
-| `lazy-avatars/siesta`   | `siesta`   | `accessory: 'cap' / 'zzz' / 'mask' / 'blanket' / 'none'`; `body: 'round' / 'pear' / 'cloud'`; `mouth: 'smile' / 'yawn' / 'sleep'` |
+| Subpath                      | Export          | Options                                                                                                                           |
+| ---------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `lazy-avatars/mosaic`        | `mosaic`        | `tile: 'arcs' / 'triangles'`                                                                                                      |
+| `lazy-avatars/monogram`      | `monogram`      | `frame: 'circle' / 'shield' / 'diamond'`                                                                                          |
+| `lazy-avatars/rack`          | `rack`          | `status: 'ok' / 'warn' / 'down' / 'off'`; `unit: 'disks' / 'vent'`                                                                |
+| `lazy-avatars/siesta`        | `siesta`        | `accessory: 'cap' / 'zzz' / 'mask' / 'blanket' / 'none'`; `body: 'round' / 'pear' / 'cloud'`; `mouth: 'smile' / 'yawn' / 'sleep'` |
+| `lazy-avatars/origami`       | `origami`       | `animal: 'fox' / 'cat' / 'bear' / 'owl'`                                                                                          |
+| `lazy-avatars/pantry`        | `pantry`        | `food: 'donut' / 'citrus' / 'egg' / 'avocado'`                                                                                    |
+| `lazy-avatars/deco`          | `deco`          | `motif: 'fan' / 'arches' / 'sun'`                                                                                                 |
+| `lazy-avatars/latte`         | `latte`         | `art: 'heart' / 'tulip' / 'rosetta' / 'rings'`                                                                                    |
+| `lazy-avatars/constellation` | `constellation` | No collection-specific options                                                                                                    |
 
 All collections have outputVersion 1. Visual options default to seeded selection;
 Rack status defaults to off. It is a supplied display value, not live monitoring:
 include a textual label with status LEDs. Each subpath retains typed options and
 imports only its own artwork and shared engine helpers. Monogram serif paths and
-Rack pixel glyphs are original MIT artwork, without third-party fonts.
+Rack pixel glyphs are original MIT artwork, without third-party fonts. All five
+phase 2 collections use original MIT paths and palettes. Deco and constellation
+main lines are 1 px at 32 px, with at least 3:1 foreground/background contrast.
+Light themes use dark constellation lines; global themes recolor food and coffee.
+With transparent backgrounds, check contrast against your embedding surface.
 
 You may also define your own typed Collection and use svgElement, themes and RNG
 helpers from the root entry. Collection source documentation is in the repository.

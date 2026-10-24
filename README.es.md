@@ -1,17 +1,17 @@
 # lazy-avatars
 
-Avatares SVG deterministas para personas, equipos, servidores y bots. Cuatro colecciones originales, sin dependencias de ejecución ni servicio de imágenes.
+Avatares SVG deterministas para personas, equipos, servidores y bots. Nueve colecciones originales, sin dependencias de ejecución ni servicio de imágenes.
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **Fase 1 · v0.1.0 publicada.** Mosaico, Monograma, Rack y Siesta están disponibles en [npm](https://www.npmjs.com/package/lazy-avatars/v/0.1.0). Instalación desde el registro, las cuatro subrutas y tipos TypeScript verificados el 2026-10-24. La galería estática se despliega en GitHub Pages cuando pasan todos los trabajos del CI.
+> **Fase 2 · v0.2.0 preparada.** Origami, Despensa, Déco, Latte y Constelación se suman a las cuatro colecciones originales. El código de esta rama incluye las nueve; npm aún ofrece v0.1.0 con cuatro colecciones hasta completar la publicación de v0.2.0. Revisión en [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
 
 ## Uso
 
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@0.1.0
+npm install lazy-avatars@0.2.0
 ```
 
 Importa el motor y la colección que necesites:
@@ -35,14 +35,19 @@ const src = createAvatarDataUri(rack, {
 // Usar src en un <img> con un alt adecuado.
 ```
 
-La entrada raíz exporta el motor y sus tipos. Cada colección se importa por separado, sin cargar las otras tres. El núcleo no depende del DOM, la red, fuentes del sistema ni paquetes de ejecución. Los SVG generados son autocontenidos.
+La entrada raíz exporta el motor y sus tipos. Cada colección se importa por separado, sin cargar las demás colecciones. El núcleo no depende del DOM, la red, fuentes del sistema ni paquetes de ejecución. Los SVG generados son autocontenidos.
 
-| Colección | Importación             | Opciones                                                                                                                  |
-| --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Mosaico   | `lazy-avatars/mosaic`   | `tile`: `arcs`, `triangles`                                                                                               |
-| Monograma | `lazy-avatars/monogram` | `frame`: `circle`, `shield`, `diamond`                                                                                    |
-| Rack      | `lazy-avatars/rack`     | `status`: `ok`, `warn`, `down`, `off`; `unit`: `disks`, `vent`                                                            |
-| Siesta    | `lazy-avatars/siesta`   | `accessory`: `cap`, `zzz`, `mask`, `blanket`, `none`; `body`: `round`, `pear`, `cloud`; `mouth`: `smile`, `yawn`, `sleep` |
+| Colección    | Importación                  | Opciones                                                                                                                  |
+| ------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Mosaico      | `lazy-avatars/mosaic`        | `tile`: `arcs`, `triangles`                                                                                               |
+| Monograma    | `lazy-avatars/monogram`      | `frame`: `circle`, `shield`, `diamond`                                                                                    |
+| Rack         | `lazy-avatars/rack`          | `status`: `ok`, `warn`, `down`, `off`; `unit`: `disks`, `vent`                                                            |
+| Siesta       | `lazy-avatars/siesta`        | `accessory`: `cap`, `zzz`, `mask`, `blanket`, `none`; `body`: `round`, `pear`, `cloud`; `mouth`: `smile`, `yawn`, `sleep` |
+| Origami      | `lazy-avatars/origami`       | `animal`: `fox`, `cat`, `bear`, `owl`                                                                                     |
+| Despensa     | `lazy-avatars/pantry`        | `food`: `donut`, `citrus`, `egg`, `avocado`                                                                               |
+| Déco         | `lazy-avatars/deco`          | `motif`: `fan`, `arches`, `sun`                                                                                           |
+| Latte        | `lazy-avatars/latte`         | `art`: `heart`, `tulip`, `rosetta`, `rings`                                                                               |
+| Constelación | `lazy-avatars/constellation` | Sin opciones propias                                                                                                      |
 
 Las opciones visuales omitidas se eligen según la semilla. Rack usa `off` por defecto: representa un estado que aporta tu aplicación, no monitoriza servidores. Añade siempre una etiqueta textual. Monograma usa trazos serif propios y Rack glifos de píxel propios; no se distribuyen fuentes de terceros.
 
@@ -71,13 +76,13 @@ En Linux usa `pnpm exec playwright install --with-deps chromium`. `pnpm dev` com
 
 Comprobaciones individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Compila antes de comprobar el paquete o navegador por separado. `pnpm format` aplica formato y arreglos seguros; `pnpm changeset` registra cambios públicos.
 
-Hay 57 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, siete pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
+Hay 88 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, 17 pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
 
 Git contiene fuentes públicas, documentación, arte revisado, scripts reproducibles del proyecto, pruebas y lockfile. El [.gitignore](.gitignore) excluye herramientas internas, estado de asistentes, credenciales, dependencias y builds. `check:repo` revisa rutas, patrones habituales de credenciales e historial disponible sin mostrar valores; no sustituye una auditoría exhaustiva. npm usa una lista positiva: entradas/chunks/tipos compilados, README, licencia, changelog y manifiesto. Consulta las [reglas de publicación](docs/REPOSITORY_HYGIENE.md).
 
 ## Fases siguientes
 
-La fase 0 aporta motor y herramientas; la fase 1, estas cuatro colecciones y la galería completa. Después llegarán otras nueve colecciones, adaptadores React/web component/CLI/HTTP autoalojable y el contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
+La fase 0 aporta motor y herramientas; las fases 1 y 2, nueve colecciones y la galería completa. Después llegarán las cuatro colecciones de la fase espacial y robots, adaptadores React/web component/CLI/HTTP autoalojable y el contrato estable de v1.0. La [guía](PLAN.md#9-hoja-de-ruta) detalla dependencias y criterios de cierre. No se promete una API pública de imágenes alojada por el proyecto.
 
 ## Licencia y usos permitidos
 

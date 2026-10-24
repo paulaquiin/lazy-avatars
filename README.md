@@ -1,17 +1,17 @@
 # lazy-avatars
 
-Deterministic SVG avatars for people, teams, servers and bots. Four original collections, no runtime dependencies, no image service.
+Deterministic SVG avatars for people, teams, servers and bots. Nine original collections, no runtime dependencies, no image service.
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **Phase 1 · v0.1.0 published.** Mosaic, Monogram, Rack and Siesta are available on [npm](https://www.npmjs.com/package/lazy-avatars/v/0.1.0). Registry installation, all four collection imports and public TypeScript declarations were verified on 2026-10-24. The static gallery deploys to GitHub Pages after all CI checks pass.
+> **Phase 2 · v0.2.0 prepared.** Origami, Pantry, Déco, Latte and Constellation join the original four collections. This branch contains all nine; npm still serves v0.1.0 with four collections until v0.2.0 publication is completed. See [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
 
 ## Use
 
 Install the ESM package (Node.js 24.11+ on 24.x, or 26+, and modern browser bundlers):
 
 ```sh
-npm install lazy-avatars@0.1.0
+npm install lazy-avatars@0.2.0
 ```
 
 Import the engine and the collection you need:
@@ -35,14 +35,19 @@ const src = createAvatarDataUri(rack, {
 // Use src in an <img> with an appropriate alt attribute.
 ```
 
-The root exports the engine and types. Import each collection separately; importing one does not pull in the other three. The core has no runtime dependencies, DOM access, network access or system-font requirements. Generated SVGs are self-contained.
+The root exports the engine and types. Import each collection separately; importing one does not pull in other collections. The core has no runtime dependencies, DOM access, network access or system-font requirements. Generated SVGs are self-contained.
 
-| Collection | Import                  | Options                                                                                                                   |
-| ---------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Mosaic     | `lazy-avatars/mosaic`   | `tile`: `arcs`, `triangles`                                                                                               |
-| Monogram   | `lazy-avatars/monogram` | `frame`: `circle`, `shield`, `diamond`                                                                                    |
-| Rack       | `lazy-avatars/rack`     | `status`: `ok`, `warn`, `down`, `off`; `unit`: `disks`, `vent`                                                            |
-| Siesta     | `lazy-avatars/siesta`   | `accessory`: `cap`, `zzz`, `mask`, `blanket`, `none`; `body`: `round`, `pear`, `cloud`; `mouth`: `smile`, `yawn`, `sleep` |
+| Collection    | Import                       | Options                                                                                                                   |
+| ------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Mosaic        | `lazy-avatars/mosaic`        | `tile`: `arcs`, `triangles`                                                                                               |
+| Monogram      | `lazy-avatars/monogram`      | `frame`: `circle`, `shield`, `diamond`                                                                                    |
+| Rack          | `lazy-avatars/rack`          | `status`: `ok`, `warn`, `down`, `off`; `unit`: `disks`, `vent`                                                            |
+| Siesta        | `lazy-avatars/siesta`        | `accessory`: `cap`, `zzz`, `mask`, `blanket`, `none`; `body`: `round`, `pear`, `cloud`; `mouth`: `smile`, `yawn`, `sleep` |
+| Origami       | `lazy-avatars/origami`       | `animal`: `fox`, `cat`, `bear`, `owl`                                                                                     |
+| Pantry        | `lazy-avatars/pantry`        | `food`: `donut`, `citrus`, `egg`, `avocado`                                                                               |
+| Déco          | `lazy-avatars/deco`          | `motif`: `fan`, `arches`, `sun`                                                                                           |
+| Latte         | `lazy-avatars/latte`         | `art`: `heart`, `tulip`, `rosetta`, `rings`                                                                               |
+| Constellation | `lazy-avatars/constellation` | No collection-specific options                                                                                            |
 
 Omitted visual options are seed-selected. Rack's omitted status is always `off`; LEDs represent a value supplied by your application and do not monitor infrastructure. Always provide a textual status too. Monogram uses original serif paths; Rack uses original pixel paths. No third-party font is bundled.
 
@@ -71,13 +76,13 @@ On Linux use `pnpm exec playwright install --with-deps chromium`. `pnpm dev` bui
 
 Individual checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm test:browser`. Build before the standalone package/browser checks. `pnpm format` applies formatting and safe fixes; `pnpm changeset` records public changes.
 
-Quality gates include 57 unit tests, 20 fixed snapshots per collection plus the engine fixture, 60-seed/theme/XML/size checks, seven Chromium tests, and an actual isolated tarball installation with public types. Package checks follow the import graph to enforce collection isolation and catch orphan/missing chunks. The core's reachable module budget is 24 KiB raw / 8 KiB gzip; generated SVGs target 4 KiB. CI covers Linux/Node 24.11 and 26, and Windows/Node 24. Deno, Bun and edge remain compatibility targets.
+Quality gates include 88 unit tests, 20 fixed snapshots per collection plus the engine fixture, 60-seed/theme/XML/size checks, 17 Chromium tests, and an actual isolated tarball installation with public types. Package checks follow the import graph to enforce collection isolation and catch orphan/missing chunks. The core's reachable module budget is 24 KiB raw / 8 KiB gzip; generated SVGs target 4 KiB. CI covers Linux/Node 24.11 and 26, and Windows/Node 24. Deno, Bun and edge remain compatibility targets.
 
 Git contains public source, documentation, reviewed artwork, reproducible project scripts, tests and the lockfile. [.gitignore](.gitignore) excludes internal tools, assistant state, credentials, dependencies and generated output. `check:repo` checks paths, common credential patterns and available Git history without printing matched values; it is not an exhaustive secret audit. npm uses a positive file inventory: built entrypoints/shared chunks/types, README, LICENSE, CHANGELOG and manifest. See [repository hygiene](docs/REPOSITORY_HYGIENE.md).
 
 ## Roadmap
 
-Phase 0 provides the engine and tools. Phase 1 adds these four collections and the full gallery. Later phases add nine more collections, React/web component/CLI/self-hosted HTTP integrations, then the stable 1.0 contract. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
+Phase 0 provides the engine and tools. Phases 1 and 2 add nine collections and the full gallery. Later phases add four more collections, React/web component/CLI/self-hosted HTTP integrations, then the stable 1.0 contract. See [deliverables and exit criteria](PLAN.md#9-hoja-de-ruta). This project promises no hosted public image API.
 
 ## License
 

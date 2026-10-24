@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 1 implementada: Mosaico, Monograma, Rack, Siesta y galería completa. v0.1.0 publicada en npm el 2026-10-24 y comprobada mediante instalación desde el registro. El CI y el despliegue de Pages se verifican para el último commit.
+> **Estado:** fase 2 implementada: nueve colecciones y galería con sus controles. v0.1.0 publicada; v0.2.0 preparada para revisión de CI y publicación npm. El motor y los 80 snapshots de las colecciones de fase 1 se conservan byte a byte.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -380,6 +380,8 @@ Orden: **0 → 1 → 2 → 3 → 4 → 5**. No se fijan fechas antes de tener el
 
 ### Fase 2 · v0.2: resto de clásicas y originales
 
+**Estado al 2026-10-24:** cinco colecciones implementadas, 88 pruebas unitarias y 17 de Chromium; 20 snapshots por colección, nueve subrutas instaladas desde tarball y 30 hojas de revisión con 60 semillas, cuatro tamaños, seis temas y dos fondos. v0.2.0 preparada, pendiente de CI y publicación. Evidencia y límites en [PHASE2_REVIEW.md](docs/PHASE2_REVIEW.md).
+
 **Depende de:** fase 1. **Objetivo:** ampliar el catálogo sin cambiar el contrato común.
 1. Implementar Origami, Despensa, Déco, Latte y Constelación, una a una.
 2. Añadir sus controles específicos (`animal`, `food`, `motif`, `art`), paletas, documentación y entradas en galería.
@@ -454,3 +456,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** sesión npm verificada y CI completo del commit `b5fc39c` en verde. Publicación intentada y detenida por npm con E403: requiere completar 2FA. Sin publicación ni tag de versión todavía.
 
 - **2026-10-24:** completada la autorización 2FA y publicada v0.1.0 desde `5642202`, con CI y Pages en verde. Instalación desde npm en directorio vacío y caché nueva: motor, cuatro colecciones, SVG, URI de datos, determinismo y tipos públicos correctos. Integridad del tarball verificada; tag `v0.1.0` sobre el commit publicado.
+
+- **2026-10-24:** implementada fase 2: Origami, Despensa, Déco, Latte y Constelación; opciones forzadas, nueve subrutas, galería y controles ampliados. 80 snapshots anteriores intactos, arte original MIT y núcleo sin cambios. Se corrige Biome para conservar el frontmatter de Changesets y se prepara v0.2.0.

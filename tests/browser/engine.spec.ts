@@ -1,12 +1,27 @@
 import { expect, test } from '@playwright/test';
+import { constellation } from '../../packages/core/src/collections/constellation/index.js';
+import { deco } from '../../packages/core/src/collections/deco/index.js';
+import { latte } from '../../packages/core/src/collections/latte/index.js';
 import { monogram } from '../../packages/core/src/collections/monogram/index.js';
 import { mosaic } from '../../packages/core/src/collections/mosaic/index.js';
+import { origami } from '../../packages/core/src/collections/origami/index.js';
+import { pantry } from '../../packages/core/src/collections/pantry/index.js';
 import { rack, statusColors } from '../../packages/core/src/collections/rack/index.js';
 import { siesta } from '../../packages/core/src/collections/siesta/index.js';
 import type { Collection } from '../../packages/core/src/index.js';
 import { createAvatar } from '../../packages/core/src/index.js';
 
-for (const collection of [mosaic, monogram, rack, siesta] as readonly Collection<object>[]) {
+for (const collection of [
+  mosaic,
+  monogram,
+  rack,
+  siesta,
+  origami,
+  pantry,
+  deco,
+  latte,
+  constellation,
+] as readonly Collection<object>[]) {
   test(`${collection.id}: browser and Node have identical bytes across themes, shapes and Unicode`, async ({
     page,
   }) => {
@@ -117,4 +132,48 @@ test('ignores invalid URL enums and makes no external image or font requests', a
   await expect(page.getByLabel('Tema', { exact: true })).toHaveValue('auto');
   await expect(page.locator('#sizes img')).toHaveCount(5);
   expect(external).toEqual([]);
+});
+
+for (const [collection, key, values] of [
+  ['origami', 'animal', ['fox', 'cat', 'bear', 'owl']],
+  ['pantry', 'food', ['donut', 'citrus', 'egg', 'avocado']],
+  ['deco', 'motif', ['fan', 'arches', 'sun']],
+  ['latte', 'art', ['heart', 'tulip', 'rosetta', 'rings']],
+] as const) {
+  test(`${collection}: forces each option, restores URL and fits mobile contact sheets`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/?collection=${collection}&seed=Review&view=variety&count=60&contactSize=32`);
+    await expect(page.locator('#collection option')).toHaveCount(9);
+    const outputs: string[] = [];
+    for (const value of values) {
+      await page.locator(`#option-${key}`).selectOption(value);
+      await expect(page).toHaveURL(new RegExp(`${key}=${value}`));
+      const output = await page.locator('#output').textContent();
+      outputs.push(output ?? '');
+      await page.reload();
+      await expect(page.locator(`#option-${key}`)).toHaveValue(value);
+      await expect(page.locator('#output')).toHaveText(output ?? '');
+      await expect(page.locator('#sizes img')).toHaveCount(60);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+    }
+    expect(new Set(outputs.map((svg) => svg.replace(/la-[0-9a-f]+/g, 'avatar'))).size).toBe(
+      values.length,
+    );
+  });
+}
+
+test('constellation has no option controls and drops options from other collections', async ({
+  page,
+}) => {
+  await page.goto('/?collection=constellation&animal=fox&food=egg&art=heart&motif=sun');
+  await expect(page.locator('#collection-options select')).toHaveCount(0);
+  for (const key of ['animal', 'food', 'art', 'motif'])
+    expect(new URL(page.url()).searchParams.has(key)).toBe(false);
+  await expect(page.locator('#output')).toHaveText(
+    createAvatar(constellation, { seed: 'Ada Moss' }),
+  );
 });

@@ -1,6 +1,6 @@
 {
   "name": "lazy-avatars",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic, self-contained SVG avatars with a dependency-free core",
   "type": "module",
   "license": "MIT",

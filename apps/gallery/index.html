@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Avatares SVG deterministas. Explora Mosaico, Monograma, Rack y Siesta con tus colores y tu semilla." />
-  <title>lazy-avatars · Cuatro formas de ser tú</title>
+  <meta name="description" content="Avatares SVG deterministas. Explora nueve colecciones, de Origami y Latte a Constelación con tus colores y tu semilla." />
+  <title>lazy-avatars · Nueve formas de ser tú</title>
 </head>
 <body>
 <main>
@@ -17,7 +17,7 @@
   <section class="lab" aria-label="Generador de avatares">
     <form id="controls">
       <label for="collection">Colección</label>
-      <select id="collection"><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select>
+      <select id="collection"><option value="origami">Origami</option><option value="pantry">Despensa</option><option value="deco">Déco</option><option value="latte">Latte</option><option value="constellation">Constelación</option><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select>
       <label for="seed">Semilla</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" required autocomplete="off" />
       <label for="theme">Tema</label><select id="theme"><option value="auto">Auto · paletas propias</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select>
       <label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
@@ -41,12 +41,12 @@
   </section>
   <section class="source" aria-label="Ejemplos de uso">
       <div class="source-heading"><h2>Llévatelo a tu proyecto</h2><button id="copy-code" type="button">Copiar código</button></div>
-      <p class="hint">Instala <code>npm install lazy-avatars@0.1.0</code>. Disponible en <a href="https://www.npmjs.com/package/lazy-avatars/v/0.1.0">npm</a> y en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
+      <p class="hint">Catálogo v0.2 preparado; las cinco colecciones nuevas llegarán a npm al completar la publicación. La versión <a href="https://www.npmjs.com/package/lazy-avatars/v/0.1.0">v0.1.0 en npm</a> contiene las cuatro iniciales. Código en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
     <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" disabled>React · próximamente</button></div>
     <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
     <details><summary>Ver SVG de 64 px</summary><pre><code id="output"></code></pre></details>
   </section>
-  <footer>SVG autocontenido · sin fuentes externas · MIT · cuatro colecciones originales</footer>
+  <footer>SVG autocontenido · sin fuentes externas · MIT · nueve colecciones originales</footer>
 </main>
 <script type="module" src="/src/main.ts"></script>
 </body>

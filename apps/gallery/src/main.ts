@@ -1,7 +1,12 @@
 import type { AvatarOptions, Collection, Shape, ThemeId } from 'lazy-avatars';
 import { createAvatar, createAvatarDataUri, themes } from 'lazy-avatars';
+import { constellation } from 'lazy-avatars/constellation';
+import { deco } from 'lazy-avatars/deco';
+import { latte } from 'lazy-avatars/latte';
 import { monogram } from 'lazy-avatars/monogram';
 import { mosaic } from 'lazy-avatars/mosaic';
+import { origami } from 'lazy-avatars/origami';
+import { pantry } from 'lazy-avatars/pantry';
 import { rack } from 'lazy-avatars/rack';
 import { siesta } from 'lazy-avatars/siesta';
 import { contactSeeds } from '../../../fixtures/contact-seeds.js';
@@ -12,6 +17,23 @@ interface Descriptor {
   fields: Readonly<Record<string, { label: string; values: readonly string[] }>>;
 }
 const registry: Readonly<Record<string, Descriptor>> = {
+  origami: {
+    collection: origami,
+    fields: { animal: { label: 'Animal', values: ['fox', 'cat', 'bear', 'owl'] } },
+  },
+  pantry: {
+    collection: pantry,
+    fields: { food: { label: 'Alimento', values: ['donut', 'citrus', 'egg', 'avocado'] } },
+  },
+  deco: {
+    collection: deco,
+    fields: { motif: { label: 'Motivo', values: ['fan', 'arches', 'sun'] } },
+  },
+  latte: {
+    collection: latte,
+    fields: { art: { label: 'Arte latte', values: ['heart', 'tulip', 'rosetta', 'rings'] } },
+  },
+  constellation: { collection: constellation, fields: {} },
   mosaic: {
     collection: mosaic,
     fields: { tile: { label: 'Tesela', values: ['arcs', 'triangles'] } },
@@ -37,6 +59,21 @@ const registry: Readonly<Record<string, Descriptor>> = {
   },
 };
 const labels: Readonly<Record<string, string>> = {
+  fox: 'Zorro',
+  cat: 'Gato',
+  bear: 'Oso',
+  owl: 'Búho',
+  donut: 'Donut',
+  citrus: 'Cítrico',
+  egg: 'Huevo',
+  avocado: 'Aguacate',
+  fan: 'Abanico',
+  arches: 'Arcos escalonados',
+  sun: 'Sol',
+  heart: 'Corazón',
+  tulip: 'Tulipán',
+  rosetta: 'Roseta',
+  rings: 'Anillos',
   arcs: 'Arcos',
   triangles: 'Triángulos',
   circle: 'Círculo',
