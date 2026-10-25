@@ -5,8 +5,6 @@
 !pnpm-workspace.yaml
 !tsconfig.base.json
 !LICENSE
-!shared/
-!shared/*.ts
 !packages/
 !packages/core/
 !packages/core/package.json
@@ -16,14 +14,6 @@
 !packages/core/tsconfig.json
 !packages/core/src/
 !packages/core/src/**
-!packages/http/
-!packages/http/package.json
-!packages/http/README.md
-!packages/http/CHANGELOG.md
-!packages/http/tsup.config.ts
-!packages/http/tsconfig.json
-!packages/http/src/
-!packages/http/src/**
 **/node_modules
 **/dist
 **/.env*

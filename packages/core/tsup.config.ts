@@ -1,4 +1,4 @@
-import { copyFileSync } from 'node:fs';
+import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
@@ -17,6 +17,12 @@ export default defineConfig({
     orbit: 'src/collections/orbit/index.ts',
     mission: 'src/collections/mission/index.ts',
     helmet: 'src/collections/helmet/index.ts',
+    react: 'src/integrations/react/index.ts',
+    'web-component': 'src/integrations/web-component/index.ts',
+    cli: 'src/integrations/cli/index.ts',
+    'cli-bin': 'src/integrations/cli/bin.ts',
+    http: 'src/integrations/http/index.ts',
+    'http-bin': 'src/integrations/http/bin.ts',
   },
   format: ['esm'],
   target: 'es2022',
@@ -25,7 +31,9 @@ export default defineConfig({
   splitting: true,
   sourcemap: false,
   treeshake: true,
+  external: ['react'],
   async onSuccess() {
     copyFileSync('../../LICENSE', 'LICENSE');
+    writeFileSync('dist/react.js', `"use client";\n${readFileSync('dist/react.js', 'utf8')}`);
   },
 });

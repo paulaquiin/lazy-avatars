@@ -1,5 +1,5 @@
-import type { Collection } from 'lazy-avatars';
-import { renderInput } from '../../../shared/input.js';
+import type { Collection } from '../../index.js';
+import { renderInput } from '../shared/input.js';
 
 export interface Registration {
   readonly collections: readonly Collection<object>[];

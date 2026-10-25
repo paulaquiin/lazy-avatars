@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto';
 import type { Server } from 'node:http';
 import { createServer } from 'node:http';
-import { getCollection } from '../../../shared/catalogue.js';
-import { renderInput } from '../../../shared/input.js';
+import { getCollection } from '../shared/catalogue.js';
+import { renderInput } from '../shared/input.js';
 
 /** No listener starts until the caller invokes listen(). No seed or URL is logged. */
 export function createAvatarServer(): Server {

@@ -4,7 +4,7 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Trece cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **1.0.0 publicada.** Trece colecciones originales y cuatro adaptadores disponibles en npm. Instalación con caché nueva, tipos públicos, CLI y archivos publicados verificados el 2026-10-24. El núcleo conserva las salidas de 0.3.0. Consulta [estabilidad/migración](docs/STABILITY.md), [compatibilidad](docs/COMPATIBILITY.md) y [publicación](docs/RELEASING.md).
+> **1.1.0 preparada: paquete único.** React, web component, CLI y HTTP usan subrutas de lazy-avatars. Pendiente de publicación npm; 1.0.0 sigue siendo la versión publicada. Salida SVG intacta.
 
 ## Uso
 
@@ -67,12 +67,12 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-React (`@paulaquiin/lazy-avatars-react`), web component
-(`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
-y HTTP/Docker autoalojable (`@paulaquiin/lazy-avatars-http`) comparten núcleo ^1.0.0.
-Los cinco paquetes están publicados en npm; consulta
-[ejemplos y contratos](docs/INTEGRATIONS.md). La galería permite editar cinco
-colores, revisar contraste y copiar código React. Sin API de imágenes alojada.
+Una instalación: `npm install lazy-avatars@1.1.0` (preparada, aún sin publicar).
+Usa `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` y
+`lazy-avatars/http`. React 19 es un peer opcional: solo se instala si lo necesitas.
+El motor y las colecciones no cargan React, DOM ni código del servidor Node.
+El archivo npm contiene todas las entradas; el bundle incorpora las que importas.
+Consulta [migración y ejemplos](docs/INTEGRATIONS.md).
 
 ## Desarrollo
 

@@ -1,13 +1,13 @@
 import { createElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
-import { run } from '../packages/cli/src/index.js';
 import { orbit } from '../packages/core/src/collections/orbit/index.js';
 import { rack } from '../packages/core/src/collections/rack/index.js';
 import { createAvatar } from '../packages/core/src/index.js';
-import { createAvatarServer } from '../packages/http/src/index.js';
-import { Avatar } from '../packages/react/src/index.js';
-import { registerLazyAvatar } from '../packages/web-component/src/index.js';
+import { run } from '../packages/core/src/integrations/cli/index.js';
+import { createAvatarServer } from '../packages/core/src/integrations/http/index.js';
+import { Avatar } from '../packages/core/src/integrations/react/index.js';
+import { registerLazyAvatar } from '../packages/core/src/integrations/web-component/index.js';
 
 test('React preserves core SVG bytes with an explicit prefix and typed options', () => {
   const options = {

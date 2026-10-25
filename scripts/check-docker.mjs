@@ -5,7 +5,7 @@ import { rack } from '../packages/core/dist/rack.js';
 
 const docker = (...args) =>
   execFileSync('docker', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-docker('build', '-f', 'packages/http/Dockerfile', '-t', 'lazy-avatars-http:check', '.');
+docker('build', '-f', 'packages/core/Dockerfile', '-t', 'lazy-avatars-http:check', '.');
 const container = docker(
   'run',
   '--rm',

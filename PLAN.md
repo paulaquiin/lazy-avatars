@@ -478,3 +478,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** la mantenedora elige publicar los adaptadores bajo @paulaquiin al no existir @lazy-avatars. Preparada versión 1.0.0 para núcleo y cuatro adaptadores, sin modificar motor, colecciones ni snapshots. Contrato estable, migración de nombres, identidad Siesta MIT, avisos, compatibilidad y medidas manuales. Se reutilizan las pruebas existentes.
 
 - **2026-10-24:** fase 5 cerrada. Publicados los cinco paquetes 1.0.0 desde `d5d7c43` tras CI verde y autorización npm. Archivos publicados comparados con los tarballs revisados, integridad SHA-512 validada e instalación con caché nueva correcta: trece colecciones, adaptadores, tipos y CLI. Tag `v1.0.0` sobre el commit publicado. Sin nuevas pruebas unitarias/de navegador ni difusión del anuncio.
+
+- **2026-10-25:** la mantenedora elige un único paquete lazy-avatars con subrutas /react, /web-component, /cli y /http. Preparada 1.1.0, React peer opcional, mismos SVG, sin nuevos tests; se reutiliza CI, instalación aislada y revisión de grafos. Releases 1.0.0 anteriores conservadas.

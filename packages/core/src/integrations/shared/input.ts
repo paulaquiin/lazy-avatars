@@ -1,5 +1,5 @@
-import type { AvatarOptions, Collection } from 'lazy-avatars';
-import { createAvatar } from 'lazy-avatars';
+import type { AvatarOptions, Collection } from '../../index.js';
+import { createAvatar } from '../../index.js';
 
 export const inputKeys = [
   'size',

@@ -1,5 +1,5 @@
-import { getCollection } from '../../../shared/catalogue.js';
-import { renderInput } from '../../../shared/input.js';
+import { getCollection } from '../shared/catalogue.js';
+import { renderInput } from '../shared/input.js';
 
 export const usage = `Usage: lazy-avatars <collection> <seed> [--size 64] [--shape rounded]
   [--theme night | --palette '{"background":"#fff",...}']

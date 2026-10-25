@@ -1,3 +1,7 @@
+> **2026-10-25:** arquitectura de paquete único 1.1.0 preparada. Las secciones
+> históricas de fases 1–5 describen 1.0.0. El esquema actual y la migración están
+> en [INTEGRATIONS.md](INTEGRATIONS.md). Entradas nuevas sin cambiar SVG.
+
 # Arquitectura de lazy-avatars
 
 Estado: motor y fases 1–5 implementados, con trece colecciones y galería completa. Fecha: 2026-10-24. La [guía](../PLAN.md) define las colecciones y el alcance; este documento concreta los límites técnicos. Los cuatro adaptadores están publicados en 1.0.0 bajo @paulaquiin; véase [INTEGRATIONS.md](INTEGRATIONS.md). El CI ejecuta la matriz remota en [GitHub Actions](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml).
@@ -9,25 +13,14 @@ Monorepo TypeScript con pnpm workspaces. El producto principal será una librer�
 Esta estructura permite compartir contratos y pruebas entre las colecciones sin obligar a sus consumidores a instalar la galería o las integraciones. No añadiremos un orquestador de monorepo mientras los scripts de pnpm sean suficientes.
 
 ```text
-lazy-avatars/
-├── packages/
-│   ├── core/                  # lazy-avatars: motor y subrutas de colecciones
-│   │   └── src/
-│   │       ├── index.ts       # API y tipos comunes; no importa colecciones
-│   │       ├── engine/        # hash, rng, svg, color, initials y glyphs
-│   │       ├── themes/        # temas y roles de color
-│   │       └── collections/   # una carpeta por colección
-│   ├── react/                 # fase 4: @paulaquiin/lazy-avatars-react
-│   ├── web-component/         # fase 4: elemento <lazy-avatar>
-│   ├── cli/                   # fase 4: @paulaquiin/lazy-avatars-cli
-│   └── http/                  # fase 4: servidor autoalojable y Dockerfile
-├── apps/
-│   └── gallery/               # Vite + TypeScript, sin framework
-├── docs/                      # documentación pública
-├── PLAN.md
-├── README.md
-├── README.es.md
-└── LICENSE
+packages/core/                  # único paquete publicable: lazy-avatars
+  src/index.ts                  # motor y tipos; no importa integraciones
+  src/collections/              # 13 colecciones independientes
+  src/integrations/              # react, web-component, cli, http y helpers
+  Dockerfile                    # HTTP autoalojable
+apps/gallery/                   # Vite/TypeScript sin React
+apps/integrations/              # ejemplos SSR/web component, privados para npm
+docs/integrations/              # contratos y ejemplos
 ```
 
 Los directorios de código se crearán en su fase, sin paquetes vacíos. Los nombres estables de los adaptadores usan @paulaquiin; véase la migración de 1.0.

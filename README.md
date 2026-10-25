@@ -4,7 +4,7 @@ Deterministic SVG avatars for people, teams, servers and bots. Thirteen original
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **1.0.0 published.** Thirteen original collections and four adapters are available on npm. Fresh installation, public types, CLI and artifact contents were verified on 2026-10-24. Core rendering is unchanged from 0.3.0. See [stability/migration](docs/STABILITY.md), [verified environments](docs/COMPATIBILITY.md) and [release record](docs/RELEASING.md).
+> **1.1.0 prepared: one package.** React, custom elements, CLI and HTTP use lazy-avatars subpaths. Not yet published to npm; 1.0.0 remains the latest published release. Core SVG output is unchanged.
 
 ## Use
 
@@ -67,12 +67,12 @@ The URL stores the current state, including the seed. Sharing a gallery URL shar
 
 ## Integrations
 
-React (`@paulaquiin/lazy-avatars-react`), web component
-(`@paulaquiin/lazy-avatars-web-component`), CLI (`@paulaquiin/lazy-avatars-cli`)
-and self-hosted HTTP/Docker (`@paulaquiin/lazy-avatars-http`) share core ^1.0.0.
-All five packages are published on npm under the documented names. See
-[examples and contracts](docs/INTEGRATIONS.md). The gallery includes five-role
-palette editing, contrast preview and copyable React code. No hosted image API.
+One install: `npm install lazy-avatars@1.1.0` (prepared, not published yet).
+Use `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` and
+`lazy-avatars/http`. React 19 is an optional peer: install it only for the React
+entry. Core and collection imports load no React, DOM or Node server code.
+The npm archive includes all entries; bundlers follow only the imports you use.
+See [migration and examples](docs/INTEGRATIONS.md).
 
 ## Develop
 

@@ -70,3 +70,11 @@ Core reachable ESM: 16 380 bytes raw / 5 408 gzip; budget 24 KiB / 8 KiB.
 Collections are separate imports. CI checks sizes and isolated package import
 graphs. React is not bundled into the core or the framework-free gallery.
 No rendering performance threshold was added to CI, avoiding noisy timing failures.
+
+## Single-package 1.1 preparation / Preparación 1.1
+
+The npm archive now contains all integration entries, but root imports stay isolated.
+Measured reachable engine: 16 517 bytes ESM / 5 411 gzip, within the unchanged
+24 KiB / 8 KiB budget. No React/DOM/Node server imports enter core/collection graphs.
+El tarball incluye más entradas; el motor importado sigue siendo ligero. No se
+repitió el benchmark de renderizado: los algoritmos y los SVG no cambian.

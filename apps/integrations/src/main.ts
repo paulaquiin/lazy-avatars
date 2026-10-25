@@ -1,6 +1,6 @@
-import { registerLazyAvatar } from '@paulaquiin/lazy-avatars-web-component';
 import { orbit } from 'lazy-avatars/orbit';
 import { rack } from 'lazy-avatars/rack';
+import { registerLazyAvatar } from 'lazy-avatars/web-component';
 import { createElement } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { Example } from './example.js';

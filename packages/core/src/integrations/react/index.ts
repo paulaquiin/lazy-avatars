@@ -1,7 +1,7 @@
-import type { AvatarOptions, Collection } from 'lazy-avatars';
-import { createAvatar } from 'lazy-avatars';
 import type { CSSProperties, ReactElement } from 'react';
 import { createElement, useId } from 'react';
+import type { AvatarOptions, Collection } from '../../index.js';
+import { createAvatar } from '../../index.js';
 
 export interface AvatarProps<O extends object> extends AvatarOptions<O> {
   readonly collection: Collection<O>;

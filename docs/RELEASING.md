@@ -1,5 +1,13 @@
 # Publicaciones de lazy-avatars
 
+## v1.1.0 · preparada, sin publicar
+
+Un único paquete lazy-avatars con entradas /react, /web-component, /cli y /http,
+dos bins y React como peer opcional. Core sin dependencias de ejecución ni cambios
+SVG. Se retiran los cuatro paquetes separados del workspace; sus releases npm
+1.0.0 siguen intactas. Ver [migración](INTEGRATIONS.md). Este cambio prepara el
+código y CI; no realiza una publicación npm ni depreca paquetes existentes.
+
 ## v1.0.0 · publicada
 
 Publicada el 2026-10-24 con autorización de cuenta npm. Núcleo y cuatro adaptadores

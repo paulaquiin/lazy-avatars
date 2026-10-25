@@ -1,6 +1,6 @@
 {
   "name": "lazy-avatars",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Deterministic, self-contained SVG avatars with a dependency-free core",
   "type": "module",
   "license": "MIT",
@@ -74,6 +74,22 @@
     "./helmet": {
       "types": "./dist/helmet.d.ts",
       "import": "./dist/helmet.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./web-component": {
+      "types": "./dist/web-component.d.ts",
+      "import": "./dist/web-component.js"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.js"
+    },
+    "./http": {
+      "types": "./dist/http.d.ts",
+      "import": "./dist/http.js"
     }
   },
   "engines": {
@@ -83,5 +99,17 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "typecheck": "tsc --noEmit"
+  },
+  "bin": {
+    "lazy-avatars": "./dist/cli-bin.js",
+    "lazy-avatars-http": "./dist/http-bin.js"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   }
 }

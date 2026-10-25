@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,6 +41,12 @@ const allowed = new Set([
     'orbit',
     'mission',
     'helmet',
+    'react',
+    'web-component',
+    'cli',
+    'http',
+    'cli-bin',
+    'http-bin',
   ].flatMap((id) => [`dist/${id}.js`, `dist/${id}.d.ts`]),
 ]);
 for (const path of paths) {
@@ -71,7 +77,8 @@ assert.equal(
   0,
   'Core must have no runtime dependencies',
 );
-assert.equal(Object.keys(manifest.peerDependencies ?? {}).length, 0, 'Core must have no peers');
+assert.deepEqual(manifest.peerDependencies, { react: '^19.0.0' });
+assert.deepEqual(manifest.peerDependenciesMeta, { react: { optional: true } });
 assert.equal(manifest.sideEffects, false);
 for (const conditions of Object.values(manifest.exports)) {
   for (const target of Object.values(conditions))
@@ -95,6 +102,20 @@ function graph(entry) {
 }
 const rootGraph = graph('dist/index.js');
 const code = [...rootGraph].map((path) => readFileSync(join(core, path), 'utf8')).join('\n');
+for (const entry of [
+  'dist/index.js',
+  'dist/web-component.js',
+  ...Object.keys(manifest.exports)
+    .filter((s) => !['.', './react', './cli', './http', './web-component'].includes(s))
+    .map((s) => `dist/${s.slice(2)}.js`),
+]) {
+  const source = [...graph(entry)].map((p) => readFileSync(join(core, p), 'utf8')).join('\n');
+  assert(
+    !/from ['"](?:react|node:)/.test(source),
+    `${entry} imports an optional platform dependency`,
+  );
+}
+assert(readFileSync(join(core, 'dist/react.js'), 'utf8').startsWith('"use client";'));
 const reachable = new Set();
 for (const [subpath, conditions] of Object.entries(manifest.exports)) {
   for (const target of Object.values(conditions))
@@ -117,9 +138,14 @@ for (const [subpath, conditions] of Object.entries(manifest.exports)) {
     mission: 'Misión',
     helmet: 'Casco',
   })) {
-    if (subpath !== `./${id}`)
+    if (!['./cli', './http'].includes(subpath) && subpath !== `./${id}`)
       assert(!moduleCode.includes(`name: "${name}"`), `${subpath} unexpectedly imports ${id}`);
   }
+}
+for (const target of Object.values(manifest.bin)) {
+  for (const path of graph(target.replace(/^\.\//, ''))) reachable.add(path);
+  const types = target.replace(/^\.\//, '').replace(/\.js$/, '.d.ts');
+  for (const path of graph(types)) reachable.add(path);
 }
 for (const path of paths.filter((path) => path.startsWith('dist/')))
   assert(reachable.has(path), `Orphan distribution file ${path}`);
@@ -151,7 +177,24 @@ try {
       },
     }),
   );
-  run(['install', '--offline', '--ignore-scripts', '--lockfile=false'], temporary);
+  run(
+    [
+      'install',
+      '--offline',
+      '--ignore-scripts',
+      '--lockfile=false',
+      '--config.auto-install-peers=false',
+    ],
+    temporary,
+  );
+  assert(
+    !JSON.parse(readFileSync(join(temporary, 'node_modules/lazy-avatars/package.json'), 'utf8'))
+      .dependencies,
+  );
+  assert(
+    !existsSync(join(temporary, 'node_modules/react')),
+    'Core install must not install optional React',
+  );
   const consumer = `import assert from 'node:assert/strict';
 import { createAvatar, themes, svgElement } from 'lazy-avatars';
 import { mosaic } from 'lazy-avatars/mosaic';

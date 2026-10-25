@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "lazy-avatars": "workspace:*",
-    "@paulaquiin/lazy-avatars-react": "workspace:*",
-    "@paulaquiin/lazy-avatars-web-component": "workspace:*",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   }

@@ -5,7 +5,7 @@ Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte, Constellation, Tinbot, Or
 Mission and Helmet.
 
 ```sh
-npm install lazy-avatars@1.0.0
+npm install lazy-avatars@1.1.0
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -94,3 +94,20 @@ Stable 1.0 preserves 0.3.0 SVG output. Changes to existing valid SVG bytes requi
 a major release and the affected collection outputVersion increment. Pin versions
 or store SVG for historical output. See the repository stability/migration and
 compatibility documents. Code, glyphs and Siesta branding are original MIT.
+
+## Optional integration entries (1.1.0)
+
+All integrations ship in this package. React is an optional peer; core users do
+not install it. Node built-ins are used only by CLI/HTTP entry graphs.
+
+```ts
+import { Avatar } from 'lazy-avatars/react';
+import { registerLazyAvatar } from 'lazy-avatars/web-component';
+import { run } from 'lazy-avatars/cli';
+import { createAvatarServer } from 'lazy-avatars/http';
+```
+
+Install React separately when using Avatar: `npm install react@19` (and its types
+for TypeScript). Bins: `npx lazy-avatars rack demo` and `npx --package=lazy-avatars
+lazy-avatars-http`. Library entries start no listener and register no elements
+on import. Core rendering and collection outputVersion remain unchanged.

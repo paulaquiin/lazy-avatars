@@ -1,5 +1,16 @@
 # lazy-avatars
 
+## 1.1.0
+
+### Minor Changes
+
+- Add optional integrations via lazy-avatars/react, lazy-avatars/web-component,
+  lazy-avatars/cli and lazy-avatars/http, plus lazy-avatars and lazy-avatars-http bins.
+  React is an optional peer; the root engine and collection import graphs remain
+  free of React, DOM access, Node built-ins and runtime dependencies. Existing SVG
+  output and collection outputVersion values are unchanged.
+  Migrate imports from the separately published @paulaquiin adapter packages.
+
 ## 1.0.0
 
 ### Major Changes

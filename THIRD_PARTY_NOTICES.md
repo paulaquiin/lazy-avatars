@@ -3,8 +3,8 @@
 Project source, generated collection artwork, all glyphs and the Siesta brand
 assets are original material under the root MIT license. No third-party font,
 converted font outline, agency insignia or external illustration is distributed.
-The core has zero runtime dependencies. CLI/HTTP depend on that same MIT core;
-the web component peers on it. React is a peer dependency, never bundled here.
+The core has zero runtime dependencies. CLI/HTTP and the web component ship as isolated entries in the same MIT package.
+React is an optional peer dependency, never bundled here.
 
 Consumers installing React/React DOM receive those packages with their own MIT
 license and copyright notices; retain them when redistributing their code.

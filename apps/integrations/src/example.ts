@@ -1,5 +1,5 @@
-import { Avatar } from '@paulaquiin/lazy-avatars-react';
 import { orbit } from 'lazy-avatars/orbit';
+import { Avatar } from 'lazy-avatars/react';
 import { createElement, useState } from 'react';
 
 export function Example() {
