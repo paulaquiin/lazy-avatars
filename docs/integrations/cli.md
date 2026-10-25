@@ -1,6 +1,6 @@
 # CLI · lazy-avatars/cli
 
-Prepared for lazy-avatars 1.1.0 (not yet published).
+Available in lazy-avatars 1.1.0, published on npm.
 
 ```sh
 npx lazy-avatars@1.1.0 rack demo-server-01 --theme night > avatar.svg

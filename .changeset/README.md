@@ -21,3 +21,7 @@ The v0.3.0 tag points at the exact published commit.
 Version 1.0.0 of core and four @paulaquiin adapters was published on 2026-10-24.
 Reviewed payloads, SHA-512 integrity, registry installation, public types and CLI passed.
 Core output is unchanged from 0.3.0. v1.0.0 identifies the shared source commit.
+
+Version 1.1.0 was published on 2026-10-25 as the single lazy-avatars package.
+Registry installation without/with React, all subpaths, types, bins and HTTP passed.
+Reviewed payload and SHA-512 integrity verified; v1.1.0 tags the published source.

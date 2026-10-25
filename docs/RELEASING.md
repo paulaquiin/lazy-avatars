@@ -1,17 +1,22 @@
 # Publicaciones de lazy-avatars
 
-## v1.1.0 · preparada, sin publicar
+## v1.1.0 · publicada
 
-Un único paquete lazy-avatars con entradas /react, /web-component, /cli y /http,
-dos bins y React como peer opcional. Core sin dependencias de ejecución ni cambios
-SVG. Se retiran los cuatro paquetes separados del workspace; sus releases npm
-1.0.0 siguen intactas. Ver [migración](INTEGRATIONS.md). Este cambio prepara el
-código y CI; no realiza una publicación npm ni depreca paquetes existentes.
+Publicada el 2026-10-25 tras renovar sesión y autorizar la publicación npm.
+Un único [lazy-avatars@1.1.0](https://www.npmjs.com/package/lazy-avatars/v/1.1.0),
+con entradas /react, /web-component, /cli y /http, dos bins y React peer opcional.
+- Commit publicado y tag `v1.1.0`: `0889c15cdcdc7f17b36e61894b622a64c01469b8`.
+- [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40177554739): Linux/Node 24.11 y 26, Windows/Node 24, Docker y Pages aprobados.
+- 66 archivos permitidos, 31 796 bytes de tarball. Contenido idéntico al artefacto revisado e integridad SHA-512 comprobada: [registro](releases/v1.1.0.json).
+- Instalación con caché nueva desde npm sin React: núcleo, trece colecciones, web-component importable en SSR, CLI/bin y servidor HTTP real con SVG/MIME correctos.
+- Tras instalar React: SSR y tipos públicos de las cuatro subrutas aprobados. React no se instala para consumidores del núcleo.
+- Motor importado: 16 517 bytes ESM / 5 411 gzip, sin dependencias de ejecución. SVG y outputVersion conservados.
+- Los cuatro paquetes con scope publicados en 1.0.0 siguen intactos; no se deprecan ni modifican. Ver [migración](INTEGRATIONS.md).
 
 ## v1.0.0 · publicada
 
 Publicada el 2026-10-24 con autorización de cuenta npm. Núcleo y cuatro adaptadores
-bajo @paulaquiin; `latest` apunta a 1.0.0 en los cinco paquetes.
+bajo @paulaquiin; en su publicación, `latest` apuntaba a 1.0.0 en los cinco paquetes.
 - Commit publicado y tag `v1.0.0`: `d5d7c431153eb9d5ea9f542e92cceaaec38f9870`.
 - [CI del commit publicado](https://github.com/paulaquiin/lazy-avatars/actions/runs/40133844169): Linux/Node 24.11 y 26, Windows/Node 24, Docker y Pages aprobados.
 - Sin cambios del motor, colecciones o 260 snapshots de 0.3.0. No se añadieron pruebas.

@@ -1,6 +1,6 @@
 # Custom element · lazy-avatars/web-component
 
-Prepared for lazy-avatars 1.1.0 (not yet published). No React needed.
+Available in lazy-avatars 1.1.0, published on npm. No React needed.
 
 ```ts
 import { registerLazyAvatar } from 'lazy-avatars/web-component';

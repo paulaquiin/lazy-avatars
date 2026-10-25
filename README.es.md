@@ -4,14 +4,14 @@ Avatares SVG deterministas para personas, equipos, servidores y bots. Trece cole
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **1.1.0 preparada: paquete único.** React, web component, CLI y HTTP usan subrutas de lazy-avatars. Pendiente de publicación npm; 1.0.0 sigue siendo la versión publicada. Salida SVG intacta.
+> **1.1.0 publicada: paquete único.** Instala lazy-avatars para el núcleo, colecciones y entradas opcionales. Instalación desde npm, cuatro entradas, tipos y bins verificados el 2026-10-25. React sigue siendo opcional y los SVG no cambian. Ver [publicación](docs/RELEASING.md).
 
 ## Uso
 
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@1.0.0
+npm install lazy-avatars@1.1.0
 ```
 
 Importa el motor y la colección que necesites:
@@ -67,7 +67,7 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-Una instalación: `npm install lazy-avatars@1.1.0` (preparada, aún sin publicar).
+Una instalación: `npm install lazy-avatars@1.1.0`.
 Usa `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` y
 `lazy-avatars/http`. React 19 es un peer opcional: solo se instala si lo necesitas.
 El motor y las colecciones no cargan React, DOM ni código del servidor Node.

@@ -1,4 +1,4 @@
-> **1.1 migration / Migración 1.1 (prepared, not published):** all integrations
+> **1.1 migration / Migración 1.1 (published / publicada):** all integrations
 > move into lazy-avatars/react, web-component, cli and http. React is optional.
 > See [current integration contract](INTEGRATIONS.md). Existing 1.0 API and SVG
 > output are unchanged; old package names below document the 1.0 release.

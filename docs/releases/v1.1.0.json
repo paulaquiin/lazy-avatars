@@ -1,0 +1,10 @@
+{
+  "version": "1.1.0",
+  "date": "2026-10-25",
+  "sourceCommit": "0889c15cdcdc7f17b36e61894b622a64c01469b8",
+  "sourceCi": "https://github.com/paulaquiin/lazy-avatars/actions/runs/40177554739",
+  "integrity": "sha512-J7WiEjDG/0EYBwyeF36L3GKdMdUupiFUYh1LWwwNQd8ZPWAzHva+3ea0KLv2fd2Gh64+VV6owsPChAVRWoELNw==",
+  "files": 66,
+  "tarballBytes": 31796,
+  "verification": "Reviewed file contents and registry SHA-512 match. Fresh registry installation without React passed core/thirteen collections, web-component import, CLI/bin and live HTTP. With React installed, SSR and all four public subpath declarations passed."
+}

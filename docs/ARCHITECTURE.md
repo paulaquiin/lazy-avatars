@@ -1,4 +1,4 @@
-> **2026-10-25:** arquitectura de paquete único 1.1.0 preparada. Las secciones
+> **2026-10-25:** arquitectura de paquete único 1.1.0 publicada y verificada desde npm. Las secciones
 > históricas de fases 1–5 describen 1.0.0. El esquema actual y la migración están
 > en [INTEGRATIONS.md](INTEGRATIONS.md). Entradas nuevas sin cambiar SVG.
 

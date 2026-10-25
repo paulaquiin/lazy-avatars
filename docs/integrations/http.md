@@ -1,6 +1,6 @@
 # Self-hosted HTTP · lazy-avatars/http
 
-Prepared for lazy-avatars 1.1.0 (not yet published). Uses Node standard modules,
+Available in lazy-avatars 1.1.0, published on npm. Uses Node standard modules,
 no React or runtime dependencies. No project-hosted public image API is deployed.
 
 ```sh

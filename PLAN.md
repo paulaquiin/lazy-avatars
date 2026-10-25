@@ -1,6 +1,6 @@
 # lazy-avatars · Plan de implementación
 
-> **Estado:** fase 5 cerrada: núcleo y cuatro adaptadores 1.0.0 publicados e instalados desde npm con caché nueva. API estable, migración, compatibilidad, contribuciones y marca Siesta MIT documentadas. Motor y 260 snapshots de 0.3.0 intactos. CI/Docker/Pages aprobados para el commit publicado; anuncio preparado sin enviar.
+> **Estado:** versión 1.1.0 publicada como paquete único lazy-avatars, con cuatro entradas opcionales y React peer opcional. Instalación real desde npm, tipos, SSR, CLI y HTTP verificados. CI/Docker/Pages aprobados para el commit publicado; motor y SVG sin cambios.
 > **Última actualización:** 2026-10-24
 >
 > Documentos relacionados: [README en español](README.es.md), [README principal](README.md), [arquitectura](docs/ARCHITECTURE.md) y [reglas de Git y publicación](docs/REPOSITORY_HYGIENE.md).
@@ -480,3 +480,5 @@ Las propuestas siguientes se usan como base de la documentación del 2026-10-23.
 - **2026-10-24:** fase 5 cerrada. Publicados los cinco paquetes 1.0.0 desde `d5d7c43` tras CI verde y autorización npm. Archivos publicados comparados con los tarballs revisados, integridad SHA-512 validada e instalación con caché nueva correcta: trece colecciones, adaptadores, tipos y CLI. Tag `v1.0.0` sobre el commit publicado. Sin nuevas pruebas unitarias/de navegador ni difusión del anuncio.
 
 - **2026-10-25:** la mantenedora elige un único paquete lazy-avatars con subrutas /react, /web-component, /cli y /http. Preparada 1.1.0, React peer opcional, mismos SVG, sin nuevos tests; se reutiliza CI, instalación aislada y revisión de grafos. Releases 1.0.0 anteriores conservadas.
+
+- **2026-10-25:** publicada 1.1.0 desde `0889c15` tras CI verde, renovación de sesión y autorización npm. 66 archivos revisados e integridad verificada; instalación con caché nueva sin React y con React, cuatro entradas, tipos, SSR, CLI/bin y HTTP correctos. Tag `v1.1.0` sobre el commit publicado; credenciales y utilidades privadas fuera de Git.

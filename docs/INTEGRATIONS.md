@@ -1,7 +1,7 @@
 # One package / Un único paquete
 
-1.1.0 is prepared, not yet published. Published 1.0.0 packages remain available.
-La versión 1.1.0 está preparada y pendiente de publicar; 1.0.0 sigue disponible.
+1.1.0 is published and verified from npm, with and without React. Old scoped packages remain available.
+La versión 1.1.0 está publicada y verificada desde npm, con React y sin React. Los paquetes con scope anteriores siguen disponibles.
 
 ```sh
 npm install lazy-avatars@1.1.0
@@ -49,7 +49,7 @@ node packages/core/dist/cli-bin.js rack demo-server-01
 node packages/core/dist/http-bin.js
 ```
 
-After registry publication: `npx lazy-avatars rack demo-server-01 > avatar.svg`;
+From npm: `npx lazy-avatars rack demo-server-01 > avatar.svg`;
 for HTTP, `npx --package=lazy-avatars lazy-avatars-http`.
 Docker: `docker build -f packages/core/Dockerfile -t lazy-avatars-http .`.
 
