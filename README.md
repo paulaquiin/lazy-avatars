@@ -6,6 +6,16 @@ Deterministic SVG avatars for people, teams, servers and bots. Thirteen original
 
 > **1.1.0 published: one package.** Install lazy-avatars for core, collections and optional integration subpaths. Fresh npm installation, all four entries, types and bins verified on 2026-10-25. React stays optional; SVG output is unchanged. See [release record](docs/RELEASING.md).
 
+## Collection previews
+
+Real SVG output from the library. Examples use `seed: 'Ada Moss'`, `size: 128` and `shape: 'rounded'`; Rack uses `demo-host-01` with `status: 'warn'`, as in the code below. [Explore variants in the gallery](https://paulaquiin.github.io/lazy-avatars/).
+
+| <img src="assets/previews/mosaic.svg" width="96" height="96" alt="Mosaic"><br>Mosaic                      | <img src="assets/previews/monogram.svg" width="96" height="96" alt="Monogram"><br>Monogram | <img src="assets/previews/rack.svg" width="96" height="96" alt="Rack"><br>Rack    | <img src="assets/previews/siesta.svg" width="96" height="96" alt="Siesta"><br>Siesta    |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| <img src="assets/previews/origami.svg" width="96" height="96" alt="Origami"><br>Origami                   | <img src="assets/previews/pantry.svg" width="96" height="96" alt="Pantry"><br>Pantry       | <img src="assets/previews/deco.svg" width="96" height="96" alt="Déco"><br>Déco    | <img src="assets/previews/latte.svg" width="96" height="96" alt="Latte"><br>Latte       |
+| <img src="assets/previews/constellation.svg" width="96" height="96" alt="Constellation"><br>Constellation | <img src="assets/previews/tinbot.svg" width="96" height="96" alt="Tinbot"><br>Tinbot       | <img src="assets/previews/orbit.svg" width="96" height="96" alt="Orbit"><br>Orbit | <img src="assets/previews/mission.svg" width="96" height="96" alt="Mission"><br>Mission |
+| <img src="assets/previews/helmet.svg" width="96" height="96" alt="Helmet"><br>Helmet                      |                                                                                            |                                                                                   |                                                                                         |
+
 ## Use
 
 Install the ESM package (Node.js 24.11+ on 24.x, or 26+, and modern browser bundlers):
