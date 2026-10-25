@@ -11,7 +11,7 @@ con entradas /react, /web-component, /cli y /http, dos bins y React peer opciona
 - Instalación con caché nueva desde npm sin React: núcleo, trece colecciones, web-component importable en SSR, CLI/bin y servidor HTTP real con SVG/MIME correctos.
 - Tras instalar React: SSR y tipos públicos de las cuatro subrutas aprobados. React no se instala para consumidores del núcleo.
 - Motor importado: 16 517 bytes ESM / 5 411 gzip, sin dependencias de ejecución. SVG y outputVersion conservados.
-- Los cuatro paquetes con scope publicados en 1.0.0 siguen intactos; no se deprecan ni modifican. Ver [migración](INTEGRATIONS.md).
+- El 2026-10-25 se marcaron como obsoletos los cuatro paquetes `@paulaquiin/lazy-avatars-*` en npm. Todas sus versiones (`0.0.0-stage` y `1.0.0`) incluyen un aviso para instalar `lazy-avatars@^1.1.0` y usar la subruta correspondiente. Ver [migración](INTEGRATIONS.md). Los artefactos antiguos siguen disponibles.
 
 ## v1.0.0 · publicada
 

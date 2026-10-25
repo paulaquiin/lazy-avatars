@@ -33,11 +33,23 @@ El web component conserva el registro explícito y el aislamiento de shadow DOM.
 Replace imports `@paulaquiin/lazy-avatars-react` with `lazy-avatars/react`, and do
 the same for web-component, cli and http. Component/function APIs are unchanged.
 Remove the old adapter dependency after updating your imports. Those previously
-published packages are not deleted, republished or deprecated by this source change.
+published packages are deprecated on npm as of 2026-10-25, with migration notices
+on every published version. They remain available for existing installations.
 
 Cambia los imports de los cuatro paquetes `@paulaquiin/lazy-avatars-*` por las
 subrutas equivalentes y elimina esas dependencias. Las APIs se mantienen. Los
-paquetes ya publicados siguen disponibles; no se modifican en el registro.
+paquetes antiguos están marcados como obsoletos en npm desde el 2026-10-25,
+con avisos de migración en todas sus versiones. Siguen disponibles para instalaciones existentes.
+
+| Old package / Paquete antiguo            | Replacement import / Import nuevo |
+| ---------------------------------------- | --------------------------------- |
+| `@paulaquiin/lazy-avatars-react`         | `lazy-avatars/react`              |
+| `@paulaquiin/lazy-avatars-web-component` | `lazy-avatars/web-component`      |
+| `@paulaquiin/lazy-avatars-cli`           | `lazy-avatars/cli`                |
+| `@paulaquiin/lazy-avatars-http`          | `lazy-avatars/http`               |
+
+Install / Instala `lazy-avatars@^1.1.0`. CLI: `npx lazy-avatars`;
+HTTP: `npx --package=lazy-avatars lazy-avatars-http`.
 
 ## Checkout examples / Ejemplos desde el repositorio
 
