@@ -1,10 +1,12 @@
 # lazy-avatars
 
-Deterministic SVG avatars for people, teams, servers and bots. Thirteen original collections, no runtime dependencies, no image service.
+[![npm version](https://img.shields.io/npm/v/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![npm downloads](https://img.shields.io/npm/dm/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml/badge.svg)](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) [![Core ESM gzip](https://img.shields.io/badge/core_ESM_gzip-5.3_KiB-315647)](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/COMPATIBILITY.md) [![MIT license](https://img.shields.io/npm/l/lazy-avatars)](https://github.com/paulaquiin/lazy-avatars/blob/main/LICENSE)
+
+Deterministic SVG avatar library for JavaScript and TypeScript applications: people, teams, servers and bots. Thirteen original collections, zero core runtime dependencies, optional React and web component entries, and MIT-licensed original artwork.
 
 [Español](README.es.md) · [Gallery](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](PLAN.md) · [MIT](LICENSE)
 
-> **1.1.0 published: one package.** Install lazy-avatars for core, collections and optional integration subpaths. Fresh npm installation, all four entries, types and bins verified on 2026-10-25. React stays optional; SVG output is unchanged. See [release record](docs/RELEASING.md).
+> **One package.** Core, thirteen collections and optional /react, /web-component, /cli and /http entries. React stays optional. See the [release record](docs/RELEASING.md).
 
 ## Collection previews
 
@@ -21,7 +23,7 @@ Real SVG output from the library. Examples use `seed: 'Ada Moss'`, `size: 128` a
 Install the ESM package (Node.js 24.11+ on 24.x, or 26+, and modern browser bundlers):
 
 ```sh
-npm install lazy-avatars@1.1.0
+npm install lazy-avatars@1.1.2
 ```
 
 Import the engine and the collection you need:
@@ -77,7 +79,7 @@ The URL stores the current state, including the seed. Sharing a gallery URL shar
 
 ## Integrations
 
-One install: `npm install lazy-avatars@1.1.0`.
+One install: `npm install lazy-avatars@1.1.2`.
 Use `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` and
 `lazy-avatars/http`. React 19 is an optional peer: install it only for the React
 entry. Core and collection imports load no React, DOM or Node server code.
@@ -99,7 +101,7 @@ On Linux use `pnpm exec playwright install --with-deps chromium`. `pnpm dev` bui
 
 Individual checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm check:integrations`, `pnpm test:browser`, `pnpm check:docker`. Build before the standalone package/browser checks. `pnpm format` applies formatting and safe fixes; `pnpm changeset` records public changes.
 
-Quality gates include 123 unit tests, 20 fixed snapshots per collection plus the engine fixture, 60-seed/theme/XML/size checks, 29 Chromium tests, and an actual isolated tarball installation with public types. Package checks follow the import graph to enforce collection isolation and catch orphan/missing chunks. The core's reachable module budget is 24 KiB raw / 8 KiB gzip; generated SVGs target 4 KiB. CI covers Linux/Node 24.11 and 26, and Windows/Node 24. Deno, Bun and edge remain compatibility targets.
+Quality gates include 123 unit tests, 20 fixed snapshots per collection plus the engine fixture, 60-seed/theme/XML/size checks, 30 Chromium tests, and an actual isolated tarball installation with public types. Package checks follow the import graph to enforce collection isolation and catch orphan/missing chunks. The core's reachable module budget is 24 KiB raw / 8 KiB gzip; generated SVGs target 4 KiB. CI covers Linux/Node 24.11 and 26, and Windows/Node 24. Deno, Bun and edge remain compatibility targets.
 
 Git contains public source, documentation, reviewed artwork, reproducible project scripts, tests and the lockfile. [.gitignore](.gitignore) excludes internal tools, assistant state, credentials, dependencies and generated output. `check:repo` checks paths, common credential patterns and available Git history without printing matched values; it is not an exhaustive secret audit. npm uses a positive file inventory: built entrypoints/shared chunks/types, README, LICENSE, CHANGELOG and manifest. See [repository hygiene](docs/REPOSITORY_HYGIENE.md).
 
@@ -112,3 +114,5 @@ Phase 0 provides the engine and tools. Phases 1–3 complete thirteen collection
 [MIT](LICENSE) covers code, documentation and original artwork, including generated avatars made entirely from that artwork. Personal, educational, internal and commercial use, modification and redistribution are allowed. Preserve the copyright and license when redistributing copies or substantial portions. You do not need to publish your application's source. The software is supplied without warranty. Future third-party assets retain their own terms and notices.
 
 Contributing: [guide](CONTRIBUTING.md). Original MIT [Siesta identity](assets/brand/README.md); [third-party notices](THIRD_PARTY_NOTICES.md).
+
+Sourced comparison: [lazy-avatars, Boring Avatars and DiceBear](docs/comparison.md). [Discovery and publication checklist](docs/DISCOVERY.md).

@@ -1,10 +1,12 @@
 # lazy-avatars
 
-Avatares SVG deterministas para personas, equipos, servidores y bots. Trece colecciones originales, sin dependencias de ejecución ni servicio de imágenes.
+[![npm version](https://img.shields.io/npm/v/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![npm downloads](https://img.shields.io/npm/dm/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml/badge.svg)](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) [![Core ESM gzip](https://img.shields.io/badge/core_ESM_gzip-5.3_KiB-315647)](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/COMPATIBILITY.md) [![MIT license](https://img.shields.io/npm/l/lazy-avatars)](https://github.com/paulaquiin/lazy-avatars/blob/main/LICENSE)
+
+Librería de avatares SVG deterministas para aplicaciones JavaScript y TypeScript: personas, equipos, servidores y bots. Trece colecciones originales, núcleo sin dependencias de ejecución, entradas opcionales React y web component, y arte original bajo MIT.
 
 [English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
-> **1.1.0 publicada: paquete único.** Instala lazy-avatars para el núcleo, colecciones y entradas opcionales. Instalación desde npm, cuatro entradas, tipos y bins verificados el 2026-10-25. React sigue siendo opcional y los SVG no cambian. Ver [publicación](docs/RELEASING.md).
+> **Un único paquete.** Núcleo, trece colecciones y entradas opcionales /react, /web-component, /cli y /http. React sigue siendo opcional. Consulta el [registro de publicaciones](docs/RELEASING.md).
 
 ## Vista de las colecciones
 
@@ -21,7 +23,7 @@ SVG reales generados con la librería. Los ejemplos usan `seed: 'Ada Moss'`, `si
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@1.1.0
+npm install lazy-avatars@1.1.2
 ```
 
 Importa el motor y la colección que necesites:
@@ -77,7 +79,7 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-Una instalación: `npm install lazy-avatars@1.1.0`.
+Una instalación: `npm install lazy-avatars@1.1.2`.
 Usa `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` y
 `lazy-avatars/http`. React 19 es un peer opcional: solo se instala si lo necesitas.
 El motor y las colecciones no cargan React, DOM ni código del servidor Node.
@@ -99,7 +101,7 @@ En Linux usa `pnpm exec playwright install --with-deps chromium`. `pnpm dev` com
 
 Comprobaciones individuales: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm check:repo`, `pnpm check:package`, `pnpm check:integrations`, `pnpm test:browser`, `pnpm check:docker`. Compila antes de comprobar el paquete o navegador por separado. `pnpm format` aplica formato y arreglos seguros; `pnpm changeset` registra cambios públicos.
 
-Hay 123 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, 29 pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
+Hay 123 tests unitarios, 20 snapshots por colección más la figura de prueba del motor, comprobaciones XML/tamaño con 60 semillas y todos los temas, 30 pruebas de Chromium e instalación real del tarball fuera del monorepo con sus tipos públicos. El análisis del grafo de importaciones verifica aislamiento entre colecciones y detecta chunks huérfanos o ausentes. El núcleo y sus módulos alcanzables tienen presupuesto de 24 KiB sin comprimir y 8 KiB gzip; el objetivo por SVG es 4 KiB. El CI cubre Linux/Node 24.11 y 26, y Windows/Node 24. Deno, Bun y edge siguen pendientes de certificación.
 
 Git contiene fuentes públicas, documentación, arte revisado, scripts reproducibles del proyecto, pruebas y lockfile. El [.gitignore](.gitignore) excluye herramientas internas, estado de asistentes, credenciales, dependencias y builds. `check:repo` revisa rutas, patrones habituales de credenciales e historial disponible sin mostrar valores; no sustituye una auditoría exhaustiva. npm usa una lista positiva: entradas/chunks/tipos compilados, README, licencia, changelog y manifiesto. Consulta las [reglas de publicación](docs/REPOSITORY_HYGIENE.md).
 
@@ -112,3 +114,5 @@ La fase 0 aporta motor y herramientas; las fases 1–3 completan trece coleccion
 [MIT](LICENSE) cubre código, documentación y arte original, incluidos los avatares generados íntegramente con ese arte. Se permiten uso personal, educativo, interno y comercial, modificación y redistribución. Conserva copyright y licencia al redistribuir copias o partes sustanciales. No obliga a publicar el código de tu aplicación. Se proporciona sin garantía. Los futuros recursos de terceros conservarán sus propias condiciones y avisos.
 
 Contribuir: [guía](CONTRIBUTING.md). [Identidad Siesta](assets/brand/README.md) original MIT; [avisos de terceros](THIRD_PARTY_NOTICES.md).
+
+Comparativa con fuentes: [lazy-avatars, Boring Avatars y DiceBear](docs/comparison.md). [Descubrimiento y tareas de publicación](docs/DISCOVERY.md).

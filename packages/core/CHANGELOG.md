@@ -1,5 +1,12 @@
 # lazy-avatars
 
+## 1.1.2
+
+### Patch Changes
+
+- Add searchable npm keywords, gallery homepage and issue links, clearer positioning
+  and documentation badges. Runtime code, types and SVG output are unchanged.
+
 ## 1.1.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "lazy-avatars",
-  "version": "1.1.1",
-  "description": "Deterministic, self-contained SVG avatars with a dependency-free core",
+  "version": "1.1.2",
+  "description": "Deterministic SVG avatar library for people, teams, servers and bots: 13 original collections, zero core runtime dependencies.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -111,5 +111,22 @@
     "react": {
       "optional": true
     }
-  }
+  },
+  "homepage": "https://paulaquiin.github.io/lazy-avatars/",
+  "bugs": {
+    "url": "https://github.com/paulaquiin/lazy-avatars/issues"
+  },
+  "keywords": [
+    "avatar",
+    "avatars",
+    "avatar-generator",
+    "identicon",
+    "svg",
+    "deterministic",
+    "react",
+    "web-component",
+    "typescript",
+    "boring-avatars-alternative",
+    "dicebear-alternative"
+  ]
 }

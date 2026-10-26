@@ -1,8 +1,8 @@
 # lazy-avatars
 
-Dependency-free, deterministic SVG avatars. Thirteen original collections: Mosaic,
-Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte, Constellation, Tinbot, Orbit,
-Mission and Helmet.
+[![npm version](https://img.shields.io/npm/v/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![npm downloads](https://img.shields.io/npm/dm/lazy-avatars)](https://www.npmjs.com/package/lazy-avatars) [![CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml/badge.svg)](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) [![Core ESM gzip](https://img.shields.io/badge/core_ESM_gzip-5.3_KiB-315647)](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/COMPATIBILITY.md) [![MIT license](https://img.shields.io/npm/l/lazy-avatars)](https://github.com/paulaquiin/lazy-avatars/blob/main/LICENSE)
+
+lazy-avatars is a deterministic SVG avatar library for JavaScript and TypeScript applications: user profiles, teams, servers and bots. It includes 13 original collections, a core with zero runtime dependencies, optional React and web component entries, and MIT-licensed original artwork.
 
 ## Collection previews
 
@@ -17,7 +17,7 @@ Real SVG output from the library. Examples use `seed: 'Ada Moss'`, `size: 128` a
 ## Install and render
 
 ```sh
-npm install lazy-avatars@1.1.1
+npm install lazy-avatars@1.1.2
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -135,7 +135,7 @@ on import. Core rendering and collection outputVersion remain unchanged.
 ## React example
 
 ```sh
-npm install lazy-avatars@1.1.1 react@19
+npm install lazy-avatars@1.1.2 react@19
 # TypeScript projects: npm install --save-dev @types/react
 ```
 
@@ -180,8 +180,8 @@ registerLazyAvatar({ collections: [rack] });
 ## CLI and self-hosted HTTP examples
 
 ```sh
-npx --package=lazy-avatars@1.1.1 lazy-avatars rack demo-host-01 --options '{"status":"warn"}' > avatar.svg
-npx --package=lazy-avatars@1.1.1 lazy-avatars-http
+npx --package=lazy-avatars@1.1.2 lazy-avatars rack demo-host-01 --options '{"status":"warn"}' > avatar.svg
+npx --package=lazy-avatars@1.1.2 lazy-avatars-http
 ```
 
 The server binds to `127.0.0.1:3000` by default. For example:
