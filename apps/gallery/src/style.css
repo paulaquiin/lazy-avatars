@@ -35,6 +35,21 @@ img {
 body {
   margin: 0;
 }
+.discovery {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  line-height: 1.7;
+}
+.discovery a {
+  color: var(--fg);
+  text-underline-offset: 3px;
+}
+.collection-docs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px 24px;
+}
 .review-controls[hidden] {
   display: none;
 }
