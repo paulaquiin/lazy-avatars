@@ -1,5 +1,13 @@
 # lazy-avatars
 
+## 1.1.1
+
+### Patch Changes
+
+- Show all thirteen collections in the npm README using public, commit-pinned
+  image URLs. Update core, React, web component, CLI and HTTP examples and document
+  migration from deprecated scoped packages. Runtime code and SVG output are unchanged.
+
 ## 1.1.0
 
 ### Minor Changes

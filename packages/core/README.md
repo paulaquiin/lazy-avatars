@@ -4,8 +4,20 @@ Dependency-free, deterministic SVG avatars. Thirteen original collections: Mosai
 Monogram, Rack, Siesta, Origami, Pantry, Déco, Latte, Constellation, Tinbot, Orbit,
 Mission and Helmet.
 
+## Collection previews
+
+Real SVG output from the library. Examples use `seed: 'Ada Moss'`, `size: 128` and `shape: 'rounded'`; Rack uses `demo-host-01` with `status: 'warn'`, as in the code below. [Explore variants in the gallery](https://paulaquiin.github.io/lazy-avatars/).
+
+| <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/mosaic.svg" width="96" height="96" alt="Mosaic"><br>Mosaic                      | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/monogram.svg" width="96" height="96" alt="Monogram"><br>Monogram | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/rack.svg" width="96" height="96" alt="Rack"><br>Rack    | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/siesta.svg" width="96" height="96" alt="Siesta"><br>Siesta    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/origami.svg" width="96" height="96" alt="Origami"><br>Origami                   | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/pantry.svg" width="96" height="96" alt="Pantry"><br>Pantry       | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/deco.svg" width="96" height="96" alt="Déco"><br>Déco    | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/latte.svg" width="96" height="96" alt="Latte"><br>Latte       |
+| <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/constellation.svg" width="96" height="96" alt="Constellation"><br>Constellation | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/tinbot.svg" width="96" height="96" alt="Tinbot"><br>Tinbot       | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/orbit.svg" width="96" height="96" alt="Orbit"><br>Orbit | <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/mission.svg" width="96" height="96" alt="Mission"><br>Mission |
+| <img src="https://raw.githubusercontent.com/paulaquiin/lazy-avatars/8ef5669ddb5134948646ef63337add4a059a70d6/assets/previews/helmet.svg" width="96" height="96" alt="Helmet"><br>Helmet                      |                                                                                                                                                                                               |                                                                                                                                                                                      |                                                                                                                                                                                            |
+
+## Install and render
+
 ```sh
-npm install lazy-avatars@1.1.0
+npm install lazy-avatars@1.1.1
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -17,10 +29,18 @@ import { createAvatar, createAvatarDataUri } from 'lazy-avatars';
 import { rack } from 'lazy-avatars/rack';
 const svg = createAvatar(rack, {
   seed: 'demo-host-01',
+  size: 128,
+  shape: 'rounded',
   title: 'Demo host — warning',
   options: { status: 'warn' },
 });
-const src = createAvatarDataUri(rack, { seed: 'demo-host-01' });
+const src = createAvatarDataUri(rack, {
+  seed: 'demo-host-01',
+  size: 128,
+  shape: 'rounded',
+  options: { status: 'warn' },
+});
+// Use src as an <img> source with alt="Demo host: warning".
 ```
 
 | Subpath                      | Export          | Options                                                                                                                           |
@@ -111,3 +131,79 @@ Install React separately when using Avatar: `npm install react@19` (and its type
 for TypeScript). Bins: `npx lazy-avatars rack demo` and `npx --package=lazy-avatars
 lazy-avatars-http`. Library entries start no listener and register no elements
 on import. Core rendering and collection outputVersion remain unchanged.
+
+## React example
+
+```sh
+npm install lazy-avatars@1.1.1 react@19
+# TypeScript projects: npm install --save-dev @types/react
+```
+
+```tsx
+import { Avatar } from 'lazy-avatars/react';
+import { rack } from 'lazy-avatars/rack';
+
+export function HostAvatar() {
+  return (
+    <Avatar
+      collection={rack}
+      seed="demo-host-01"
+      size={64}
+      title="Demo host: warning"
+      options={{ status: 'warn' }}
+    />
+  );
+}
+```
+
+## Web component example
+
+Register once in your browser application, with the collections it needs:
+
+```ts
+import { registerLazyAvatar } from 'lazy-avatars/web-component';
+import { rack } from 'lazy-avatars/rack';
+
+registerLazyAvatar({ collections: [rack] });
+```
+
+```html
+<lazy-avatar
+  collection="rack"
+  seed="demo-host-01"
+  size="64"
+  title="Demo host: warning"
+  options='{"status":"warn"}'
+></lazy-avatar>
+```
+
+## CLI and self-hosted HTTP examples
+
+```sh
+npx --package=lazy-avatars@1.1.1 lazy-avatars rack demo-host-01 --options '{"status":"warn"}' > avatar.svg
+npx --package=lazy-avatars@1.1.1 lazy-avatars-http
+```
+
+The server binds to `127.0.0.1:3000` by default. For example:
+
+```text
+http://127.0.0.1:3000/rack/demo-host-01.svg?size=64&options=%7B%22status%22%3A%22warn%22%7D
+```
+
+Or start it from your Node.js application:
+
+```ts
+import { createAvatarServer } from 'lazy-avatars/http';
+
+const server = createAvatarServer();
+server.listen(3000, '127.0.0.1');
+// Call server.close() when your application shuts down.
+```
+
+## Migrating older packages
+
+The four `@paulaquiin/lazy-avatars-*` packages are deprecated. Install
+`lazy-avatars` and replace their imports with `lazy-avatars/react`,
+`lazy-avatars/web-component`, `lazy-avatars/cli` or `lazy-avatars/http`.
+Their component/function APIs are unchanged. See the
+[migration guide](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/INTEGRATIONS.md).
