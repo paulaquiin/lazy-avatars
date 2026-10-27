@@ -124,4 +124,4 @@ El workflow CI publica únicamente `apps/gallery/dist` desde `main` cuando pasan
 los tres trabajos de comprobación. El job de despliegue tiene permisos mínimos
 de Pages/OIDC y no usa un token guardado en el repositorio. Las pull requests
 ejecutan comprobaciones pero no despliegan. Confirmar el último despliegue y sus
-assets en [la galería](https://paulaquiin.github.io/lazy-avatars/) antes de anunciarlo.
+assets en [la galería](https://lazyavatars.paulaquiin.com/) antes de anunciarlo.

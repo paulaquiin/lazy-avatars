@@ -11,14 +11,14 @@ test('published documentation is readable without JavaScript and sitemap routes 
     await expect(page.locator('.collection-docs a')).toHaveCount(13);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      'https://paulaquiin.github.io/lazy-avatars/',
+      'https://lazyavatars.paulaquiin.com/',
     );
     const sitemap = await request.get('/sitemap.xml');
     expect(sitemap.ok()).toBe(true);
     const urls = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)];
     expect(urls).toHaveLength(15);
     for (const [, url] of urls) {
-      const path = new URL(url ?? '').pathname.replace('/lazy-avatars', '');
+      const path = new URL(url ?? '').pathname;
       const response = await request.get(path);
       expect(response.ok(), path).toBe(true);
       expect(await response.text()).toContain('<h1>');

@@ -1,5 +1,11 @@
 # lazy-avatars
 
+## 1.1.3
+
+### Patch Changes
+
+- Point the npm package homepage and gallery links to the custom domain. Runtime code and SVG output are unchanged.
+
 ## 1.1.2
 
 ### Patch Changes

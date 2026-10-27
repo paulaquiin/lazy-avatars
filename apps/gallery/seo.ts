@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import type { Plugin } from 'vite';
 
-const site = 'https://paulaquiin.github.io/lazy-avatars/';
+const site = 'https://lazyavatars.paulaquiin.com/';
 const repo = 'https://github.com/paulaquiin/lazy-avatars';
 const version = JSON.parse(
   readFileSync(new URL('../../packages/core/package.json', import.meta.url), 'utf8'),

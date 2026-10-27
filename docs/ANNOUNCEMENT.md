@@ -12,7 +12,7 @@ self-hosted HTTP integrations, plus a gallery with custom palettes.
 
 Install `lazy-avatars@1.0.0`. Adapters use the `@paulaquiin/lazy-avatars-*` names.
 Code, original artwork and Siesta branding are MIT licensed. Explore the
-[gallery](https://paulaquiin.github.io/lazy-avatars/) and
+[gallery](https://lazyavatars.paulaquiin.com/) and
 [source, contracts and compatibility](https://github.com/paulaquiin/lazy-avatars).
 
 ## Español

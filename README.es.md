@@ -4,13 +4,13 @@
 
 Librería de avatares SVG deterministas para aplicaciones JavaScript y TypeScript: personas, equipos, servidores y bots. Trece colecciones originales, núcleo sin dependencias de ejecución, entradas opcionales React y web component, y arte original bajo MIT.
 
-[English](README.md) · [Galería](https://paulaquiin.github.io/lazy-avatars/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
+[English](README.md) · [Galería](https://lazyavatars.paulaquiin.com/) · [CI](https://github.com/paulaquiin/lazy-avatars/actions/workflows/ci.yml) · [Arquitectura](docs/ARCHITECTURE.md) · [Guía](PLAN.md) · [MIT](LICENSE)
 
 > **Un único paquete.** Núcleo, trece colecciones y entradas opcionales /react, /web-component, /cli y /http. React sigue siendo opcional. Consulta el [registro de publicaciones](docs/RELEASING.md).
 
 ## Vista de las colecciones
 
-SVG reales generados con la librería. Los ejemplos usan `seed: 'Ada Moss'`, `size: 128` y `shape: 'rounded'`; Rack usa `demo-host-01` con `status: 'warn'`, como en el código de abajo. [Explora las variantes en la galería](https://paulaquiin.github.io/lazy-avatars/).
+SVG reales generados con la librería. Los ejemplos usan `seed: 'Ada Moss'`, `size: 128` y `shape: 'rounded'`; Rack usa `demo-host-01` con `status: 'warn'`, como en el código de abajo. [Explora las variantes en la galería](https://lazyavatars.paulaquiin.com/).
 
 | <img src="assets/previews/mosaic.svg" width="96" height="96" alt="Mosaico"><br>Mosaico                  | <img src="assets/previews/monogram.svg" width="96" height="96" alt="Monograma"><br>Monograma | <img src="assets/previews/rack.svg" width="96" height="96" alt="Rack"><br>Rack      | <img src="assets/previews/siesta.svg" width="96" height="96" alt="Siesta"><br>Siesta  |
 | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -23,7 +23,7 @@ SVG reales generados con la librería. Los ejemplos usan `seed: 'Ada Moss'`, `si
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@1.1.2
+npm install lazy-avatars@1.1.3
 ```
 
 Importa el motor y la colección que necesites:
@@ -81,7 +81,7 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-Una instalación: `npm install lazy-avatars@1.1.2`.
+Una instalación: `npm install lazy-avatars@1.1.3`.
 Usa `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` y
 `lazy-avatars/http`. React 19 es un peer opcional: solo se instala si lo necesitas.
 El motor y las colecciones no cargan React, DOM ni código del servidor Node.

@@ -15,9 +15,9 @@ original collections, optional integrations and MIT-licensed original artwork.
   descriptions, use cases, original previews and typed integration examples.
 - [Comparison](comparison.md): owned by this project, dated and sourced from the
   official documentation of all three libraries. No unmeasured performance claims.
-- [`sitemap.xml`](https://paulaquiin.github.io/lazy-avatars/sitemap.xml): home,
+- [`sitemap.xml`](https://lazyavatars.paulaquiin.com/sitemap.xml): home,
   thirteen collection pages and comparison; query-string gallery states are omitted.
-- [`llms.txt`](https://paulaquiin.github.io/lazy-avatars/llms.txt): a small index of
+- [`llms.txt`](https://lazyavatars.paulaquiin.com/llms.txt): a small index of
   the same public documentation. It is optional convenience, not a ranking guarantee.
 - README badges: registry version/downloads, existing CI and MIT license. Bundle
   measurements refer to the reachable core ESM graph, not the entire tarball.
@@ -29,16 +29,15 @@ in `docs/comparison.md`. Social artwork is `assets/previews/social-preview.png`.
 ## Search Console and Bing: account-owner actions
 
 1. In Google Search Console, add the URL-prefix property
-   `https://paulaquiin.github.io/lazy-avatars/` and complete ownership verification.
-2. Submit `https://paulaquiin.github.io/lazy-avatars/sitemap.xml` in Sitemaps.
+   `https://lazyavatars.paulaquiin.com/` and complete ownership verification.
+2. Submit `https://lazyavatars.paulaquiin.com/sitemap.xml` in Sitemaps.
 3. Add/import the site in Bing Webmaster Tools, verify access and submit the same sitemap.
 4. Inspect the home, Rack and comparison URLs; review indexing and crawl errors.
 
 Verification files/meta tags must come from those accounts. Do not invent a token
 or claim that submission or indexing happened without checking the account.
-GitHub Pages project repositories cannot control the host-root `/robots.txt`;
-that belongs to the `paulaquiin.github.io` user-site repository. A robots file
-under `/lazy-avatars/` would not control the hostname's crawlers.
+The custom domain serves this gallery at the host root. If a `robots.txt` file is
+needed, publish it at `/robots.txt` on `lazyavatars.paulaquiin.com`.
 
 ## Examples and outreach: prepare, then request publication
 
@@ -65,7 +64,7 @@ Starting draft for a maintainer-approved post:
 > npm package. Generation runs locally. The original art is covered by the project's
 > MIT license. Try the gallery and compare styles before choosing it for your app.
 > Source: https://github.com/paulaquiin/lazy-avatars
-> Gallery: https://paulaquiin.github.io/lazy-avatars/
+> Gallery: https://lazyavatars.paulaquiin.com/
 
 ## Measure without promising placement
 
