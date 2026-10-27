@@ -213,7 +213,7 @@ export function discoveryPages(): Plugin {
         const title = 'lazy-avatars · Librería de avatares SVG para JavaScript y React';
         const description =
           'Librería de avatares SVG deterministas: 13 colecciones originales para perfiles, equipos, servidores y bots. Núcleo sin dependencias, React opcional y arte MIT.';
-        const content = `<section class="discovery" aria-labelledby="about-library"><span class="eyebrow">05 / Lo que hay detrás</span><div class="discovery-grid"><div><h2 id="about-library">Carácter por fuera.<br />Sencillez por dentro.</h2>
+        const content = `<section class="discovery" aria-labelledby="about-library"><div class="discovery-grid"><div><h2 id="about-library">Carácter por fuera.<br />Sencillez por dentro.</h2>
 <p>lazy-avatars es una librería de avatares SVG deterministas para JavaScript y TypeScript. Trece colecciones originales para perfiles, equipos, servidores y bots. El núcleo no tiene dependencias de ejecución; React es opcional.</p>
 <p><a href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos ↗</a></p>
 <h3>Las trece colecciones, con más detalle</h3><ul class="collection-docs">${links()}</ul></div>

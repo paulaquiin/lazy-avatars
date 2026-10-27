@@ -481,7 +481,7 @@ const collectionCaptions: Readonly<Record<string, string>> = {
   mission: 'Una insignia para tu próxima aventura.',
   helmet: 'Para quienes miran un poco más allá.',
 };
-for (const [index, [id, entry]] of Object.entries(registry).entries()) {
+for (const [id, entry] of Object.entries(registry)) {
   const card = node('button', undefined, 'collection-card');
   card.type = 'button';
   card.dataset.collection = id;
@@ -495,14 +495,10 @@ for (const [index, [id, entry]] of Object.entries(registry).entries()) {
     img.alt = '';
     previews.append(img);
   }
-  const arrow = node('span', '↗', 'collection-arrow');
-  arrow.setAttribute('aria-hidden', 'true');
   card.append(
-    node('span', `${String(index + 1).padStart(2, '0')} / COLECCIÓN`, 'collection-index'),
     previews,
     node('span', entry.collection.name, 'collection-name'),
     node('span', collectionCaptions[id] ?? '', 'collection-caption'),
-    arrow,
   );
   card.addEventListener('click', () => {
     collectionSelect.value = id;
