@@ -73,6 +73,8 @@ Use a different `idPrefix` per inline SVG instance; `<img>` data URIs isolate re
 
 ## Gallery
 
+The landing page introduces the collections with original artwork and sample interfaces; jump to the playground, choose a style, shuffle the invented seed or copy the installation command.
+
 Choose collection, seed, shape, theme, transparent background and collection-specific options. Compare sizes (24–128 px), 12/60 invented identities, five global themes and collection palettes, or realistic member/comment/profile/server contexts. Review contacts at 24, 32, 64 and 128 px over light/dark pages. Copy API/image code or download the SVG. The space-family view compares Constellation, Orbit, Mission and Helmet with the same seed at 32/64/128 px. The React tab generates integration code.
 
 The URL stores the current state, including the seed. Sharing a gallery URL shares that text. Use invented names and hostnames; hashing does not anonymize personal or infrastructure data. There are no remote image/font requests or analytics.

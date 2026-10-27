@@ -21,6 +21,7 @@ import { siesta } from 'lazy-avatars/siesta';
 import { tinbot } from 'lazy-avatars/tinbot';
 import { contactSeeds } from '../../../fixtures/contact-seeds.js';
 import './style.css';
+import './landing.css';
 
 interface Descriptor {
   collection: Collection<object>;
@@ -465,23 +466,55 @@ function render(updateUrl = true): void {
     if (updateUrl) persist();
   }
 }
-for (const [id, entry] of Object.entries(registry)) {
+const collectionCaptions: Readonly<Record<string, string>> = {
+  mosaic: 'Geometría que nunca se aburre.',
+  monogram: 'Tus iniciales, con presencia.',
+  rack: 'Servidores con algo que decir.',
+  siesta: 'Un descanso bien merecido.',
+  origami: 'Pequeños animales de papel.',
+  pantry: 'Una despensa de personalidades.',
+  deco: 'Un toque de otra época.',
+  latte: 'Para empezar con buen café.',
+  constellation: 'Tu propio mapa de estrellas.',
+  tinbot: 'Metal por fuera. Carácter por dentro.',
+  orbit: 'Cada persona es un mundo.',
+  mission: 'Una insignia para tu próxima aventura.',
+  helmet: 'Para quienes miran un poco más allá.',
+};
+for (const [index, [id, entry]] of Object.entries(registry).entries()) {
   const card = node('button', undefined, 'collection-card');
   card.type = 'button';
   card.dataset.collection = id;
   card.setAttribute('aria-pressed', 'false');
-  const img = node('img');
-  img.src = createAvatarDataUri(entry.collection, { seed: 'Ada Moss', size: 48 });
-  img.width = 48;
-  img.height = 48;
-  img.alt = '';
-  card.append(img, node('span', entry.collection.name));
+  const previews = node('span', undefined, 'collection-previews');
+  for (const seed of ['Ada Moss', 'Mara Sol', 'Nico Nube']) {
+    const img = node('img');
+    img.src = createAvatarDataUri(entry.collection, { seed, size: 96 });
+    img.width = 96;
+    img.height = 96;
+    img.alt = '';
+    previews.append(img);
+  }
+  const arrow = node('span', '↗', 'collection-arrow');
+  arrow.setAttribute('aria-hidden', 'true');
+  card.append(
+    node('span', `${String(index + 1).padStart(2, '0')} / COLECCIÓN`, 'collection-index'),
+    previews,
+    node('span', entry.collection.name, 'collection-name'),
+    node('span', collectionCaptions[id] ?? '', 'collection-caption'),
+    arrow,
+  );
   card.addEventListener('click', () => {
     collectionSelect.value = id;
     buildFields();
     render();
+    required<HTMLElement>('#playground').scrollIntoView({ block: 'start' });
+    collectionSelect.focus({ preventScroll: true });
   });
-  required<HTMLElement>('#collection-cards').append(card);
+  required<HTMLElement>('#collection-cards').insertBefore(
+    card,
+    required<HTMLElement>('#catalogue-invitation'),
+  );
 }
 controls.addEventListener('input', (event) => {
   if (event.target === collectionSelect) buildFields();
@@ -509,15 +542,24 @@ download.addEventListener('click', () => {
   link.download = `lazy-avatar-${collectionSelect.value}.svg`;
   link.click();
 });
-async function copy(text: string): Promise<void> {
+async function copy(text: string, target = feedback): Promise<void> {
   try {
     await navigator.clipboard.writeText(text);
-    feedback.textContent = 'Copiado.';
+    target.textContent = 'Copiado.';
   } catch {
-    feedback.textContent =
+    target.textContent =
       'No se pudo acceder al portapapeles. Puedes seleccionar y copiar el texto.';
   }
 }
+required<HTMLButtonElement>('#copy-install').addEventListener('click', () => {
+  void copy('npm i lazy-avatars', required<HTMLElement>('#install-feedback'));
+});
+required<HTMLButtonElement>('#shuffle-seed').addEventListener('click', () => {
+  let index = Math.floor(Math.random() * contactSeeds.length);
+  if (contactSeeds[index] === seedInput.value) index = (index + 1) % contactSeeds.length;
+  seedInput.value = contactSeeds[index] ?? 'Ada Moss';
+  render();
+});
 required<HTMLButtonElement>('#copy-code').addEventListener('click', () => {
   void copy(code.textContent ?? '');
 });

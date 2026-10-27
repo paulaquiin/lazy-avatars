@@ -79,6 +79,10 @@ test('rejects blank seeds, recovers, downloads SVG and fits mobile', async ({ pa
   const chunks: Buffer[] = [];
   for await (const chunk of stream) chunks.push(Buffer.from(chunk));
   expect(Buffer.concat(chunks).toString('utf8')).toBe(source);
+  await page.getByRole('button', { name: 'Sorpréndeme' }).click();
+  await expect(page.getByLabel('Semilla', { exact: true })).not.toHaveValue('demo');
+  await page.locator('button[data-collection="siesta"]').click();
+  await expect(page.getByLabel('Colección', { exact: true })).toHaveValue('siesta');
   await page.setViewportSize({ width: 390, height: 844 });
   for (const view of ['sizes', 'variety', 'context', 'palettes']) {
     await page.locator(`button[data-view="${view}"]`).click();
@@ -96,6 +100,10 @@ test('restores shared URL options, reviews 60 seeds at all sizes, and copies wor
   await page.goto(
     '/?collection=siesta&seed=Demo%20%26%20safe&view=variety&count=60&contactSize=32&accessory=blanket&body=cloud&theme=night&shape=circle&dark=1&background=0',
   );
+  await page.getByRole('button', { name: 'Copiar instalación' }).click();
+  await expect
+    .poll(() => page.evaluate(() => navigator.clipboard.readText()))
+    .toBe('npm i lazy-avatars');
   await expect(page.locator('#option-accessory')).toHaveValue('blanket');
   await expect(page.locator('#option-body')).toHaveValue('cloud');
   await expect(page.locator('#sizes img')).toHaveCount(60);

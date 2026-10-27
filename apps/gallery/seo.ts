@@ -213,17 +213,15 @@ export function discoveryPages(): Plugin {
         const title = 'lazy-avatars · Librería de avatares SVG para JavaScript y React';
         const description =
           'Librería de avatares SVG deterministas: 13 colecciones originales para perfiles, equipos, servidores y bots. Núcleo sin dependencias, React opcional y arte MIT.';
-        const content = `<section class="discovery" aria-labelledby="about-library"><h2 id="about-library">Una librería de avatares SVG para tu aplicación</h2>
-<p>lazy-avatars genera avatares deterministas a partir de una semilla en JavaScript y TypeScript, sin servicio externo. Incluye 13 colecciones originales para perfiles, equipos, servidores y bots. El núcleo no tiene dependencias de ejecución; React es opcional. Código y arte original están bajo MIT.</p>
-<p lang="en">Deterministic SVG avatar library for JavaScript and TypeScript: 13 original collections, zero core runtime dependencies, optional React and web component entries.</p>
-<pre><code>npm install lazy-avatars@${escapeHtml(version)}</code></pre><pre><code>import { createAvatar } from 'lazy-avatars';
-import { rack } from 'lazy-avatars/rack';
-const svg = createAvatar(rack, { seed: 'demo-host-01' });</code></pre>
-<h3>Documentación de las trece colecciones</h3><ul class="collection-docs">${links()}</ul>
-<p><a href="comparison/">lazy-avatars vs Boring Avatars vs DiceBear</a> · <a href="${repo}/blob/main/docs/RELEASING.md">Historial en GitHub</a> · <a href="${repo}/blob/main/packages/core/CHANGELOG.md">Changelog del paquete</a></p>
-<h3>¿Necesita React o una API de imágenes?</h3><p>No. El núcleo funciona en navegador y Node con imports ESM. Usa lazy-avatars/react si necesitas el componente React, o /web-component, /cli y /http para esas integraciones. HTTP es autoalojable.</p>
-<h3>¿Se puede utilizar en proyectos comerciales?</h3><p>El código y las trece colecciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p>
-<h3>¿La misma semilla conserva siempre el avatar?</h3><p>La misma colección, versión de salida, semilla normalizada y opciones efectivas producen los mismos bytes SVG. Fija la versión del paquete o guarda el SVG para conservar resultados históricos.</p>
+        const content = `<section class="discovery" aria-labelledby="about-library"><span class="eyebrow">05 / Lo que hay detrás</span><div class="discovery-grid"><div><h2 id="about-library">Carácter por fuera.<br />Sencillez por dentro.</h2>
+<p>lazy-avatars es una librería de avatares SVG deterministas para JavaScript y TypeScript. Trece colecciones originales para perfiles, equipos, servidores y bots. El núcleo no tiene dependencias de ejecución; React es opcional.</p>
+<p><a href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos ↗</a></p>
+<h3>Las trece colecciones, con más detalle</h3><ul class="collection-docs">${links()}</ul></div>
+<div><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. El núcleo funciona en navegador y Node con imports ESM. Usa lazy-avatars/react si necesitas el componente React, o /web-component, /cli y /http para esas integraciones. HTTP es autoalojable.</p></details>
+<details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. El código y las trece colecciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p></details>
+<details><summary>¿La misma semilla conserva siempre el avatar?</summary><p>La misma colección, versión de salida, semilla normalizada y opciones efectivas producen los mismos bytes SVG. Fija la versión del paquete o guarda el SVG para conservar resultados históricos.</p></details>
+<details><summary>¿Se envían mis datos a algún servidor?</summary><p>La generación se hace en tu navegador. La URL de la galería contiene la semilla: utiliza identidades ficticias al compartirla. No hay un servicio de imágenes ni analítica de la galería.</p></details></div></div>
+<p class="discovery-links"><a href="comparison/">Comparar con Boring Avatars y DiceBear</a> · <a href="${repo}/releases">Publicaciones</a> · <a href="${repo}/blob/main/packages/core/CHANGELOG.md">Changelog</a></p>
 <noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones, ejemplos y comparación sin activarlo.</p></noscript></section>`;
         return html
           .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)

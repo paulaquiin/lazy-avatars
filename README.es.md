@@ -73,6 +73,8 @@ Al insertar SVG inline, proporciona un `idPrefix` distinto por instancia. Las da
 
 ## Galería
 
+La portada presenta las colecciones con arte original y ejemplos de interfaz. Salta al generador, elige un estilo, prueba una semilla ficticia al azar o copia el comando de instalación.
+
 Permite elegir colección, semilla, forma, tema, transparencia y variantes. Incluye tamaños de 24–128 px, variedad con 12/60 identidades ficticias, comparación de los cinco temas y las paletas propias, y ejemplos de miembros, comentarios, perfil y servidores. Las hojas de contacto se pueden revisar a 24, 32, 64 y 128 px, sobre páginas claras u oscuras. Permite copiar código de API/imagen y descargar SVG. La vista Familia espacial compara Constelación, Órbita, Misión y Casco con la misma semilla a 32/64/128 px. La pestaña React genera código del adaptador.
 
 La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Usa nombres y hosts ficticios; el hash no anonimiza. No hay solicitudes de imágenes o fuentes remotas ni analítica.

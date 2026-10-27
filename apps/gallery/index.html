@@ -7,14 +7,44 @@
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/siesta-mark.svg" />
   <title>lazy-avatars · Trece formas de ser tú</title>
 </head>
-<body>
+<body id="top">
 <main>
-  <header>
-    <span class="brand"><img src="../../assets/brand/siesta-mark.svg" width="48" height="48" alt="" /><span class="eyebrow">lazy-avatars / SVG con personalidad</span></span>
-    <h1>Una semilla.<br />Un poco de personalidad.</h1>
-    <p>Un sello, un mosaico, un servidor o alguien que necesita una siesta. Elige tu estilo: el mismo texto siempre dibuja el mismo avatar.</p>
-    <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"></section>
+  <nav class="site-nav" aria-label="Navegación principal">
+    <a class="wordmark" href="./" aria-label="lazy-avatars, inicio"><img src="../../assets/brand/siesta-mark.svg" width="36" height="36" alt="" />lazy<span>avatars</span><span class="wordmark-dot">.</span></a>
+    <div class="site-nav-links"><a href="#collections">Colecciones</a><a href="#playground">Generador</a><a href="https://github.com/paulaquiin/lazy-avatars">GitHub ↗</a></div>
+  </nav>
+  <header class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="status-dot"></span> Un pequeño detalle. Toda la diferencia.</span>
+      <h1>Menos gris.<br /><em>Más carácter.</em></h1>
+      <p class="hero-description">Avatares SVG para personas, equipos y bots con algo que contar. Una semilla, trece colecciones originales y un montón de personalidad.</p>
+      <div class="hero-actions"><a class="primary-link" href="#playground">Crear mi avatar <span aria-hidden="true">↗</span></a><a class="text-link" href="#collections">Ver las colecciones <span aria-hidden="true">↓</span></a></div>
+      <div class="install-command"><span aria-hidden="true">$</span><code>npm i lazy-avatars</code><button id="copy-install" type="button" aria-label="Copiar instalación">Copiar <span aria-hidden="true">⧉</span></button></div>
+      <p id="install-feedback" class="copy-status" role="status" aria-live="polite"></p>
+      <p class="hero-footnote">Open source. Sin registros. Sin servicios de imágenes.</p>
+    </div>
+    <section class="hero-art" aria-label="Una muestra de las colecciones originales">
+      <div class="portrait-wall">
+        <div class="portrait-card"><img src="../../assets/previews/siesta.svg" width="128" height="128" alt="Siesta, un personaje dormilón" /><span>modo siesta</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/origami.svg" width="128" height="128" alt="Origami, un gato de papel" /><span>un poco curioso</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/mosaic.svg" width="128" height="128" alt="Mosaico geométrico" /><span>muy a mi aire</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/helmet.svg" width="128" height="128" alt="Casco de astronauta" /><span>en otra órbita</span></div>
+        <div class="portrait-card portrait-featured"><img src="../../assets/previews/monogram.svg" width="128" height="128" alt="Monograma con iniciales AM" /><span>simplemente yo</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/orbit.svg" width="128" height="128" alt="Órbita, un planeta con anillos" /><span>con mi mundo</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/latte.svg" width="128" height="128" alt="Latte, una taza de café" /><span>primero, café</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/pantry.svg" width="128" height="128" alt="Despensa, una rodaja de cítrico" /><span>algo de chispa</span></div>
+        <div class="portrait-card"><img src="../../assets/previews/tinbot.svg" width="128" height="128" alt="Hojalata, un robot sonriente" /><span>casi humano</span></div>
+      </div>
+      <span class="art-note">Misma semilla. Nueve maneras de ser.</span>
+    </section>
   </header>
+  <section class="proof-strip" aria-label="Características de la librería"><p><strong>13</strong> colecciones originales</p><p><strong>0</strong> dependencias en el núcleo</p><p><strong>SVG</strong> a cualquier tamaño</p><p><strong>MIT</strong> código y arte</p></section>
+  <section class="catalogue" id="collections" aria-labelledby="collections-heading">
+    <div class="section-heading"><div><span class="eyebrow">01 / Encuentra tu estilo</span><h2 id="collections-heading">A cada quien,<br />su pequeño universo.</h2></div><p>Del papel plegado a una misión espacial. Elige una colección y juega con ella.</p></div>
+    <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"><a id="catalogue-invitation" class="collection-invitation" href="#playground"><span><strong>La tuya está por aquí.</strong><small>Escribe una semilla y dale tu toque.</small><span class="invitation-cta">Ir al generador ↗</span></span><img src="../../assets/previews/siesta.svg" width="96" height="96" alt="" /></a></section>
+    <p class="catalogue-note">Cada avatar se genera a partir de una semilla. El mismo texto y las mismas opciones siempre dan el mismo resultado.</p>
+  </section>
+  <section class="playground-heading" id="playground" aria-labelledby="playground-title"><div><span class="eyebrow">02 / Aquí empieza lo tuyo</span><h2 id="playground-title">Un nombre. Un avatar.<br /><em>Ahora, juega.</em></h2></div><button id="shuffle-seed" class="shuffle-button" type="button"><span aria-hidden="true">↻</span> Sorpréndeme</button></section>
   <section class="lab" aria-label="Generador de avatares">
     <form id="controls">
       <label for="collection">Colección</label>
@@ -53,15 +83,23 @@
       <div class="actions"><button id="download" class="download" type="button" disabled>Descargar SVG</button><button id="share" type="button">Copiar enlace</button></div>
     </div>
   </section>
-  <section class="source" aria-label="Ejemplos de uso">
-      <div class="source-heading"><h2>Llévatelo a tu proyecto</h2><button id="copy-code" type="button">Copiar código</button></div>
+  <section class="use-cases" aria-labelledby="use-cases-title">
+    <div class="section-heading"><div><span class="eyebrow">03 / Fuera del laboratorio</span><h2 id="use-cases-title">Pequeñas caras.<br />Grandes compañeros.</h2></div><p>En ese comentario, en tu próximo proyecto o junto a tu equipo. Un detalle que hace que todo se sienta más tuyo.</p></div>
+    <div class="sample-grid">
+      <article class="sample-card sample-team"><span class="sample-label">UN EQUIPO CON CARÁCTER</span><h3>La buena compañía.</h3><div class="sample-member"><img src="../../assets/previews/origami.svg" width="48" height="48" alt="" /><span><strong>Ada Moss</strong><small>Ideas que toman forma</small></span><span class="member-dot" role="img" aria-label="Disponible"></span></div><div class="sample-member"><img src="../../assets/previews/latte.svg" width="48" height="48" alt="" /><span><strong>Mara Sol</strong><small>Una taza y un boceto</small></span><span class="member-dot" role="img" aria-label="Disponible"></span></div><div class="sample-member"><img src="../../assets/previews/tinbot.svg" width="48" height="48" alt="" /><span><strong>Brisa Bot</strong><small>Pequeñas automatizaciones</small></span><span class="member-dot" role="img" aria-label="Disponible"></span></div></article>
+      <article class="sample-card sample-profile"><div class="sample-cover"></div><img src="../../assets/previews/helmet.svg" width="88" height="88" alt="Avatar de ejemplo de Luna Vega" /><h3>Luna Vega</h3><p>Diseñadora de pequeños mundos.</p><span class="sample-pill">Explorando nuevas ideas ↗</span></article>
+      <article class="sample-card sample-comment"><span class="sample-label">CONVERSACIONES MENOS GRISES</span><div class="sample-member"><img src="../../assets/previews/siesta.svg" width="48" height="48" alt="" /><span><strong>Nico Nube</strong><small>En el canal del equipo</small></span></div><blockquote>Hoy he cambiado el avatar del proyecto. Ya parece un poquito más nuestro.</blockquote><span class="comment-reaction">☀ Un poco de personalidad</span></article>
+    </div><p class="catalogue-note">Ejemplos de interfaz con identidades ficticias.</p>
+  </section>
+  <section class="source" id="get-started" aria-label="Ejemplos de uso">
+      <div class="source-heading"><div><span class="eyebrow">04 / Menos configuración, más creación</span><h2>Llévatelo a tu proyecto.</h2></div><button id="copy-code" type="button">Copiar código</button></div>
       <p class="hint">Instala <code>npm install lazy-avatars@1.1.2</code>. Trece colecciones y versión estable disponibles en <a href="https://www.npmjs.com/package/lazy-avatars/v/1.1.2">npm</a>. Paquete único desde 1.1.0: un único paquete con entradas /react, /web-component, /cli y /http. Código en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
     <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" data-code="react" aria-pressed="false">React</button></div>
     <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
     <details><summary>Ver SVG de 64 px</summary><pre><code id="output"></code></pre></details>
   </section>
   <!-- discovery-content -->
-  <footer>SVG autocontenido · sin fuentes externas · MIT · trece colecciones originales</footer>
+  <footer class="site-footer"><a class="footer-brand" href="#top">lazy-avatars.</a><span>Hecho de SVG, semillas y un poco de calma.</span><div><a href="https://github.com/paulaquiin/lazy-avatars">GitHub ↗</a><a href="https://www.npmjs.com/package/lazy-avatars">npm ↗</a><a href="comparison/">Comparar</a></div></footer>
 </main>
 <script type="module" src="/src/main.ts"></script>
 </body>
