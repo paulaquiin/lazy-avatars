@@ -101,8 +101,8 @@
     "typecheck": "tsc --noEmit"
   },
   "bin": {
-    "lazy-avatars": "./dist/cli-bin.js",
-    "lazy-avatars-http": "./dist/http-bin.js"
+    "lazy-avatars": "dist/cli-bin.js",
+    "lazy-avatars-http": "dist/http-bin.js"
   },
   "peerDependencies": {
     "react": "^19.0.0"
