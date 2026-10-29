@@ -3,83 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Avatares SVG deterministas. Explora trece colecciones, de Origami y Latte a Constelación con tus colores y tu semilla." />
+  <meta name="description" content="Crea avatares SVG para perfiles, equipos y bots. Prueba 13 colecciones originales y usa lazy-avatars en JavaScript, TypeScript o React." />
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/siesta-mark.svg" />
-  <title>lazy-avatars · Trece formas de ser tú</title>
+  <link rel="preload" href="./fonts/arima-madurai-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="./fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./fonts/fonts.css" />
+  <title>Avatares SVG para JavaScript y React | lazy-avatars</title>
 </head>
 <body id="top">
 <main>
   <nav class="site-nav" aria-label="Navegación principal">
     <a class="wordmark" href="./" aria-label="lazy-avatars, inicio"><img src="../../assets/brand/siesta-mark.svg" width="36" height="36" alt="" />lazy<span>avatars</span><span class="wordmark-dot">.</span></a>
-    <div class="site-nav-links"><a href="#collections">Colecciones</a><a href="#playground">Generador</a><a href="https://github.com/paulaquiin/lazy-avatars">GitHub ↗</a></div>
+    <div class="site-nav-links"><a href="#collections">Colecciones</a><a href="#playground">Generador</a><a href="https://github.com/paulaquiin/lazy-avatars">GitHub</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a></div>
   </nav>
   <header class="hero">
     <div class="hero-copy">
-      <h1>Menos gris.<br /><em>Más carácter.</em></h1>
-      <p class="hero-description">Avatares SVG para personas, equipos y bots con algo que contar. Una semilla, trece colecciones originales y un montón de personalidad.</p>
-      <div class="hero-actions"><a class="primary-link" href="#playground">Crear mi avatar <span aria-hidden="true">↗</span></a><a class="text-link" href="#collections">Ver las colecciones <span aria-hidden="true">↓</span></a></div>
+      <h1>Avatares SVG.<br /><em>Mil formas</em><br />de ser tú.</h1>
+      <p class="hero-description">Crea avatares para perfiles, equipos y bots. Escribe un nombre, elige entre trece colecciones originales y ajusta la forma y los colores.</p>
+      <div class="hero-actions"><a id="hero-cta" class="primary-link" href="#playground">Crear mi avatar <span class="cta-icon" aria-hidden="true">✦</span></a></div>
       <div class="install-command"><span aria-hidden="true">$</span><code>npm i lazy-avatars</code><button id="copy-install" type="button" aria-label="Copiar instalación">Copiar <span aria-hidden="true">⧉</span></button></div>
       <p id="install-feedback" class="copy-status" role="status" aria-live="polite"></p>
     </div>
-    <section class="hero-art" aria-label="Una muestra de las colecciones originales">
-      <div class="portrait-wall">
-        <div class="portrait-card"><img src="../../assets/previews/siesta.svg" width="128" height="128" alt="Siesta, un personaje dormilón" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/origami.svg" width="128" height="128" alt="Origami, un gato de papel" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/mosaic.svg" width="128" height="128" alt="Mosaico geométrico" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/helmet.svg" width="128" height="128" alt="Casco de astronauta" /></div>
-        <div class="portrait-card portrait-featured"><img src="../../assets/previews/monogram.svg" width="128" height="128" alt="Monograma con iniciales AM" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/orbit.svg" width="128" height="128" alt="Órbita, un planeta con anillos" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/latte.svg" width="128" height="128" alt="Latte, una taza de café" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/pantry.svg" width="128" height="128" alt="Despensa, una rodaja de cítrico" /></div>
-        <div class="portrait-card"><img src="../../assets/previews/tinbot.svg" width="128" height="128" alt="Hojalata, un robot sonriente" /></div>
-      </div>
+    <section class="hero-art" aria-label="Siesta, el icono de lazy-avatars">
+      <div class="hero-mascot"><img id="hero-mascot" src="../../assets/brand/siesta-mark.svg" width="320" height="320" alt="Siesta, el mismo icono que aparece en el logotipo" /></div>
     </section>
   </header>
   <section class="catalogue" id="collections" aria-labelledby="collections-heading">
-    <div class="section-heading"><div><h2 id="collections-heading">A cada quien,<br />su pequeño universo.</h2></div><p>Del papel plegado a una misión espacial. Elige una colección y juega con ella.</p></div>
-    <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"><a id="catalogue-invitation" class="collection-invitation" href="#playground"><span><strong>La tuya está por aquí.</strong><small>Escribe una semilla y dale tu toque.</small><span class="invitation-cta">Ir al generador ↗</span></span><img src="../../assets/previews/siesta.svg" width="96" height="96" alt="" /></a></section>
+    <div class="section-heading"><div><h2 id="collections-heading">Trece colecciones. Una semilla.</h2></div></div>
+    <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"><div id="catalogue-invitation" class="collection-invitation"><div><strong>Prueba las colecciones con tu nombre.</strong><small>Elige un estilo y ajusta los colores.</small><button id="invitation-cta" class="invitation-cta" type="button" aria-label="Ir al generador"><span class="invitation-cta-label"><span class="invitation-cta-prefix">Ir al </span>generador</span><span class="cta-icon" aria-hidden="true">✦</span></button></div><img id="invitation-mascot" src="../../assets/previews/siesta.svg" width="96" height="96" alt="" /></div></section>
   </section>
-  <section class="playground-heading" id="playground" aria-labelledby="playground-title"><div><h2 id="playground-title">Un nombre. Un avatar.<br /><em>Ahora, juega.</em></h2></div><button id="shuffle-seed" class="shuffle-button" type="button"><span aria-hidden="true">↻</span> Sorpréndeme</button></section>
+  <section class="playground-heading" id="playground" aria-labelledby="playground-title"><div><h2 id="playground-title">Un nombre, <em>un avatar.</em></h2></div><span id="playground-arrival" class="playground-arrival" aria-hidden="true"></span><button id="shuffle-seed" class="shuffle-button" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg> Sorpréndeme</button></section>
   <section class="lab" aria-label="Generador de avatares">
     <form id="controls">
-      <label for="collection">Colección</label>
-      <select id="collection"><option value="tinbot">Hojalata</option><option value="orbit">Órbita</option><option value="mission">Misión</option><option value="helmet">Casco</option><option value="origami">Origami</option><option value="pantry">Despensa</option><option value="deco">Déco</option><option value="latte">Latte</option><option value="constellation">Constelación</option><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select>
-      <label for="seed">Semilla</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" required autocomplete="off" />
-      <label for="theme">Tema</label><select id="theme"><option value="auto">Auto · paletas propias</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select>
-      <label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select>
+      <div class="control-field"><label for="collection">Colección</label><select id="collection"><option value="tinbot">Hojalata</option><option value="orbit">Órbita</option><option value="mission">Misión</option><option value="helmet">Casco</option><option value="origami">Origami</option><option value="pantry">Despensa</option><option value="deco">Déco</option><option value="latte">Latte</option><option value="constellation">Constelación</option><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select></div>
+      <div class="control-field seed-field"><label for="seed-preset">Semilla</label><select id="seed-preset"><option value="Ada Moss">Ada Moss</option><option value="Bruno North">Bruno North</option><option value="Cora Oak">Cora Oak</option><option value="Dario Pine">Dario Pine</option><option value="Elia Quill">Elia Quill</option><option value="Faye Moss">Faye Moss</option><option value="Gus North">Gus North</option><option value="Hana Oak">Hana Oak</option><option value="__custom">Otra semilla…</option></select><label id="seed-custom-label" for="seed" hidden>Tu semilla</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" autocomplete="off" hidden /></div>
+      <div class="control-field"><label for="theme">Tema</label><select id="theme"><option value="auto">Auto</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select></div>
+      <div class="control-field"><label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select></div>
       <div id="collection-options" class="option-fields"></div>
       <fieldset class="palette-editor"><legend>Paleta personalizada</legend>
         <label class="check"><input id="custom-palette" type="checkbox" /> Usar mis cinco colores</label>
-        <div id="palette-fields">
-          <label for="color-background">Color · background</label><input id="color-background" value="#f1eddf" maxlength="7" spellcheck="false" />
-          <label for="color-primary">Color · primary</label><input id="color-primary" value="#315647" maxlength="7" spellcheck="false" />
-          <label for="color-secondary">Color · secondary</label><input id="color-secondary" value="#a5b6a1" maxlength="7" spellcheck="false" />
-          <label for="color-accent">Color · accent</label><input id="color-accent" value="#c49550" maxlength="7" spellcheck="false" />
-          <label for="color-ink">Color · ink</label><input id="color-ink" value="#253c35" maxlength="7" spellcheck="false" />
+        <div id="palette-fields" hidden>
+          <div class="control-field"><label for="color-background">Fondo</label><input id="color-background" value="#f1eddf" maxlength="7" spellcheck="false" /></div>
+          <div class="control-field"><label for="color-primary">Principal</label><input id="color-primary" value="#315647" maxlength="7" spellcheck="false" /></div>
+          <div class="control-field"><label for="color-secondary">Secundario</label><input id="color-secondary" value="#a5b6a1" maxlength="7" spellcheck="false" /></div>
+          <div class="control-field"><label for="color-accent">Acento</label><input id="color-accent" value="#c49550" maxlength="7" spellcheck="false" /></div>
+          <div class="control-field"><label for="color-ink">Tinta</label><input id="color-ink" value="#253c35" maxlength="7" spellcheck="false" /></div>
         </div>
-        <p class="hint">Formato #RGB o #RRGGBB. Al activarla, sustituye al tema.</p>
+        <p id="palette-hint" class="hint" hidden>Formato #RGB o #RRGGBB. Esta paleta sustituye al tema.</p>
         <div id="palette-preview"></div>
         <p id="palette-contrast" class="hint" aria-live="polite"></p>
       </fieldset>
       <label class="check"><input id="transparent" type="checkbox" /> Fondo transparente</label>
       <label class="check"><input id="dark" type="checkbox" /> Página oscura</label>
-      <p class="hint">Todo se dibuja en tu navegador. La URL contiene la semilla: usa datos ficticios al compartirla.</p>
     </form>
     <div class="results">
       <nav class="view-nav" aria-label="Vista de la galería">
-        <button type="button" data-view="sizes" aria-pressed="true">Tamaños</button><button type="button" data-view="variety" aria-pressed="false">Variedad</button><button type="button" data-view="context" aria-pressed="false">En contexto</button><button type="button" data-view="palettes" aria-pressed="false">Paletas</button><button type="button" data-view="space" aria-pressed="false">Familia espacial</button>
+        <button type="button" data-view="sizes" aria-pressed="true">Tamaños</button><button type="button" data-view="variety" aria-pressed="false">Variedad</button><button type="button" data-view="context" aria-pressed="false">En contexto</button><button type="button" data-view="palettes" aria-pressed="false">Paletas</button>
       </nav>
       <div id="review-controls" class="review-controls" hidden>
-        <label class="check"><input id="contact-sheet" type="checkbox" /> Hoja de 60 semillas</label>
         <label for="contact-size">Tamaño de revisión</label><select id="contact-size"><option value="24">24 px</option><option value="32">32 px</option><option value="64" selected>64 px</option><option value="128">128 px</option></select>
       </div>
       <section id="sizes" class="stage sizes" aria-label="Vista previa"></section>
       <p id="status" role="status" aria-live="polite"></p>
-      <div class="actions"><button id="download" class="download" type="button" disabled>Descargar SVG</button><button id="share" type="button">Copiar enlace</button></div>
+      <div class="actions"><button id="share" class="share-action" type="button" disabled>Copiar enlace</button></div>
     </div>
   </section>
   <section class="use-cases" aria-labelledby="use-cases-title">
-    <div class="section-heading"><div><h2 id="use-cases-title">Pequeñas caras.<br />Grandes compañeros.</h2></div><p>Ejemplos de equipo, perfil y comentarios con identidades ficticias.</p></div>
+    <div class="section-heading"><div><h2 id="use-cases-title">Avatares en compañía.</h2></div><p>Ejemplos de equipo, perfil y comentarios con identidades ficticias.</p></div>
     <div class="sample-grid">
       <article class="sample-card sample-team"><h3>La buena compañía.</h3><div class="sample-member"><img src="../../assets/previews/origami.svg" width="48" height="48" alt="" /><span><strong>Ada Moss</strong><small>Ideas que toman forma</small></span></div><div class="sample-member"><img src="../../assets/previews/latte.svg" width="48" height="48" alt="" /><span><strong>Mara Sol</strong><small>Una taza y un boceto</small></span></div><div class="sample-member"><img src="../../assets/previews/tinbot.svg" width="48" height="48" alt="" /><span><strong>Brisa Bot</strong><small>Pequeñas automatizaciones</small></span></div></article>
       <article class="sample-card sample-profile"><div class="sample-cover"></div><img src="../../assets/previews/helmet.svg" width="88" height="88" alt="Avatar de ejemplo de Luna Vega" /><h3>Luna Vega</h3><p>Diseñadora de pequeños mundos.</p></article>
@@ -87,14 +77,13 @@
     </div>
   </section>
   <section class="source" id="get-started" aria-label="Ejemplos de uso">
-      <div class="source-heading"><div><h2>Llévatelo a tu proyecto.</h2></div><button id="copy-code" type="button">Copiar código</button></div>
-      <p class="hint">Instala <code>npm install lazy-avatars@1.1.2</code>. Trece colecciones y versión estable disponibles en <a href="https://www.npmjs.com/package/lazy-avatars/v/1.1.2">npm</a>. Paquete único desde 1.1.0: un único paquete con entradas /react, /web-component, /cli y /http. Código en <a href="https://github.com/paulaquiin/lazy-avatars">el repositorio</a>.</p>
+      <div class="source-heading"><div><h2>Úsalo en tu proyecto.</h2></div><button id="copy-code" type="button">Copiar código</button></div>
     <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" data-code="react" aria-pressed="false">React</button></div>
     <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
-    <details><summary>Ver SVG de 64 px</summary><pre><code id="output"></code></pre></details>
+    <code id="output" hidden></code>
   </section>
   <!-- discovery-content -->
-  <footer class="site-footer"><a class="footer-brand" href="#top">lazy-avatars.</a><div><a href="https://github.com/paulaquiin/lazy-avatars">GitHub ↗</a><a href="https://www.npmjs.com/package/lazy-avatars">npm ↗</a><a href="comparison/">Comparar</a></div></footer>
+  <footer class="site-footer"><a class="wordmark footer-brand" href="#top" aria-label="lazy-avatars, volver al inicio"><img src="../../assets/brand/siesta-mark.svg" width="36" height="36" alt="" />lazy<span>avatars</span><span class="wordmark-dot">.</span></a><div><a href="https://github.com/paulaquiin/lazy-avatars">GitHub</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="https://github.com/paulaquiin/lazy-avatars/blob/main/packages/core/CHANGELOG.md">Changelog</a></div></footer>
 </main>
 <script type="module" src="/src/main.ts"></script>
 </body>

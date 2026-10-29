@@ -158,11 +158,23 @@ const links = (prefix = '') =>
     .map(([id, name]) => `<li><a href="${prefix}collections/${id}/">${name} / ${id}</a></li>`)
     .join('');
 
+const collectionTiles = () =>
+  collections
+    .map(([id, name]) => {
+      const preview = readFileSync(
+        new URL(`../../assets/previews/${id}.svg`, import.meta.url),
+      ).toString('base64');
+      return `<li><a href="collections/${id}/"><img src="data:image/svg+xml;base64,${preview}" width="42" height="42" alt="" loading="lazy"><span>${escapeHtml(name)}</span></a></li>`;
+    })
+    .join('');
+
 function page(title: string, description: string, path: string, body: string) {
+  const fontPath = `${'../'.repeat(path.split('/').filter(Boolean).length)}fonts/fonts.css`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(title)}</title>${metadata(title, description, path)}
-<style>body{font:17px/1.65 system-ui,sans-serif;background:#f6f3ec;color:#243b35;margin:0}main{max-width:960px;padding:32px 24px;margin:auto}a{color:#315647;text-underline-offset:3px}nav{display:flex;gap:20px;flex-wrap:wrap}h1{font-size:clamp(30px,5vw,48px);line-height:1.15}h2{margin-top:32px}pre{overflow:auto;padding:20px;background:#fffdf8;border:1px solid #cbd5c6;border-radius:12px}img{max-width:100%}table{border-collapse:collapse;font-size:15px}th,td{border:1px solid #cbd5c6;padding:12px;text-align:left;vertical-align:top}.table-scroll{overflow:auto}ul{padding-left:24px}footer{margin-top:40px;border-top:1px solid #cbd5c6;padding-top:16px}.preview{display:flex;gap:20px;flex-wrap:wrap}</style>
+<link rel="stylesheet" href="${fontPath}">
+<style>body{font:17px/1.65 "Mulish",system-ui,sans-serif;background:#f6f3ec;color:#243b35;margin:0}main{max-width:960px;padding:32px 24px;margin:auto}a{color:#315647;text-underline-offset:3px}nav{display:flex;gap:20px;flex-wrap:wrap}h1,h2{font-family:"Arima Madurai",Georgia,serif}h1{font-size:clamp(30px,5vw,48px);line-height:1.15}h2{margin-top:32px}pre{overflow:auto;padding:20px;background:#fffdf8;border:1px solid #cbd5c6;border-radius:12px}img{max-width:100%}table{border-collapse:collapse;font-size:15px}th,td{border:1px solid #cbd5c6;padding:12px;text-align:left;vertical-align:top}.table-scroll{overflow:auto}ul{padding-left:24px}footer{margin-top:40px;border-top:1px solid #cbd5c6;padding-top:16px}.preview{display:flex;gap:20px;flex-wrap:wrap}</style>
 </head><body><main><nav aria-label="Main navigation"><a href="${site}">Gallery / Galería</a><a href="${site}comparison/">Compare libraries</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="${repo}">GitHub</a></nav>${body}<footer>Maintained by <a href="${repo}">the lazy-avatars project</a>. Original artwork and code: <a href="${repo}/blob/main/LICENSE">MIT</a>. No hosted public image API.</footer></main></body></html>`;
 }
 
@@ -210,19 +222,18 @@ export function discoveryPages(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(html) {
-        const title = 'lazy-avatars · Librería de avatares SVG para JavaScript y React';
+        const title = 'Avatares SVG para JavaScript y React | lazy-avatars';
         const description =
-          'Librería de avatares SVG deterministas: 13 colecciones originales para perfiles, equipos, servidores y bots. Núcleo sin dependencias, React opcional y arte MIT.';
-        const content = `<section class="discovery" aria-labelledby="about-library"><div class="discovery-grid"><div><h2 id="about-library">Carácter por fuera.<br />Sencillez por dentro.</h2>
-<p>lazy-avatars es una librería de avatares SVG deterministas para JavaScript y TypeScript. Trece colecciones originales para perfiles, equipos, servidores y bots. El núcleo no tiene dependencias de ejecución; React es opcional.</p>
-<p><a href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos ↗</a></p>
-<h3>Las trece colecciones, con más detalle</h3><ul class="collection-docs">${links()}</ul></div>
-<div><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. El núcleo funciona en navegador y Node con imports ESM. Usa lazy-avatars/react si necesitas el componente React, o /web-component, /cli y /http para esas integraciones. HTTP es autoalojable.</p></details>
+          'Crea avatares SVG para perfiles, equipos y bots. Prueba 13 colecciones originales y usa lazy-avatars en JavaScript, TypeScript o React.';
+        const content = `<section class="discovery" aria-labelledby="about-library"><div class="discovery-intro"><div><h2 id="about-library">De la galería a tu proyecto.</h2>
+<p>lazy-avatars genera avatares SVG a partir de una semilla y las opciones que elijas. Puedes probar aquí sus trece colecciones originales y usar la librería en JavaScript o TypeScript. La integración con React es opcional.</p>
+  </div><a class="discovery-api" href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos</a></div>
+<div class="discovery-grid"><div class="discovery-collections"><h3>Las trece colecciones</h3><ul class="collection-docs">${collectionTiles()}</ul></div>
+<div class="discovery-faq"><h3>Preguntas frecuentes</h3><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. Puedes probar los avatares aquí y generarlos en tu proyecto con JavaScript o TypeScript. React es opcional; también puedes alojar la integración HTTP en tu servidor.</p></details>
 <details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. El código y las trece colecciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p></details>
 <details><summary>¿La misma semilla conserva siempre el avatar?</summary><p>La misma colección, versión de salida, semilla normalizada y opciones efectivas producen los mismos bytes SVG. Fija la versión del paquete o guarda el SVG para conservar resultados históricos.</p></details>
 <details><summary>¿Se envían mis datos a algún servidor?</summary><p>La generación se hace en tu navegador. La URL de la galería contiene la semilla: utiliza identidades ficticias al compartirla. No hay un servicio de imágenes ni analítica de la galería.</p></details></div></div>
-<p class="discovery-links"><a href="comparison/">Comparar con Boring Avatars y DiceBear</a> · <a href="${repo}/releases">Publicaciones</a> · <a href="${repo}/blob/main/packages/core/CHANGELOG.md">Changelog</a></p>
-<noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones, ejemplos y comparación sin activarlo.</p></noscript></section>`;
+<noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones y ejemplos sin activarlo.</p></noscript></section>`;
         return html
           .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)
           .replace(/\s*<meta name="description"[^>]*>/, '')
@@ -246,7 +257,7 @@ export function discoveryPages(): Plugin {
             `${title} · lazy-avatars`,
             description,
             path,
-            `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(name)} is one of the 13 original lazy-avatars collections. ${escapeHtml(description)}</p><div class="preview"><img src="../../previews/${id}.svg" width="128" height="128" alt="${escapeHtml(name)} avatar example"></div><h2>When to use ${escapeHtml(name)}</h2><p>${escapeHtml(use)}</p><h2>Install and render</h2><pre><code>npm install lazy-avatars@${escapeHtml(version)}</code></pre><pre><code>${escapeHtml(code)}</code></pre><p>This code demonstrates explicit collection options. The preview uses seed-selected defaults (Rack: demo-host-01 with status warn); changing options can change its appearance.</p><h2>React integration</h2><p>Install React 19 separately, then pass this collection to the optional component:</p><pre><code>${escapeHtml(`import { Avatar } from 'lazy-avatars/react';\nimport { ${id} } from 'lazy-avatars/${id}';\n\n<Avatar collection={${id}} seed="Ada Moss" size={64} title="Example profile" />;`)}</code></pre><h2>Determinism and license</h2><p>Same collection/output version, normalized seed and effective options produce identical SVG bytes. Collection outputVersion is 1. Pin the package or save the SVG to preserve historical output. Original artwork and code use this project's MIT license; no third-party fonts are bundled.</p><p><a href="${site}?collection=${id}&seed=Ada+Moss">Try ${escapeHtml(name)} in the interactive gallery</a> · <a href="${repo}/blob/main/packages/core/README.md">Full API contract</a></p><h2>Other collections</h2><ul>${links(site)}</ul>`,
+            `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(name)} is one of the 13 original lazy-avatars collections. ${escapeHtml(description)}</p><div class="preview"><img src="../../previews/${id}.svg" width="128" height="128" alt="${escapeHtml(name)} avatar example"></div><h2>When to use ${escapeHtml(name)}</h2><p>${escapeHtml(use)}</p><h2>Install and render</h2><pre><code>npm install lazy-avatars@${escapeHtml(version)}</code></pre><pre><code>${escapeHtml(code)}</code></pre><p>This code demonstrates explicit collection options. The preview uses seed-selected defaults (Rack: demo-host-01 with status warn); changing options can change its appearance.</p><h2>React integration</h2><p>Install React 19 separately, then pass this collection to the optional component:</p><pre><code>${escapeHtml(`import { Avatar } from 'lazy-avatars/react';\nimport { ${id} } from 'lazy-avatars/${id}';\n\n<Avatar collection={${id}} seed="Ada Moss" size={64} title="Example profile" />;`)}</code></pre><h2>Determinism and license</h2><p>Same collection/output version, normalized seed and effective options produce identical SVG bytes. Collection outputVersion is 1. Pin the package or save the SVG to preserve historical output. Original artwork and code use this project's MIT license; the website fonts use SIL OFL and are not part of the avatar SVG output.</p><p><a href="${repo}/blob/main/packages/core/README.md">Full API contract</a></p><h2>Other collections</h2><ul>${links(site)}</ul>`,
           ),
         );
       }

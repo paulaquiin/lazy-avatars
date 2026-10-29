@@ -167,7 +167,7 @@ const labels: Readonly<Record<string, string>> = {
   earth: 'Tierra',
   mono: 'Monocromo',
 };
-const views = ['sizes', 'variety', 'context', 'palettes', 'space'];
+const views = ['sizes', 'variety', 'context', 'palettes'];
 function required<T extends HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
   if (!element) throw new Error(`Missing element: ${selector}`);
@@ -181,21 +181,24 @@ function node<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string, clas
 }
 const controls = required<HTMLFormElement>('#controls');
 const collectionSelect = required<HTMLSelectElement>('#collection');
+const seedPreset = required<HTMLSelectElement>('#seed-preset');
 const seedInput = required<HTMLInputElement>('#seed');
+const seedCustomLabel = required<HTMLLabelElement>('#seed-custom-label');
 const themeSelect = required<HTMLSelectElement>('#theme');
 const shapeSelect = required<HTMLSelectElement>('#shape');
 const transparent = required<HTMLInputElement>('#transparent');
 const dark = required<HTMLInputElement>('#dark');
-const contactSheet = required<HTMLInputElement>('#contact-sheet');
 const contactSize = required<HTMLSelectElement>('#contact-size');
 const optionFields = required<HTMLElement>('#collection-options');
 const stage = required<HTMLElement>('#sizes');
 const output = required<HTMLElement>('#output');
 const code = required<HTMLElement>('#code');
 const status = required<HTMLElement>('#status');
-const download = required<HTMLButtonElement>('#download');
+const share = required<HTMLButtonElement>('#share');
 const feedback = required<HTMLElement>('#copy-feedback');
 const customPalette = required<HTMLInputElement>('#custom-palette');
+const paletteFields = required<HTMLElement>('#palette-fields');
+const paletteHint = required<HTMLElement>('#palette-hint');
 const roles = ['background', 'primary', 'secondary', 'accent', 'ink'] as const;
 const colorFields = Object.fromEntries(
   roles.map((role) => [role, required<HTMLInputElement>(`#color-${role}`)]),
@@ -206,8 +209,21 @@ function paletteValue(): Palette {
   ) as unknown as Palette;
 }
 let view = 'sizes';
+let reviewCount: 12 | 60 = 12;
 let codeMode = 'api';
-let downloadUri = '';
+function showCustomSeed(show: boolean): void {
+  seedCustomLabel.hidden = !show;
+  seedInput.hidden = !show;
+  seedInput.required = show;
+}
+function setSeed(seed: string): void {
+  seedInput.value = seed;
+  const example = Array.from(seedPreset.options).find(
+    (option) => option.value === seed && option.value !== '__custom',
+  );
+  seedPreset.value = example ? seed : '__custom';
+  showCustomSeed(!example);
+}
 function descriptor(): Descriptor {
   return registry[collectionSelect.value] ?? (registry.mosaic as Descriptor);
 }
@@ -223,7 +239,9 @@ function buildFields(values: URLSearchParams = new URLSearchParams()): void {
     for (const value of field.values) select.add(new Option(labels[value] ?? value, value));
     const requested = values.get(key);
     if (requested && field.values.includes(requested)) select.value = requested;
-    optionFields.append(label, select);
+    const group = node('div', undefined, 'control-field');
+    group.append(label, select);
+    optionFields.append(group);
   }
 }
 function options(): AvatarOptions<object> {
@@ -246,9 +264,9 @@ function image(
   seed: string,
   size: number,
   extra: Partial<AvatarOptions<object>> = {},
-  collection = descriptor().collection,
 ): HTMLImageElement {
   const img = node('img');
+  const collection = descriptor().collection;
   img.src = createAvatarDataUri(collection, { ...options(), seed, size, ...extra });
   img.width = size;
   img.height = size;
@@ -279,7 +297,7 @@ function persist(): void {
   }
   if (transparent.checked) params.set('background', '0');
   if (dark.checked) params.set('dark', '1');
-  if (contactSheet.checked) params.set('count', '60');
+  if (reviewCount === 60) params.set('count', '60');
   params.set('contactSize', contactSize.value);
   for (const [key, value] of Object.entries(options().options ?? {}))
     params.set(key, String(value));
@@ -289,7 +307,7 @@ function load(): void {
   const params = new URLSearchParams(location.search);
   const requested = params.get('collection') ?? 'mosaic';
   collectionSelect.value = Object.hasOwn(registry, requested) ? requested : 'mosaic';
-  seedInput.value = params.get('seed') ?? 'Ada Moss';
+  setSeed(params.get('seed') ?? 'Ada Moss');
   const theme = params.get('theme') ?? 'auto';
   themeSelect.value = theme === 'auto' || Object.hasOwn(themes, theme) ? theme : 'auto';
   const shape = params.get('shape') ?? 'rounded';
@@ -297,7 +315,7 @@ function load(): void {
   view = views.includes(params.get('view') ?? '') ? (params.get('view') ?? 'sizes') : 'sizes';
   transparent.checked = params.get('background') === '0';
   dark.checked = params.get('dark') === '1';
-  contactSheet.checked = params.get('count') === '60';
+  reviewCount = params.get('count') === '60' ? 60 : 12;
   contactSize.value = ['24', '32', '64', '128'].includes(params.get('contactSize') ?? '')
     ? (params.get('contactSize') ?? '64')
     : '64';
@@ -356,31 +374,6 @@ function contextView(): HTMLElement[] {
   servers.append(table);
   return [members, comment, profile, servers];
 }
-function spaceView(): HTMLElement[] {
-  const family: readonly [Collection<object>, string][] = [
-    [constellation, 'Trazos y estrellas'],
-    [orbit, 'Planeta con volumen'],
-    [mission, 'Insignia con iniciales'],
-    [helmet, 'Personaje astronauta'],
-  ];
-  return family.map(([collection, description]) => {
-    const card = node('article', undefined, 'context-card space-card');
-    const button = node('button', collection.name);
-    button.type = 'button';
-    button.dataset.spaceCollection = collection.id;
-    button.addEventListener('click', () => {
-      collectionSelect.value = collection.id;
-      view = 'sizes';
-      buildFields();
-      render();
-    });
-    const examples = node('div', undefined, 'space-examples');
-    for (const size of [32, 64, 128])
-      examples.append(image(seedInput.value, size, { options: {} }, collection));
-    card.append(button, node('p', description), examples);
-    return card;
-  });
-}
 function render(updateUrl = true): void {
   document.documentElement.dataset.theme = dark.checked ? 'dark' : 'light';
   stage.className = `stage ${view}`;
@@ -393,6 +386,8 @@ function render(updateUrl = true): void {
       String(button.dataset.collection === collectionSelect.value),
     );
   themeSelect.disabled = customPalette.checked;
+  paletteFields.hidden = !customPalette.checked;
+  paletteHint.hidden = !customPalette.checked;
   for (const role of roles) colorFields[role].disabled = !customPalette.checked;
   try {
     const current = options();
@@ -428,7 +423,7 @@ function render(updateUrl = true): void {
       stage.style.setProperty('--contact-size', `${contactSize.value}px`);
       stage.replaceChildren(
         ...contactSeeds
-          .slice(0, contactSheet.checked ? 60 : 12)
+          .slice(0, reviewCount)
           .map((seed) => figure(seed, Number(contactSize.value), seed)),
       );
     } else if (view === 'palettes')
@@ -441,7 +436,6 @@ function render(updateUrl = true): void {
           figure(current.seed, 80, labels[palette] ?? palette, { palette: palette as ThemeId }),
         ),
       );
-    else if (view === 'space') stage.replaceChildren(...spaceView());
     else stage.replaceChildren(...contextView());
     output.textContent = svg;
     code.textContent =
@@ -450,9 +444,9 @@ function render(updateUrl = true): void {
         : codeMode === 'api'
           ? `import { createAvatar } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst svg = createAvatar(${collection.id}, ${JSON.stringify(current, null, 2)});`
           : `import { createAvatarDataUri } from 'lazy-avatars';\nimport { ${collection.id} } from 'lazy-avatars/${collection.id}';\n\nconst img = document.createElement('img');\nimg.src = createAvatarDataUri(${collection.id}, ${JSON.stringify(current, null, 2)});\nimg.alt = ${JSON.stringify(`Avatar · ${current.seed}`)};\ndocument.body.append(img);`;
-    status.textContent = `${new TextEncoder().encode(svg).length} bytes · ${collection.name}${collection.id === 'rack' ? ` · estado representado: ${labels[String(current.options && 'status' in current.options ? current.options.status : 'off')] ?? 'Apagado'}` : ''}`;
-    downloadUri = createAvatarDataUri(collection, current);
-    download.disabled = false;
+    status.textContent = '';
+    share.disabled = false;
+    share.textContent = 'Copiar enlace';
     if (updateUrl) persist();
   } catch (error) {
     required<HTMLElement>('#palette-preview').replaceChildren();
@@ -460,27 +454,107 @@ function render(updateUrl = true): void {
     stage.replaceChildren();
     output.textContent = '';
     code.textContent = '';
-    downloadUri = '';
-    download.disabled = true;
+    share.disabled = true;
     status.textContent = error instanceof Error ? error.message : 'No se pudo generar el avatar';
     if (updateUrl) persist();
   }
 }
-const collectionCaptions: Readonly<Record<string, string>> = {
-  mosaic: 'Geometría que nunca se aburre.',
-  monogram: 'Tus iniciales, con presencia.',
-  rack: 'Servidores con algo que decir.',
-  siesta: 'Un descanso bien merecido.',
-  origami: 'Pequeños animales de papel.',
-  pantry: 'Una despensa de personalidades.',
-  deco: 'Un toque de otra época.',
-  latte: 'Para empezar con buen café.',
-  constellation: 'Tu propio mapa de estrellas.',
-  tinbot: 'Metal por fuera. Carácter por dentro.',
-  orbit: 'Cada persona es un mundo.',
-  mission: 'Una insignia para tu próxima aventura.',
-  helmet: 'Para quienes miran un poco más allá.',
-};
+const invitationMascot = required<HTMLImageElement>('#invitation-mascot');
+const heroMascot = required<HTMLImageElement>('#hero-mascot');
+const playground = required<HTMLElement>('#playground');
+const arrival = required<HTMLElement>('#playground-arrival');
+const awakeMascotUrl = new URL('../../../assets/previews/siesta-awake.svg', import.meta.url).href;
+const awakeBrandUrl = new URL('../../../assets/brand/siesta-mark-awake.svg', import.meta.url).href;
+let mascotIsTraveling = false;
+
+async function travelToGenerator(source: HTMLImageElement, awakeUrl: string) {
+  if (mascotIsTraveling) return;
+  mascotIsTraveling = true;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = 'auto';
+  let traveler: HTMLImageElement | undefined;
+  try {
+    if (!reducedMotion) {
+      const start = source.getBoundingClientRect();
+      traveler = source.cloneNode(true) as HTMLImageElement;
+      traveler.removeAttribute('id');
+      traveler.className = 'traveling-mascot is-waking';
+      traveler.alt = '';
+      traveler.setAttribute('aria-hidden', 'true');
+      Object.assign(traveler.style, {
+        left: `${start.left}px`,
+        top: `${start.top}px`,
+        width: `${start.width}px`,
+        height: `${start.height}px`,
+      });
+      document.body.append(traveler);
+      source.style.visibility = 'hidden';
+      await new Promise((resolve) => window.setTimeout(resolve, 260));
+      traveler.src = awakeUrl;
+      await new Promise((resolve) => window.setTimeout(resolve, 180));
+      traveler.classList.remove('is-waking');
+    }
+
+    arrival.classList.add('is-active');
+    arrival.replaceChildren();
+    if (traveler) {
+      const flyingMascot = traveler;
+      const start = source.getBoundingClientRect();
+      const destination = arrival.getBoundingClientRect();
+      const scrollStart = window.scrollY;
+      const scrollEnd = Math.max(
+        0,
+        Math.min(
+          document.documentElement.scrollHeight - window.innerHeight,
+          scrollStart + playground.getBoundingClientRect().top - 80,
+        ),
+      );
+      const endTop = destination.top - (scrollEnd - scrollStart);
+      const duration = Math.min(1800, Math.max(950, Math.abs(scrollEnd - scrollStart) * 0.8));
+      const started = performance.now();
+
+      await new Promise<void>((resolve) => {
+        function frame(now: number) {
+          const t = Math.min(1, (now - started) / duration);
+          const progress = t * t * (3 - 2 * t);
+          window.scrollTo(0, scrollStart + (scrollEnd - scrollStart) * progress);
+          flyingMascot.style.left = `${start.left + (destination.left - start.left) * progress}px`;
+          flyingMascot.style.top = `${start.top + (endTop - start.top) * progress + Math.sin(Math.PI * progress) * 84}px`;
+          flyingMascot.style.width = `${start.width + (destination.width - start.width) * progress}px`;
+          flyingMascot.style.height = `${start.height + (destination.height - start.height) * progress}px`;
+          flyingMascot.style.transform = `rotate(${8 - 26 * Math.sin(Math.PI * progress) - 8 * progress}deg)`;
+          if (t < 1) requestAnimationFrame(frame);
+          else resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+    } else {
+      playground.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }
+
+    const awake = new Image();
+    awake.src = awakeUrl;
+    awake.alt = '';
+    arrival.replaceChildren(awake);
+    history.replaceState(null, '', '#playground');
+    (seedInput.hidden ? seedPreset : seedInput).focus({ preventScroll: true });
+  } finally {
+    traveler?.remove();
+    source.style.visibility = '';
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    mascotIsTraveling = false;
+  }
+}
+
+required<HTMLButtonElement>('#invitation-cta').addEventListener('click', () => {
+  void travelToGenerator(invitationMascot, awakeMascotUrl);
+});
+required<HTMLAnchorElement>('#hero-cta').addEventListener('click', (event) => {
+  event.preventDefault();
+  void travelToGenerator(heroMascot, awakeBrandUrl);
+});
+
 for (const [id, entry] of Object.entries(registry)) {
   const card = node('button', undefined, 'collection-card');
   card.type = 'button';
@@ -495,11 +569,7 @@ for (const [id, entry] of Object.entries(registry)) {
     img.alt = '';
     previews.append(img);
   }
-  card.append(
-    previews,
-    node('span', entry.collection.name, 'collection-name'),
-    node('span', collectionCaptions[id] ?? '', 'collection-caption'),
-  );
+  card.append(previews, node('span', entry.collection.name, 'collection-name'));
   card.addEventListener('click', () => {
     collectionSelect.value = id;
     buildFields();
@@ -514,6 +584,16 @@ for (const [id, entry] of Object.entries(registry)) {
 }
 controls.addEventListener('input', (event) => {
   if (event.target === collectionSelect) buildFields();
+  if (event.target === seedPreset) {
+    if (seedPreset.value === '__custom') {
+      showCustomSeed(true);
+      seedInput.focus();
+      seedInput.select();
+    } else {
+      seedInput.value = seedPreset.value;
+      showCustomSeed(false);
+    }
+  }
   render();
 });
 controls.addEventListener('submit', (event) => event.preventDefault());
@@ -529,15 +609,7 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-c
       other.setAttribute('aria-pressed', String(other === button));
     render();
   });
-contactSheet.addEventListener('input', () => render());
 contactSize.addEventListener('input', () => render());
-download.addEventListener('click', () => {
-  if (!downloadUri) return;
-  const link = node('a');
-  link.href = downloadUri;
-  link.download = `lazy-avatar-${collectionSelect.value}.svg`;
-  link.click();
-});
 async function copy(text: string, target = feedback): Promise<void> {
   try {
     await navigator.clipboard.writeText(text);
@@ -553,14 +625,22 @@ required<HTMLButtonElement>('#copy-install').addEventListener('click', () => {
 required<HTMLButtonElement>('#shuffle-seed').addEventListener('click', () => {
   let index = Math.floor(Math.random() * contactSeeds.length);
   if (contactSeeds[index] === seedInput.value) index = (index + 1) % contactSeeds.length;
-  seedInput.value = contactSeeds[index] ?? 'Ada Moss';
+  setSeed(contactSeeds[index] ?? 'Ada Moss');
   render();
 });
 required<HTMLButtonElement>('#copy-code').addEventListener('click', () => {
   void copy(code.textContent ?? '');
 });
-required<HTMLButtonElement>('#share').addEventListener('click', () => {
-  void copy(location.href);
+share.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    share.textContent = 'Enlace copiado';
+    window.setTimeout(() => {
+      if (share.textContent === 'Enlace copiado') share.textContent = 'Copiar enlace';
+    }, 1800);
+  } catch {
+    status.textContent = 'No se pudo copiar el enlace.';
+  }
 });
 window.addEventListener('popstate', () => {
   load();

@@ -36,8 +36,9 @@ for (const collection of [
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto(`/?collection=${collection.id}`);
+    await page.getByLabel('Semilla', { exact: true }).selectOption('__custom');
     for (const seed of ['Ada Moss', ' A\u0301na ', '李 明', '<script>&🙂']) {
-      await page.getByLabel('Semilla', { exact: true }).fill(seed);
+      await page.getByLabel('Tu semilla').fill(seed);
       for (const palette of ['pastel', 'corporate', 'night', 'earth', 'mono'] as const) {
         await page.getByLabel('Tema', { exact: true }).selectOption(palette);
         for (const shape of ['square', 'rounded', 'circle'] as const) {
@@ -65,22 +66,21 @@ for (const collection of [
   });
 }
 
-test('rejects blank seeds, recovers, downloads SVG and fits mobile', async ({ page }) => {
+test('rejects blank seeds, copies one link and fits mobile', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/');
-  await page.getByLabel('Semilla', { exact: true }).fill('   ');
+  await page.getByLabel('Semilla', { exact: true }).selectOption('__custom');
+  await page.getByLabel('Tu semilla').fill('   ');
   await expect(page.locator('#status')).toContainText('seed must contain');
-  await expect(page.locator('#download')).toBeDisabled();
-  await page.getByLabel('Semilla', { exact: true }).fill('demo');
-  const source = await page.locator('#output').textContent();
-  const downloading = page.waitForEvent('download');
-  await page.locator('#download').click();
-  const download = await downloading;
-  const stream = await download.createReadStream();
-  const chunks: Buffer[] = [];
-  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
-  expect(Buffer.concat(chunks).toString('utf8')).toBe(source);
+  await expect(page.locator('#share')).toBeDisabled();
+  await page.getByLabel('Tu semilla').fill('demo');
+  await expect(page.locator('#status')).toBeEmpty();
+  await expect(page.locator('.actions button')).toHaveCount(1);
+  await page.locator('#share').click();
+  await expect(page.locator('#share')).toHaveText('Enlace copiado');
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(page.url());
   await page.getByRole('button', { name: 'Sorpréndeme' }).click();
-  await expect(page.getByLabel('Semilla', { exact: true })).not.toHaveValue('demo');
+  await expect(page.locator('#seed')).not.toHaveValue('demo');
   await page.locator('button[data-collection="siesta"]').click();
   await expect(page.getByLabel('Colección', { exact: true })).toHaveValue('siesta');
   await page.setViewportSize({ width: 390, height: 844 });
@@ -198,34 +198,24 @@ test('constellation has no option controls and drops options from other collecti
   );
 });
 
-test('compares the space family without leaking selected collection options', async ({ page }) => {
+test('offers only four editor views and resets removed space URLs', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(
     '/?collection=mission&seed=Ada%20Moss&badge=hexagon&rocket=tilted&view=space&theme=night',
   );
-  await expect(page.locator('.space-card')).toHaveCount(4);
-  await expect(page.locator('.space-card img')).toHaveCount(12);
-  for (const [index, collection] of (
-    [constellation, orbit, mission, helmet] as readonly Collection<object>[]
-  ).entries()) {
-    const src = await page
-      .locator('.space-card')
-      .nth(index)
-      .locator('img')
-      .first()
-      .getAttribute('src');
-    expect(decodeURIComponent(src?.split(',')[1] ?? '')).toBe(
-      createAvatar(collection, { seed: 'Ada Moss', size: 32, palette: 'night', options: {} }),
+  await expect(page.locator('button[data-view]')).toHaveCount(4);
+  await expect(page.locator('button[data-view="space"]')).toHaveCount(0);
+  await expect(page.locator('#sizes img')).toHaveCount(5);
+  await expect(page).toHaveURL(/view=sizes/);
+  for (const view of ['variety', 'context', 'palettes']) {
+    await page.locator(`button[data-view="${view}"]`).click();
+    await expect(page.locator(`button[data-view="${view}"]`)).toHaveAttribute(
+      'aria-pressed',
+      'true',
     );
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.reload();
-  await expect(page.locator('.space-card')).toHaveCount(4);
-  await page.locator('button[data-space-collection="helmet"]').click();
-  await expect(page.getByLabel('Colección', { exact: true })).toHaveValue('helmet');
-  await expect(page.locator('#option-reflection')).toBeVisible();
-  await expect(page).toHaveURL(/view=sizes/);
   expect(errors).toEqual([]);
 });

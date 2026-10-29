@@ -1,5 +1,5 @@
 :root {
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-family: "Mulish", system-ui, sans-serif;
   font-synthesis: none;
   color-scheme: light;
   --bg: #f6f3ec;
@@ -61,10 +61,14 @@ main {
 header {
   max-width: 1050px;
 }
+h1,
+h3 {
+  font-family: "Arima Madurai", Georgia, serif;
+}
 .eyebrow {
   font:
-    12px ui-monospace,
-    monospace;
+    700 12px "Mulish",
+    sans-serif;
   color: var(--muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -104,10 +108,14 @@ button[aria-pressed="true"] {
 }
 button:focus-visible,
 input:focus-visible,
-select:focus-visible,
 summary:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
+}
+select:focus-visible,
+#controls input:not([type="checkbox"]):focus-visible {
+  outline: 1px solid var(--focus);
+  outline-offset: 2px;
 }
 .collection-cards {
   display: grid;
@@ -129,7 +137,7 @@ summary:focus-visible {
 }
 .lab {
   display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
+  grid-template-columns: minmax(290px, 320px) minmax(0, 1fr);
   gap: 36px;
   margin-top: 28px;
   padding: 28px;
@@ -137,11 +145,25 @@ summary:focus-visible {
   border: 1px solid var(--border);
   border-radius: 18px;
 }
-form,
+#controls,
 .option-fields {
   display: grid;
-  gap: 8px;
   align-content: start;
+}
+#controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 12px;
+}
+.control-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+.option-fields {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 12px;
 }
 .option-fields:empty {
   display: none;
@@ -150,6 +172,12 @@ label {
   font-size: 12px;
   font-weight: 650;
   margin-top: 7px;
+}
+.control-field label {
+  margin-top: 0;
+}
+.seed-field [hidden] {
+  display: none;
 }
 input:not([type="checkbox"]),
 select {
@@ -177,6 +205,9 @@ input[type="checkbox"] {
   color: var(--muted);
   line-height: 1.65;
   font-size: 12px;
+}
+#status:empty {
+  display: none;
 }
 .results {
   display: flex;
@@ -218,8 +249,8 @@ figure {
 
 figcaption {
   font:
-    10px ui-monospace,
-    monospace;
+    500 10px "Mulish",
+    sans-serif;
   color: var(--muted);
   overflow-wrap: anywhere;
   text-align: center;
@@ -317,7 +348,7 @@ td {
 td:first-child {
   width: 30px;
 }
-.download {
+.share-action {
   color: var(--button-fg);
   background: var(--button);
   border-color: var(--button);
@@ -333,8 +364,8 @@ td:first-child {
 }
 h2 {
   font:
-    12px ui-monospace,
-    monospace;
+    700 14px "Arima Madurai",
+    sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -387,28 +418,14 @@ footer {
   }
 }
 
-.space {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-.space-examples {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-}
-@media (max-width: 800px) {
-  .space {
-    grid-template-columns: 1fr;
-  }
-}
-
 .palette-editor {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px;
   min-width: 0;
+}
+#controls > .palette-editor {
+  grid-column: 1 / -1;
 }
 .palette-editor legend {
   font-size: 13px;
@@ -421,6 +438,22 @@ footer {
   display: block;
   margin-top: 8px;
 }
+.palette-editor label.check {
+  display: flex;
+}
+#palette-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+#palette-fields[hidden],
+#palette-hint[hidden] {
+  display: none;
+}
+#palette-fields .control-field label {
+  margin-top: 0;
+}
 #palette-preview {
   display: flex;
   flex-wrap: wrap;
@@ -430,6 +463,13 @@ footer {
   padding: 6px;
   border-radius: 4px;
   font-size: 10px;
+}
+
+@media (max-width: 360px) {
+  #controls select {
+    padding-inline: 6px;
+    font-size: 12px;
+  }
 }
 
 .stage {
