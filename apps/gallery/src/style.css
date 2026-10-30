@@ -179,6 +179,10 @@ label {
 .seed-field [hidden] {
   display: none;
 }
+.seed-hint,
+.share-hint {
+  margin: 0;
+}
 input:not([type="checkbox"]),
 select {
   width: 100%;

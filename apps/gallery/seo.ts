@@ -224,15 +224,15 @@ export function discoveryPages(): Plugin {
       handler(html) {
         const title = 'Avatares SVG para JavaScript y React | lazy-avatars';
         const description =
-          'Crea avatares SVG para perfiles, equipos y bots. Prueba 13 colecciones originales y usa lazy-avatars en JavaScript, TypeScript o React.';
+          'Avatares SVG deterministas para perfiles, equipos y bots. Prueba 13 colecciones originales y úsalas en JavaScript, TypeScript o React.';
         const content = `<section class="discovery" aria-labelledby="about-library"><div class="discovery-intro"><div><h2 id="about-library">De la galería a tu proyecto.</h2>
-<p>lazy-avatars genera avatares SVG a partir de una semilla y las opciones que elijas. Puedes probar aquí sus trece colecciones originales y usar la librería en JavaScript o TypeScript. La integración con React es opcional.</p>
+<p>Elige una colección y escribe un nombre o texto para ver tu avatar SVG. La misma colección, texto y ajustes generan el mismo resultado en una misma versión. Puedes usar la librería en JavaScript o TypeScript; React es opcional.</p>
   </div><a class="discovery-api" href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos</a></div>
 <div class="discovery-grid"><div class="discovery-collections"><h3>Las trece colecciones</h3><ul class="collection-docs">${collectionTiles()}</ul></div>
 <div class="discovery-faq"><h3>Preguntas frecuentes</h3><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. Puedes probar los avatares aquí y generarlos en tu proyecto con JavaScript o TypeScript. React es opcional; también puedes alojar la integración HTTP en tu servidor.</p></details>
 <details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. El código y las trece colecciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p></details>
-<details><summary>¿La misma semilla conserva siempre el avatar?</summary><p>La misma colección, versión de salida, semilla normalizada y opciones efectivas producen los mismos bytes SVG. Fija la versión del paquete o guarda el SVG para conservar resultados históricos.</p></details>
-<details><summary>¿Se envían mis datos a algún servidor?</summary><p>La generación se hace en tu navegador. La URL de la galería contiene la semilla: utiliza identidades ficticias al compartirla. No hay un servicio de imágenes ni analítica de la galería.</p></details></div></div>
+<details><summary>¿El mismo texto crea siempre el mismo avatar?</summary><p>Sí, si mantienes la misma versión del paquete, colección y ajustes. Si quieres conservarlo después de actualizar, guarda el SVG.</p></details>
+<details><summary>¿Se envía el texto a algún servidor?</summary><p>La galería genera los avatares en tu navegador. El enlace para compartir incluye el nombre o texto que hayas escrito: usa datos ficticios si vas a publicarlo. La galería no utiliza un servicio de imágenes ni analítica.</p></details></div></div>
 <noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones y ejemplos sin activarlo.</p></noscript></section>`;
         return html
           .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)

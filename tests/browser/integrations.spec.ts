@@ -111,7 +111,7 @@ test('custom palette validates, previews contrast, restores URL and is present i
   }))
     await page.locator(`#color-${role}`).fill(value);
   await expect(page.locator('#palette-preview span')).toHaveCount(5);
-  await expect(page.locator('#palette-contrast')).toContainText('ink/background:');
+  await expect(page.locator('#palette-contrast')).toContainText('Tinta sobre fondo:');
   const svg = await page.locator('#output').textContent();
   expect(svg).toBe(
     createAvatar(orbit, {
@@ -133,12 +133,13 @@ test('custom palette validates, previews contrast, restores URL and is present i
   await expect(page.locator('#code')).toContainText('<Avatar');
   await expect(page.locator('#code')).toContainText('"primary": "#357"');
   await page.locator('#color-ink').fill('invalid');
-  await expect(page.locator('#download')).toBeDisabled();
+  await expect(page.locator('#share')).toBeDisabled();
+  await expect(page.locator('#status')).toHaveText('Revisa los colores: usa #RGB o #RRGGBB.');
   await expect(page.locator('#palette-preview')).toBeEmpty();
   await page.reload();
-  await expect(page.locator('#download')).toBeDisabled();
+  await expect(page.locator('#share')).toBeDisabled();
   await page.locator('#color-ink').fill('#123');
-  await expect(page.locator('#download')).toBeEnabled();
+  await expect(page.locator('#share')).toBeEnabled();
   await page.locator('[data-view="palettes"]').click();
   await expect(page.locator('#sizes figure')).toHaveCount(7);
   await expect(page.locator('#sizes figure').first()).toContainText('Personalizada');

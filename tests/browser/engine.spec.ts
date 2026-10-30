@@ -36,11 +36,11 @@ for (const collection of [
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto(`/?collection=${collection.id}`);
-    await page.getByLabel('Semilla', { exact: true }).selectOption('__custom');
+    await page.getByLabel('Nombre o texto', { exact: true }).selectOption('__custom');
     for (const seed of ['Ada Moss', ' A\u0301na ', '李 明', '<script>&🙂']) {
-      await page.getByLabel('Tu semilla').fill(seed);
+      await page.getByLabel('Tu nombre o texto').fill(seed);
       for (const palette of ['pastel', 'corporate', 'night', 'earth', 'mono'] as const) {
-        await page.getByLabel('Tema', { exact: true }).selectOption(palette);
+        await page.getByLabel('Colores', { exact: true }).selectOption(palette);
         for (const shape of ['square', 'rounded', 'circle'] as const) {
           await page.getByLabel('Forma', { exact: true }).selectOption(shape);
           await expect(page.locator('#output')).toHaveText(
@@ -69,11 +69,13 @@ for (const collection of [
 test('rejects blank seeds, copies one link and fits mobile', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/');
-  await page.getByLabel('Semilla', { exact: true }).selectOption('__custom');
-  await page.getByLabel('Tu semilla').fill('   ');
-  await expect(page.locator('#status')).toContainText('seed must contain');
+  await page.getByLabel('Nombre o texto', { exact: true }).selectOption('__custom');
+  await page.getByLabel('Tu nombre o texto').fill('   ');
+  await expect(page.locator('#status')).toHaveText(
+    'Escribe un nombre o texto para crear el avatar.',
+  );
   await expect(page.locator('#share')).toBeDisabled();
-  await page.getByLabel('Tu semilla').fill('demo');
+  await page.getByLabel('Tu nombre o texto').fill('demo');
   await expect(page.locator('#status')).toBeEmpty();
   await expect(page.locator('.actions button')).toHaveCount(1);
   await page.locator('#share').click();
@@ -111,7 +113,7 @@ test('restores shared URL options, reviews 60 seeds at all sizes, and copies wor
   await page.reload();
   await expect(page.locator('#output')).toHaveText(original ?? '');
   for (const size of ['24', '32', '64', '128']) {
-    await page.getByLabel('Tamaño de revisión', { exact: true }).selectOption(size);
+    await page.getByLabel('Tamaño de las muestras', { exact: true }).selectOption(size);
     await expect(page.locator('#sizes img').first()).toHaveAttribute('width', size);
   }
   await page.locator('#copy-code').click();
@@ -145,7 +147,7 @@ test('ignores invalid URL enums and makes no external image or font requests', a
   });
   await page.goto('/?collection=__proto__&theme=constructor&shape=triangle&tile=unknown');
   await expect(page.getByLabel('Colección', { exact: true })).toHaveValue('mosaic');
-  await expect(page.getByLabel('Tema', { exact: true })).toHaveValue('auto');
+  await expect(page.getByLabel('Colores', { exact: true })).toHaveValue('auto');
   await expect(page.locator('#sizes img')).toHaveCount(5);
   expect(external).toEqual([]);
 });

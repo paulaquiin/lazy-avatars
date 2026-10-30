@@ -88,7 +88,7 @@ const registry: Readonly<Record<string, Descriptor>> = {
   rack: {
     collection: rack,
     fields: {
-      status: { label: 'Estado de Rack', values: ['ok', 'warn', 'down', 'off'] },
+      status: { label: 'Estado del servidor', values: ['ok', 'warn', 'down', 'off'] },
       unit: { label: 'Unidades', values: ['disks', 'vent'] },
     },
   },
@@ -160,7 +160,7 @@ const labels: Readonly<Record<string, string>> = {
   smile: 'Sonrisa',
   yawn: 'Bostezo',
   sleep: 'Dormida',
-  auto: 'Propias',
+  auto: 'De la colección',
   pastel: 'Pastel',
   corporate: 'Corporativo',
   night: 'Noche',
@@ -200,6 +200,13 @@ const customPalette = required<HTMLInputElement>('#custom-palette');
 const paletteFields = required<HTMLElement>('#palette-fields');
 const paletteHint = required<HTMLElement>('#palette-hint');
 const roles = ['background', 'primary', 'secondary', 'accent', 'ink'] as const;
+const colorLabels: Record<(typeof roles)[number], string> = {
+  background: 'Fondo',
+  primary: 'Principal',
+  secondary: 'Secundario',
+  accent: 'Acento',
+  ink: 'Tinta',
+};
 const colorFields = Object.fromEntries(
   roles.map((role) => [role, required<HTMLInputElement>(`#color-${role}`)]),
 ) as Record<(typeof roles)[number], HTMLInputElement>;
@@ -235,7 +242,7 @@ function buildFields(values: URLSearchParams = new URLSearchParams()): void {
     const select = node('select');
     select.id = label.htmlFor;
     select.dataset.option = key;
-    select.add(new Option(key === 'status' ? 'Auto · apagado' : 'Auto', ''));
+    select.add(new Option(key === 'status' ? 'Por defecto (apagado)' : 'Por defecto', ''));
     for (const value of field.values) select.add(new Option(labels[value] ?? value, value));
     const requested = values.get(key);
     if (requested && field.values.includes(requested)) select.value = requested;
@@ -400,7 +407,7 @@ function render(updateUrl = true): void {
     if (customPalette.checked) {
       const p = paletteValue();
       for (const role of roles) {
-        const swatch = node('span', role);
+        const swatch = node('span', colorLabels[role]);
         swatch.style.backgroundColor = normalizeColor(p[role]);
         swatch.style.color =
           contrastRatio(p[role], '#000') >= contrastRatio(p[role], '#fff') ? '#000' : '#fff';
@@ -410,7 +417,7 @@ function render(updateUrl = true): void {
         ['primary', 'secondary', 'accent', 'ink']
           .map(
             (role) =>
-              `${role}/background: ${contrastRatio(p[role as keyof Palette], p.background).toFixed(2)}:1`,
+              `${colorLabels[role as keyof typeof colorLabels]} sobre fondo: ${contrastRatio(p[role as keyof Palette], p.background).toFixed(2)}:1`,
           )
           .join(' · ') +
         '. Referencia visual; no certifica accesibilidad. Revisa también el fondo real si usas transparencia.';
@@ -431,7 +438,7 @@ function render(updateUrl = true): void {
         ...(customPalette.checked
           ? [figure(current.seed, 80, 'Personalizada', { palette: paletteValue() })]
           : []),
-        figure(current.seed, 80, 'Propias', { palette: collection.palettes }),
+        figure(current.seed, 80, 'De la colección', { palette: collection.palettes }),
         ...Object.keys(themes).map((palette) =>
           figure(current.seed, 80, labels[palette] ?? palette, { palette: palette as ThemeId }),
         ),
@@ -455,7 +462,12 @@ function render(updateUrl = true): void {
     output.textContent = '';
     code.textContent = '';
     share.disabled = true;
-    status.textContent = error instanceof Error ? error.message : 'No se pudo generar el avatar';
+    status.textContent =
+      error instanceof Error && error.message.startsWith('seed must contain')
+        ? 'Escribe un nombre o texto para crear el avatar.'
+        : error instanceof Error && error.message.startsWith('Colors must be')
+          ? 'Revisa los colores: usa #RGB o #RRGGBB.'
+          : 'No se pudo generar el avatar. Revisa los ajustes e inténtalo de nuevo.';
     if (updateUrl) persist();
   }
 }
@@ -610,17 +622,17 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-c
     render();
   });
 contactSize.addEventListener('input', () => render());
-async function copy(text: string, target = feedback): Promise<void> {
+async function copy(text: string, target: HTMLElement, success: string): Promise<void> {
   try {
     await navigator.clipboard.writeText(text);
-    target.textContent = 'Copiado.';
+    target.textContent = success;
   } catch {
     target.textContent =
       'No se pudo acceder al portapapeles. Puedes seleccionar y copiar el texto.';
   }
 }
 required<HTMLButtonElement>('#copy-install').addEventListener('click', () => {
-  void copy('npm i lazy-avatars', required<HTMLElement>('#install-feedback'));
+  void copy('npm i lazy-avatars', required<HTMLElement>('#install-feedback'), 'Comando copiado.');
 });
 required<HTMLButtonElement>('#shuffle-seed').addEventListener('click', () => {
   let index = Math.floor(Math.random() * contactSeeds.length);
@@ -629,7 +641,7 @@ required<HTMLButtonElement>('#shuffle-seed').addEventListener('click', () => {
   render();
 });
 required<HTMLButtonElement>('#copy-code').addEventListener('click', () => {
-  void copy(code.textContent ?? '');
+  void copy(code.textContent ?? '', feedback, 'Código copiado.');
 });
 share.addEventListener('click', async () => {
   try {
@@ -639,7 +651,7 @@ share.addEventListener('click', async () => {
       if (share.textContent === 'Enlace copiado') share.textContent = 'Copiar enlace';
     }, 1800);
   } catch {
-    status.textContent = 'No se pudo copiar el enlace.';
+    status.textContent = 'No se pudo copiar el enlace. Cópialo desde la barra de direcciones.';
   }
 });
 window.addEventListener('popstate', () => {

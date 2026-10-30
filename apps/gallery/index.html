@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Crea avatares SVG para perfiles, equipos y bots. Prueba 13 colecciones originales y usa lazy-avatars en JavaScript, TypeScript o React." />
+  <meta name="description" content="Avatares SVG deterministas para perfiles, equipos y bots. Prueba 13 colecciones originales y úsalas en JavaScript, TypeScript o React." />
   <link rel="icon" type="image/svg+xml" href="../../assets/brand/siesta-mark.svg" />
   <link rel="preload" href="./fonts/arima-madurai-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="./fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -29,15 +29,15 @@
     </section>
   </header>
   <section class="catalogue" id="collections" aria-labelledby="collections-heading">
-    <div class="section-heading"><div><h2 id="collections-heading">Trece colecciones. Una semilla.</h2></div></div>
+    <div class="section-heading"><div><h2 id="collections-heading">Trece colecciones para elegir.</h2></div></div>
     <section id="collection-cards" class="collection-cards" aria-label="Explorar colecciones"><div id="catalogue-invitation" class="collection-invitation"><div><strong>Prueba las colecciones con tu nombre.</strong><small>Elige un estilo y ajusta los colores.</small><button id="invitation-cta" class="invitation-cta" type="button" aria-label="Ir al generador"><span class="invitation-cta-label"><span class="invitation-cta-prefix">Ir al </span>generador</span><span class="cta-icon" aria-hidden="true">✦</span></button></div><img id="invitation-mascot" src="../../assets/previews/siesta.svg" width="96" height="96" alt="" /></div></section>
   </section>
   <section class="playground-heading" id="playground" aria-labelledby="playground-title"><div><h2 id="playground-title">Un nombre, <em>un avatar.</em></h2></div><span id="playground-arrival" class="playground-arrival" aria-hidden="true"></span><button id="shuffle-seed" class="shuffle-button" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg> Sorpréndeme</button></section>
   <section class="lab" aria-label="Generador de avatares">
     <form id="controls">
       <div class="control-field"><label for="collection">Colección</label><select id="collection"><option value="tinbot">Hojalata</option><option value="orbit">Órbita</option><option value="mission">Misión</option><option value="helmet">Casco</option><option value="origami">Origami</option><option value="pantry">Despensa</option><option value="deco">Déco</option><option value="latte">Latte</option><option value="constellation">Constelación</option><option value="mosaic">Mosaico</option><option value="monogram">Monograma</option><option value="rack">Rack</option><option value="siesta">Siesta</option></select></div>
-      <div class="control-field seed-field"><label for="seed-preset">Semilla</label><select id="seed-preset"><option value="Ada Moss">Ada Moss</option><option value="Bruno North">Bruno North</option><option value="Cora Oak">Cora Oak</option><option value="Dario Pine">Dario Pine</option><option value="Elia Quill">Elia Quill</option><option value="Faye Moss">Faye Moss</option><option value="Gus North">Gus North</option><option value="Hana Oak">Hana Oak</option><option value="__custom">Otra semilla…</option></select><label id="seed-custom-label" for="seed" hidden>Tu semilla</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" autocomplete="off" hidden /></div>
-      <div class="control-field"><label for="theme">Tema</label><select id="theme"><option value="auto">Auto</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select></div>
+      <div class="control-field seed-field"><label for="seed-preset">Nombre o texto</label><select id="seed-preset" aria-describedby="seed-hint"><option value="Ada Moss">Ada Moss</option><option value="Bruno North">Bruno North</option><option value="Cora Oak">Cora Oak</option><option value="Dario Pine">Dario Pine</option><option value="Elia Quill">Elia Quill</option><option value="Faye Moss">Faye Moss</option><option value="Gus North">Gus North</option><option value="Hana Oak">Hana Oak</option><option value="__custom">Escribir otro…</option></select><label id="seed-custom-label" for="seed" hidden>Tu nombre o texto</label><input id="seed" name="seed" value="Ada Moss" maxlength="1024" autocomplete="off" aria-describedby="seed-hint" hidden /><p id="seed-hint" class="hint seed-hint">El mismo texto y los mismos ajustes crean el mismo avatar en esta versión.</p></div>
+      <div class="control-field"><label for="theme">Colores</label><select id="theme"><option value="auto">De la colección</option><option value="pastel">Pastel</option><option value="corporate">Corporativo</option><option value="night">Noche</option><option value="earth">Tierra</option><option value="mono">Monocromo</option></select></div>
       <div class="control-field"><label for="shape">Forma</label><select id="shape"><option value="rounded">Redondeada</option><option value="square">Cuadrada</option><option value="circle">Circular</option></select></div>
       <div id="collection-options" class="option-fields"></div>
       <fieldset class="palette-editor"><legend>Paleta personalizada</legend>
@@ -49,23 +49,24 @@
           <div class="control-field"><label for="color-accent">Acento</label><input id="color-accent" value="#c49550" maxlength="7" spellcheck="false" /></div>
           <div class="control-field"><label for="color-ink">Tinta</label><input id="color-ink" value="#253c35" maxlength="7" spellcheck="false" /></div>
         </div>
-        <p id="palette-hint" class="hint" hidden>Formato #RGB o #RRGGBB. Esta paleta sustituye al tema.</p>
+        <p id="palette-hint" class="hint" hidden>Escribe cada color en formato #RGB o #RRGGBB. Esta paleta sustituye a los colores seleccionados.</p>
         <div id="palette-preview"></div>
         <p id="palette-contrast" class="hint" aria-live="polite"></p>
       </fieldset>
       <label class="check"><input id="transparent" type="checkbox" /> Fondo transparente</label>
-      <label class="check"><input id="dark" type="checkbox" /> Página oscura</label>
+      <label class="check"><input id="dark" type="checkbox" /> Ver página oscura</label>
     </form>
     <div class="results">
       <nav class="view-nav" aria-label="Vista de la galería">
         <button type="button" data-view="sizes" aria-pressed="true">Tamaños</button><button type="button" data-view="variety" aria-pressed="false">Variedad</button><button type="button" data-view="context" aria-pressed="false">En contexto</button><button type="button" data-view="palettes" aria-pressed="false">Paletas</button>
       </nav>
       <div id="review-controls" class="review-controls" hidden>
-        <label for="contact-size">Tamaño de revisión</label><select id="contact-size"><option value="24">24 px</option><option value="32">32 px</option><option value="64" selected>64 px</option><option value="128">128 px</option></select>
+        <label for="contact-size">Tamaño de las muestras</label><select id="contact-size"><option value="24">24 px</option><option value="32">32 px</option><option value="64" selected>64 px</option><option value="128">128 px</option></select>
       </div>
       <section id="sizes" class="stage sizes" aria-label="Vista previa"></section>
       <p id="status" role="status" aria-live="polite"></p>
       <div class="actions"><button id="share" class="share-action" type="button" disabled>Copiar enlace</button></div>
+      <p class="hint share-hint">El enlace incluye el nombre o texto que hayas escrito. Usa datos ficticios si vas a compartirlo.</p>
     </div>
   </section>
   <section class="use-cases" aria-labelledby="use-cases-title">
@@ -78,7 +79,7 @@
   </section>
   <section class="source" id="get-started" aria-label="Ejemplos de uso">
       <div class="source-heading"><div><h2>Úsalo en tu proyecto.</h2></div><button id="copy-code" type="button">Copiar código</button></div>
-    <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen</button><button type="button" data-code="react" aria-pressed="false">React</button></div>
+    <div class="code-nav"><button type="button" data-code="api" aria-pressed="true">createAvatar</button><button type="button" data-code="img" aria-pressed="false">Imagen HTML</button><button type="button" data-code="react" aria-pressed="false">React</button></div>
     <pre><code id="code"></code></pre><p id="copy-feedback" aria-live="polite"></p>
     <code id="output" hidden></code>
   </section>
