@@ -291,13 +291,12 @@ function figure(
   return item;
 }
 function persist(): void {
-  const params = new URLSearchParams({
-    collection: collectionSelect.value,
-    seed: seedInput.value,
-    theme: themeSelect.value,
-    shape: shapeSelect.value,
-    view,
-  });
+  const params = new URLSearchParams();
+  if (collectionSelect.value !== 'mosaic') params.set('collection', collectionSelect.value);
+  if (seedInput.value !== 'Ada Moss') params.set('seed', seedInput.value);
+  if (themeSelect.value !== 'auto') params.set('theme', themeSelect.value);
+  if (shapeSelect.value !== 'rounded') params.set('shape', shapeSelect.value);
+  if (view !== 'sizes') params.set('view', view);
   if (customPalette.checked) {
     params.set('custom', '1');
     for (const role of roles) params.set(`color-${role}`, colorFields[role].value);
@@ -305,10 +304,11 @@ function persist(): void {
   if (transparent.checked) params.set('background', '0');
   if (dark.checked) params.set('dark', '1');
   if (reviewCount === 60) params.set('count', '60');
-  params.set('contactSize', contactSize.value);
+  if (contactSize.value !== '64') params.set('contactSize', contactSize.value);
   for (const [key, value] of Object.entries(options().options ?? {}))
     params.set(key, String(value));
-  history.replaceState(null, '', `${location.pathname}?${params}${location.hash}`);
+  const query = params.toString();
+  history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}`);
 }
 function load(): void {
   const params = new URLSearchParams(location.search);
@@ -549,7 +549,6 @@ async function travelToGenerator(source: HTMLImageElement, awakeUrl: string) {
     awake.src = awakeUrl;
     awake.alt = '';
     arrival.replaceChildren(awake);
-    history.replaceState(null, '', '#playground');
     (seedInput.hidden ? seedPreset : seedInput).focus({ preventScroll: true });
   } finally {
     traveler?.remove();
@@ -645,7 +644,7 @@ required<HTMLButtonElement>('#copy-code').addEventListener('click', () => {
 });
 share.addEventListener('click', async () => {
   try {
-    await navigator.clipboard.writeText(location.href);
+    await navigator.clipboard.writeText(`${location.origin}${location.pathname}${location.search}`);
     share.textContent = 'Enlace copiado';
     window.setTimeout(() => {
       if (share.textContent === 'Enlace copiado') share.textContent = 'Copiar enlace';

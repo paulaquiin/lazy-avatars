@@ -94,6 +94,30 @@ test('rejects blank seeds, copies one link and fits mobile', async ({ page, cont
   }
 });
 
+test('keeps the homepage URL clean and shares only changed settings', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const homepage = 'http://127.0.0.1:4173/';
+  await page.goto('/');
+  await expect(page).toHaveURL(homepage);
+  await page.goto(
+    '/?collection=mosaic&seed=Ada+Moss&theme=auto&shape=rounded&view=sizes&contactSize=64#playground',
+  );
+  await expect(page).toHaveURL(homepage);
+  await page.locator('#hero-cta').click();
+  await expect(page).toHaveURL(homepage);
+  await page.getByLabel('Colores', { exact: true }).selectOption('night');
+  await expect(page).toHaveURL(`${homepage}?theme=night`);
+  await page.locator('.site-nav-links a[href="#playground"]').click();
+  await expect(page).toHaveURL(`${homepage}?theme=night#playground`);
+  await page.locator('#share').click();
+  await expect
+    .poll(() => page.evaluate(() => navigator.clipboard.readText()))
+    .toBe(`${homepage}?theme=night`);
+  await page.getByLabel('Colores', { exact: true }).selectOption('auto');
+  await expect(page).toHaveURL(homepage);
+});
+
 test('restores shared URL options, reviews 60 seeds at all sizes, and copies working code', async ({
   page,
   context,
@@ -210,7 +234,7 @@ test('offers only four editor views and resets removed space URLs', async ({ pag
   await expect(page.locator('button[data-view]')).toHaveCount(4);
   await expect(page.locator('button[data-view="space"]')).toHaveCount(0);
   await expect(page.locator('#sizes img')).toHaveCount(5);
-  await expect(page).toHaveURL(/view=sizes/);
+  expect(new URL(page.url()).searchParams.has('view')).toBe(false);
   for (const view of ['variety', 'context', 'palettes']) {
     await page.locator(`button[data-view="${view}"]`).click();
     await expect(page.locator(`button[data-view="${view}"]`)).toHaveAttribute(
