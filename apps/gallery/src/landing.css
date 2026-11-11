@@ -138,11 +138,7 @@ main {
   letter-spacing: -0.04em;
   color: var(--accent);
 }
-.hero h1 em {
-  font-family: "Arima Madurai", Georgia, serif;
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.04em;
+.hero-highlight {
   color: #a34d34;
 }
 .hero-description {
@@ -193,13 +189,6 @@ main {
       0 14px 32px #36533d38,
       0 0 0 5px #36533d1a;
   }
-}
-.cta-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 1;
 }
 .install-copy {
   width: fit-content;
@@ -379,7 +368,7 @@ main {
 .invitation-cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
   padding: 8px 12px;
   border-color: var(--border);
   background: var(--panel);
@@ -989,7 +978,6 @@ main {
     padding-inline: 10px;
   }
   .invitation-cta {
-    gap: 5px;
     padding: 7px 9px;
     white-space: nowrap;
   }
