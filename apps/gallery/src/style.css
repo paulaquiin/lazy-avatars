@@ -11,6 +11,7 @@
   --button: #304d3a;
   --button-fg: #fff;
   --focus: #a56839;
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23243b35' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
   color: var(--fg);
   background: var(--bg);
 }
@@ -25,6 +26,7 @@
   --button: #c5d8bd;
   --button-fg: #1b2a20;
   --focus: #e4b87e;
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23f0eee4' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
 }
 * {
   box-sizing: border-box;
@@ -113,7 +115,8 @@ summary:focus-visible {
   outline-offset: 3px;
 }
 select:focus-visible,
-#controls input:not([type="checkbox"]):focus-visible {
+#controls input:not([type="checkbox"]):focus-visible,
+#copy-install:focus-visible {
   outline: 1px solid var(--focus);
   outline-offset: 2px;
 }
@@ -226,9 +229,6 @@ summary {
 .seed-field [hidden] {
   display: none;
 }
-.share-hint {
-  margin: 0;
-}
 input:not([type="checkbox"]),
 select {
   width: 100%;
@@ -238,6 +238,14 @@ select {
   border-radius: 7px;
   background: var(--panel);
   font-size: 13px;
+}
+select {
+  appearance: none;
+  padding-right: 32px;
+  background-image: var(--select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
 }
 .check {
   display: flex;
@@ -512,7 +520,8 @@ footer {
 
 @media (max-width: 360px) {
   #controls select {
-    padding-inline: 6px;
+    padding-left: 6px;
+    padding-right: 28px;
     font-size: 12px;
   }
 }

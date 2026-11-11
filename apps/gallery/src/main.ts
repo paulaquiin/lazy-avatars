@@ -184,6 +184,7 @@ const collectionSelect = required<HTMLSelectElement>('#collection');
 const seedPreset = required<HTMLSelectElement>('#seed-preset');
 const seedInput = required<HTMLInputElement>('#seed');
 const seedCustomLabel = required<HTMLLabelElement>('#seed-custom-label');
+const seedInfo = required<HTMLDetailsElement>('.field-info');
 const themeSelect = required<HTMLSelectElement>('#theme');
 const shapeSelect = required<HTMLSelectElement>('#shape');
 const transparent = required<HTMLInputElement>('#transparent');
@@ -401,9 +402,7 @@ function render(updateUrl = true): void {
     const collection = descriptor().collection;
     const svg = createAvatar(collection, current);
     const preview = required<HTMLElement>('#palette-preview');
-    const contrast = required<HTMLElement>('#palette-contrast');
     preview.replaceChildren();
-    contrast.textContent = '';
     if (customPalette.checked) {
       const p = paletteValue();
       for (const role of roles) {
@@ -413,14 +412,6 @@ function render(updateUrl = true): void {
           contrastRatio(p[role], '#000') >= contrastRatio(p[role], '#fff') ? '#000' : '#fff';
         preview.append(swatch);
       }
-      contrast.textContent =
-        ['primary', 'secondary', 'accent', 'ink']
-          .map(
-            (role) =>
-              `${colorLabels[role as keyof typeof colorLabels]} sobre fondo: ${contrastRatio(p[role as keyof Palette], p.background).toFixed(2)}:1`,
-          )
-          .join(' · ') +
-        '. Referencia visual; no certifica accesibilidad. Revisa también el fondo real si usas transparencia.';
     }
     if (view === 'sizes')
       stage.replaceChildren(
@@ -457,7 +448,6 @@ function render(updateUrl = true): void {
     if (updateUrl) persist();
   } catch (error) {
     required<HTMLElement>('#palette-preview').replaceChildren();
-    required<HTMLElement>('#palette-contrast').textContent = '';
     stage.replaceChildren();
     output.textContent = '';
     code.textContent = '';
@@ -606,6 +596,18 @@ controls.addEventListener('input', (event) => {
     }
   }
   render();
+});
+let seedInfoCloseTimer = 0;
+seedInfo.addEventListener('toggle', () => {
+  window.clearTimeout(seedInfoCloseTimer);
+  if (seedInfo.open)
+    seedInfoCloseTimer = window.setTimeout(() => {
+      seedInfo.open = false;
+    }, 4000);
+});
+document.addEventListener('click', (event) => {
+  if (seedInfo.open && event.target instanceof Node && !seedInfo.contains(event.target))
+    seedInfo.open = false;
 });
 controls.addEventListener('submit', (event) => event.preventDefault());
 for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-view]'))

@@ -21,8 +21,10 @@
       <h1>Avatares SVG.<br /><em>Mil formas</em><br />de ser tú.</h1>
       <p class="hero-description">Crea avatares para perfiles, equipos y bots. Escribe un nombre, elige entre trece colecciones originales y ajusta la forma y los colores.</p>
       <div class="hero-actions"><a id="hero-cta" class="primary-link" href="#playground">Crear mi avatar <span class="cta-icon" aria-hidden="true">✦</span></a></div>
-      <div class="install-command"><span aria-hidden="true">$</span><code>npm i lazy-avatars</code><button id="copy-install" type="button" aria-label="Copiar instalación">Copiar <span aria-hidden="true">⧉</span></button></div>
-      <p id="install-feedback" class="copy-status" role="status" aria-live="polite"></p>
+      <div class="install-copy">
+        <div class="install-command"><span aria-hidden="true">$</span><code>npm i lazy-avatars</code><button id="copy-install" type="button" aria-label="Copiar instalación">Copiar <span aria-hidden="true">⧉</span></button></div>
+        <p id="install-feedback" class="copy-status" role="status" aria-live="polite"></p>
+      </div>
     </div>
     <section class="hero-art" aria-label="Siesta, el icono de lazy-avatars">
       <div class="hero-mascot"><img id="hero-mascot" src="../../assets/brand/siesta-mark.svg" width="320" height="320" alt="Siesta, el mismo icono que aparece en el logotipo" /></div>
@@ -49,9 +51,8 @@
           <div class="control-field"><label for="color-accent">Acento</label><input id="color-accent" value="#c49550" maxlength="7" spellcheck="false" /></div>
           <div class="control-field"><label for="color-ink">Tinta</label><input id="color-ink" value="#253c35" maxlength="7" spellcheck="false" /></div>
         </div>
-        <p id="palette-hint" class="hint" hidden>Escribe cada color en formato #RGB o #RRGGBB. Esta paleta sustituye a los colores seleccionados.</p>
+        <p id="palette-hint" class="hint" hidden>Escribe cada color en formato #RGB o #RRGGBB.</p>
         <div id="palette-preview"></div>
-        <p id="palette-contrast" class="hint" aria-live="polite"></p>
       </fieldset>
       <label class="check"><input id="transparent" type="checkbox" /> Fondo transparente</label>
       <label class="check"><input id="dark" type="checkbox" /> Ver página oscura</label>
@@ -66,7 +67,6 @@
       <section id="sizes" class="stage sizes" aria-label="Vista previa"></section>
       <p id="status" role="status" aria-live="polite"></p>
       <div class="actions"><button id="share" class="share-action" type="button" disabled>Copiar enlace</button></div>
-      <p class="hint share-hint">El enlace incluye el nombre o texto que hayas escrito. Usa datos ficticios si vas a compartirlo.</p>
     </div>
   </section>
   <section class="use-cases" aria-labelledby="use-cases-title">

@@ -159,13 +159,18 @@ main {
   font-size: 16px;
   line-height: 1;
 }
+.install-copy {
+  width: fit-content;
+  max-width: 100%;
+  margin: 22px auto 0;
+  text-align: left;
+}
 .install-command {
   display: flex;
   align-items: center;
   gap: 12px;
   width: fit-content;
   max-width: 100%;
-  margin: 22px auto 0;
   padding: 9px 10px 9px 16px;
   border: 1px solid var(--border);
   border-radius: 9px;
