@@ -94,6 +94,26 @@ test('rejects blank seeds, copies one link and fits mobile', async ({ page, cont
   }
 });
 
+test('limits custom names and truncates the demonstration profile visually', async ({ page }) => {
+  const name = 'W'.repeat(40);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`/?seed=${'W'.repeat(60)}&view=context`);
+  await expect(page.locator('#seed')).toHaveValue(name);
+  await expect(page).toHaveURL(`http://127.0.0.1:4173/?seed=${name}&view=context`);
+  const profileName = page.locator('.context-card.profile h3');
+  await expect(profileName).toHaveText(name);
+  await expect(profileName).toHaveAttribute('title', name);
+  expect(
+    await profileName.evaluate(
+      (element) =>
+        getComputedStyle(element).textOverflow === 'ellipsis' &&
+        element.scrollWidth > element.clientWidth,
+    ),
+  ).toBe(true);
+  await page.getByLabel('Tu nombre o texto').fill('A'.repeat(60));
+  await expect(page.locator('#seed')).toHaveValue('A'.repeat(40));
+});
+
 test('keeps the homepage URL clean and shares only changed settings', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.emulateMedia({ reducedMotion: 'reduce' });

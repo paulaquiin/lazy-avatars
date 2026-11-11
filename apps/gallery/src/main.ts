@@ -225,9 +225,9 @@ function showCustomSeed(show: boolean): void {
   seedInput.required = show;
 }
 function setSeed(seed: string): void {
-  seedInput.value = seed;
+  seedInput.value = seed.slice(0, seedInput.maxLength);
   const example = Array.from(seedPreset.options).find(
-    (option) => option.value === seed && option.value !== '__custom',
+    (option) => option.value === seedInput.value && option.value !== '__custom',
   );
   seedPreset.value = example ? seed : '__custom';
   showCustomSeed(!example);
@@ -352,11 +352,9 @@ function contextView(): HTMLElement[] {
   for (const seed of contactSeeds.slice(0, 5)) stack.append(image(seed, 28));
   comment.append(stack);
   const profile = node('article', undefined, 'context-card profile');
-  profile.append(
-    image(seedInput.value, 72),
-    node('h3', seedInput.value),
-    node('p', 'Perfil de demostración'),
-  );
+  const profileName = node('h3', seedInput.value);
+  profileName.title = seedInput.value;
+  profile.append(image(seedInput.value, 72), profileName, node('p', 'Perfil de demostración'));
   const servers = node('article', undefined, 'context-card servers');
   servers.append(node('h3', 'Servidores · estados ficticios'));
   const table = node('table');
