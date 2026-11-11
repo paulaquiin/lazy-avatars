@@ -97,7 +97,7 @@ test('web component explicitly registers collections, isolates IDs, reacts and r
   }
 });
 
-test('custom palette validates, previews contrast, restores URL and is present in copied API/React code', async ({
+test('custom palette validates, previews colors, restores URL and is present in copied API/React code', async ({
   page,
 }) => {
   await page.goto('/?collection=orbit');
@@ -111,7 +111,9 @@ test('custom palette validates, previews contrast, restores URL and is present i
   }))
     await page.locator(`#color-${role}`).fill(value);
   await expect(page.locator('#palette-preview span')).toHaveCount(5);
-  await expect(page.locator('#palette-contrast')).toContainText('Tinta sobre fondo:');
+  await expect(page.locator('#palette-hint')).toHaveText(
+    'Escribe cada color en formato #RGB o #RRGGBB.',
+  );
   const svg = await page.locator('#output').textContent();
   expect(svg).toBe(
     createAvatar(orbit, {
