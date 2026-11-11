@@ -509,7 +509,10 @@ async function travelToGenerator(source: HTMLImageElement, awakeUrl: string) {
         0,
         Math.min(
           document.documentElement.scrollHeight - window.innerHeight,
-          scrollStart + playground.getBoundingClientRect().top - 80,
+          scrollStart +
+            playground.getBoundingClientRect().top -
+            required<HTMLElement>('.site-nav').getBoundingClientRect().height -
+            16,
         ),
       );
       const endTop = destination.top - (scrollEnd - scrollStart);

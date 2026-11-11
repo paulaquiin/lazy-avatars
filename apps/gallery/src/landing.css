@@ -25,7 +25,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 24px;
+  scroll-padding-top: 114px;
 }
 body {
   overflow-x: clip;
@@ -43,12 +43,24 @@ main {
   padding: 0 44px 32px;
 }
 .site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   min-height: 98px;
   border-bottom: 1px solid var(--border);
+}
+.site-nav::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(14px);
+  content: "";
 }
 .wordmark {
   display: inline-flex;
@@ -139,18 +151,38 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  min-width: 190px;
   padding: 15px 24px;
   border-radius: 100px;
   background: #36533d;
   color: #fffefa;
   font-size: 14px;
   font-weight: 700;
+  text-align: center;
   text-decoration: none;
   box-shadow: 0 12px 28px #63583c22;
+  animation: cta-pulse 3s ease-in-out infinite;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
 }
 .primary-link:hover {
-  filter: brightness(1.1);
+  animation: none;
+  transform: translateY(-2px) scale(1.04);
+  background: #294b35;
+  box-shadow: 0 15px 32px #36533d40;
+}
+.primary-link:active {
+  transform: scale(0.97);
+}
+@keyframes cta-pulse {
+  50% {
+    transform: scale(1.045);
+    box-shadow:
+      0 14px 32px #36533d38,
+      0 0 0 5px #36533d1a;
+  }
 }
 .cta-icon {
   display: inline-flex;
@@ -225,6 +257,9 @@ main {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .primary-link {
+    animation: none;
+  }
   .hero-mascot {
     animation: none;
   }
@@ -713,6 +748,9 @@ main {
   }
 }
 @media (max-width: 800px) {
+  html {
+    scroll-padding-top: 96px;
+  }
   main {
     padding: 0 22px 28px;
   }
