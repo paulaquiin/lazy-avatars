@@ -158,16 +158,6 @@ const links = (prefix = '') =>
     .map(([id, name]) => `<li><a href="${prefix}collections/${id}/">${name} / ${id}</a></li>`)
     .join('');
 
-const collectionTiles = () =>
-  collections
-    .map(([id, name]) => {
-      const preview = readFileSync(
-        new URL(`../../assets/previews/${id}.svg`, import.meta.url),
-      ).toString('base64');
-      return `<li><a href="collections/${id}/"><img src="data:image/svg+xml;base64,${preview}" width="42" height="42" alt="" loading="lazy"><span>${escapeHtml(name)}</span></a></li>`;
-    })
-    .join('');
-
 function page(title: string, description: string, path: string, body: string) {
   const fontPath = `${'../'.repeat(path.split('/').filter(Boolean).length)}fonts/fonts.css`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -225,14 +215,13 @@ export function discoveryPages(): Plugin {
         const title = 'Avatares SVG para JavaScript y React | lazy-avatars';
         const description =
           'Avatares SVG deterministas para perfiles, equipos y bots. Prueba 13 colecciones originales y úsalas en JavaScript, TypeScript o React.';
-        const content = `<section class="discovery" aria-labelledby="about-library"><div class="discovery-intro"><div><h2 id="about-library">De la galería a tu proyecto.</h2>
-<p>Elige una colección y escribe un nombre o texto para ver tu avatar SVG. La misma colección, texto y ajustes generan el mismo resultado en una misma versión. Puedes usar la librería en JavaScript o TypeScript; React es opcional.</p>
-  </div><a class="discovery-api" href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos</a></div>
-<div class="discovery-grid"><div class="discovery-collections"><h3>Las trece colecciones</h3><ul class="collection-docs">${collectionTiles()}</ul></div>
-<div class="discovery-faq"><h3>Preguntas frecuentes</h3><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. Puedes probar los avatares aquí y generarlos en tu proyecto con JavaScript o TypeScript. React es opcional; también puedes alojar la integración HTTP en tu servidor.</p></details>
-<details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. El código y las trece colecciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p></details>
+        const content = `<section class="api-guide" id="api-guide" aria-labelledby="api-guide-title"><div class="api-guide-copy"><h2 id="api-guide-title" class="heading-square">La API de lazy-avatars</h2>
+<p>Consulta las opciones de <code>createAvatar</code>, los ejemplos para JavaScript y TypeScript y las integraciones opcionales, como React.</p></div>
+<div class="api-guide-action"><span id="api-arrival" class="api-arrival" aria-hidden="true"></span><a class="api-guide-link" href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos</a></div></section>
+<section class="discovery" aria-labelledby="faq-title"><h2 id="faq-title" class="heading-square">Preguntas frecuentes</h2><div class="discovery-faq"><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. Puedes probar los avatares aquí y generarlos en tu proyecto con JavaScript o TypeScript. React es opcional; también puedes alojar la integración HTTP en tu servidor.</p></details>
+<details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. El código y las ilustraciones originales están cubiertos por la licencia MIT del proyecto. Conserva el copyright y la licencia al redistribuir copias o partes sustanciales.</p></details>
 <details><summary>¿El mismo texto crea siempre el mismo avatar?</summary><p>Sí, si mantienes la misma versión del paquete, colección y ajustes. Si quieres conservarlo después de actualizar, guarda el SVG.</p></details>
-<details><summary>¿Se envía el texto a algún servidor?</summary><p>La galería genera los avatares en tu navegador. El enlace para compartir incluye el nombre o texto que hayas escrito: usa datos ficticios si vas a publicarlo. La galería no utiliza un servicio de imágenes ni analítica.</p></details></div></div>
+<details><summary>¿Se envía el texto a algún servidor?</summary><p>La galería genera los avatares en tu navegador. El enlace para compartir incluye el nombre o texto que hayas escrito: usa datos ficticios si vas a publicarlo. La galería no utiliza un servicio de imágenes ni analítica.</p></details></div>
 <noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones y ejemplos sin activarlo.</p></noscript></section>`;
         return html
           .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)

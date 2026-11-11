@@ -47,11 +47,6 @@ body {
   color: var(--fg);
   text-underline-offset: 3px;
 }
-.collection-docs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 8px 24px;
-}
 .review-controls[hidden] {
   display: none;
 }

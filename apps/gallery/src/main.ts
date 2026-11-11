@@ -559,6 +559,139 @@ required<HTMLAnchorElement>('#hero-cta').addEventListener('click', (event) => {
   void travelToGenerator(heroMascot, awakeBrandUrl);
 });
 
+const copyCodeButton = required<HTMLButtonElement>('#copy-code');
+const apiMascot = required<HTMLImageElement>('#api-mascot');
+const apiGuide = required<HTMLElement>('#api-guide');
+const apiGuideAction = required<HTMLElement>('.api-guide-action');
+const apiArrival = required<HTMLElement>('#api-arrival');
+const apiLink = required<HTMLAnchorElement>('.api-guide-link');
+let apiMascotIsTraveling = false;
+
+async function descendToApi() {
+  if (apiMascotIsTraveling) return;
+  apiMascotIsTraveling = true;
+  const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = 'auto';
+  let traveler: HTMLImageElement | undefined;
+  let thread: HTMLElement | undefined;
+  try {
+    apiGuideAction.classList.add('has-arrival');
+    apiArrival.classList.add('is-active');
+    apiArrival.classList.remove('is-seated');
+    apiArrival.replaceChildren();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      apiGuide.scrollIntoView({ block: 'start', behavior: 'auto' });
+    } else {
+      apiArrival.style.visibility = 'hidden';
+      const start = apiMascot.getBoundingClientRect();
+      const destination = apiArrival.getBoundingClientRect();
+      const scrollStart = window.scrollY;
+      const scrollEnd = Math.max(
+        0,
+        Math.min(
+          document.documentElement.scrollHeight - window.innerHeight,
+          scrollStart +
+            apiGuide.getBoundingClientRect().top -
+            required<HTMLElement>('.site-nav').getBoundingClientRect().height -
+            24,
+        ),
+      );
+      traveler = apiMascot.cloneNode(true) as HTMLImageElement;
+      traveler.removeAttribute('id');
+      traveler.className = 'traveling-mascot is-waking';
+      traveler.alt = '';
+      traveler.setAttribute('aria-hidden', 'true');
+      Object.assign(traveler.style, {
+        left: `${start.left}px`,
+        top: `${start.top}px`,
+        width: `${start.width}px`,
+        height: `${start.height}px`,
+      });
+      thread = document.createElement('span');
+      thread.className = 'api-thread';
+      document.body.append(thread, traveler);
+      apiMascot.style.visibility = 'hidden';
+      copyCodeButton.classList.add('is-traveling');
+      await new Promise((resolve) => window.setTimeout(resolve, 320));
+      traveler.src = awakeBrandUrl;
+      traveler.classList.remove('is-waking');
+
+      const dropDistance = Math.max(
+        110,
+        Math.min(
+          260,
+          required<HTMLElement>('.source').getBoundingClientRect().bottom - start.bottom - 16,
+        ),
+      );
+      thread.style.left = `${start.left + start.width / 2}px`;
+      thread.style.top = `${start.top + start.height / 2}px`;
+      thread.style.height = '0px';
+      thread.getBoundingClientRect();
+      thread.style.transition = 'height 950ms cubic-bezier(0.2, 0.7, 0.25, 1)';
+      traveler.style.transition = 'top 950ms cubic-bezier(0.2, 0.7, 0.25, 1)';
+      thread.style.height = `${dropDistance}px`;
+      traveler.style.top = `${start.top + dropDistance}px`;
+      await new Promise((resolve) => window.setTimeout(resolve, 1000));
+      thread.style.transition = 'none';
+      traveler.style.transition = 'none';
+
+      const flyingMascot = traveler;
+      const flyingThread = thread;
+      const duration = 1450;
+      const started = performance.now();
+      await new Promise<void>((resolve) => {
+        function frame(now: number) {
+          const t = Math.min(1, (now - started) / duration);
+          const progress = t * t * (3 - 2 * t);
+          const scrollY = scrollStart + (scrollEnd - scrollStart) * progress;
+          window.scrollTo(0, scrollY);
+          const left = start.left + (destination.left - start.left) * progress;
+          const top =
+            start.top +
+            dropDistance +
+            (destination.top - start.top - dropDistance) * progress -
+            (scrollY - scrollStart);
+          flyingMascot.style.left = `${left}px`;
+          flyingMascot.style.top = `${top}px`;
+          flyingMascot.style.transform = `rotate(${Math.sin(t * Math.PI * 3) * (1 - t) * 16}deg)`;
+          const anchorX = start.left + start.width / 2;
+          const anchorY = Math.max(0, start.top + start.height / 2 - (scrollY - scrollStart));
+          const endX = left + start.width / 2;
+          const endY = top + start.height / 2;
+          const dx = endX - anchorX;
+          const dy = endY - anchorY;
+          flyingThread.style.left = `${anchorX}px`;
+          flyingThread.style.top = `${anchorY}px`;
+          flyingThread.style.height = `${Math.hypot(dx, dy)}px`;
+          flyingThread.style.transform = `rotate(${-Math.atan2(dx, dy)}rad)`;
+          if (t < 1) requestAnimationFrame(frame);
+          else resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+    const awake = new Image();
+    awake.src = awakeBrandUrl;
+    awake.alt = '';
+    apiArrival.replaceChildren(awake);
+    apiArrival.style.visibility = '';
+    apiArrival.classList.add('is-seated');
+    if (thread) {
+      thread.classList.add('is-retracting');
+      await new Promise((resolve) => window.setTimeout(resolve, 650));
+    }
+    apiLink.focus({ preventScroll: true });
+  } finally {
+    traveler?.remove();
+    thread?.remove();
+    apiMascot.style.visibility = '';
+    copyCodeButton.classList.remove('is-traveling');
+    apiArrival.style.visibility = '';
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    apiMascotIsTraveling = false;
+  }
+}
+
 for (const [id, entry] of Object.entries(registry)) {
   const card = node('button', undefined, 'collection-card');
   card.type = 'button';
@@ -626,13 +759,15 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-c
     render();
   });
 contactSize.addEventListener('input', () => render());
-async function copy(text: string, target: HTMLElement, success: string): Promise<void> {
+async function copy(text: string, target: HTMLElement, success: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(text);
     target.textContent = success;
+    return true;
   } catch {
     target.textContent =
       'No se pudo acceder al portapapeles. Puedes seleccionar y copiar el texto.';
+    return false;
   }
 }
 required<HTMLButtonElement>('#copy-install').addEventListener('click', () => {
@@ -644,8 +779,9 @@ required<HTMLButtonElement>('#shuffle-seed').addEventListener('click', () => {
   setSeed(contactSeeds[index] ?? 'Ada Moss');
   render();
 });
-required<HTMLButtonElement>('#copy-code').addEventListener('click', () => {
-  void copy(code.textContent ?? '', feedback, 'Código copiado.');
+copyCodeButton.addEventListener('click', async () => {
+  if (apiMascotIsTraveling) return;
+  if (await copy(code.textContent ?? '', feedback, 'Código copiado.')) void descendToApi();
 });
 share.addEventListener('click', async () => {
   try {

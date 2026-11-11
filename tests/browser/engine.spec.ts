@@ -141,6 +141,9 @@ test('restores shared URL options, reviews 60 seeds at all sizes, and copies wor
     await expect(page.locator('#sizes img').first()).toHaveAttribute('width', size);
   }
   await page.locator('#copy-code').click();
+  await expect(page.locator('.source-copy-action #copy-feedback')).toHaveText('Código copiado.');
+  await expect(page.locator('#api-arrival img')).toHaveCount(1);
+  await expect(page.locator('.api-thread')).toHaveCount(0);
   await expect
     .poll(async () =>
       (await page.evaluate(() => navigator.clipboard.readText())).replace(/\r\n/g, '\n'),
