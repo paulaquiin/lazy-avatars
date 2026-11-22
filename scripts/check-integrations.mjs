@@ -23,6 +23,10 @@ try {
     '@types/react': '19.3.0',
     '@types/node': '24.10.0',
   };
+  // Keep the isolated offline install aligned with the root lockfile.
+  const lock = readFileSync(join(root, 'pnpm-lock.yaml'), 'utf8');
+  const csstypeVersion = lock.match(/^ {2}csstype@(\d+\.\d+\.\d+):/m)?.[1];
+  assert(csstypeVersion, 'Expected a pinned csstype version in pnpm-lock.yaml');
   const core = JSON.parse(
     run(
       ['exec', 'npm', 'pack', '--json', '--ignore-scripts', '--pack-destination', temporary],
@@ -36,7 +40,7 @@ try {
   );
   writeFileSync(
     join(temporary, 'pnpm-workspace.yaml'),
-    `overrides:\n  lazy-avatars: ${JSON.stringify(dependencies['lazy-avatars'])}\n`,
+    `overrides:\n  lazy-avatars: ${JSON.stringify(dependencies['lazy-avatars'])}\n  csstype: ${csstypeVersion}\n`,
   );
   const store = JSON.parse(readFileSync(join(root, 'node_modules/.modules.yaml'), 'utf8')).storeDir;
   run(
