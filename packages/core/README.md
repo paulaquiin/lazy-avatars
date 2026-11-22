@@ -17,7 +17,7 @@ Real SVG output from the library. Examples use `seed: 'Ada Moss'`, `size: 128` a
 ## Install and render
 
 ```sh
-npm install lazy-avatars@1.1.3
+npm install lazy-avatars@2.0.0
 ```
 
 ESM package for Node.js 24.11+ (24.x) or 26+ and modern browser bundlers.
@@ -135,7 +135,7 @@ on import. Core rendering and collection outputVersion remain unchanged.
 ## React example
 
 ```sh
-npm install lazy-avatars@1.1.3 react@19
+npm install lazy-avatars@2.0.0 react@19
 # TypeScript projects: npm install --save-dev @types/react
 ```
 
@@ -180,8 +180,8 @@ registerLazyAvatar({ collections: [rack] });
 ## CLI and self-hosted HTTP examples
 
 ```sh
-npx --package=lazy-avatars@1.1.3 lazy-avatars rack demo-host-01 --options '{"status":"warn"}' > avatar.svg
-npx --package=lazy-avatars@1.1.3 lazy-avatars-http
+npx --package=lazy-avatars@2.0.0 lazy-avatars rack demo-host-01 --options '{"status":"warn"}' > avatar.svg
+npx --package=lazy-avatars@2.0.0 lazy-avatars-http
 ```
 
 The server binds to `127.0.0.1:3000` by default. For example:

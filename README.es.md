@@ -23,7 +23,7 @@ SVG reales generados con la librería. Los ejemplos usan `seed: 'Ada Moss'`, `si
 Instala el paquete ESM (Node.js 24.11+ en la rama 24.x, o 26+, y bundlers modernos de navegador):
 
 ```sh
-npm install lazy-avatars@1.1.3
+npm install lazy-avatars@2.0.0
 ```
 
 Importa el motor y la colección que necesites:
@@ -81,7 +81,7 @@ La URL guarda el estado, incluida la semilla: compartirla comparte ese texto. Us
 
 ## Integraciones
 
-Una instalación: `npm install lazy-avatars@1.1.3`.
+Una instalación: `npm install lazy-avatars@2.0.0`.
 Usa `lazy-avatars/react`, `lazy-avatars/web-component`, `lazy-avatars/cli` y
 `lazy-avatars/http`. React 19 es un peer opcional: solo se instala si lo necesitas.
 El motor y las colecciones no cargan React, DOM ni código del servidor Node.

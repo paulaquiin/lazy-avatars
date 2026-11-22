@@ -73,6 +73,8 @@ npx --package=lazy-avatars lazy-avatars-http
 
 Por defecto escucha en `127.0.0.1:3000`. Una petición como `GET /origami/Ada%20Moss.svg?size=128` devuelve un SVG. `GET /healthz` comprueba que el servidor responde. Configura TLS, límites de peticiones y acceso en tu despliegue si lo expones a Internet; las URL pueden contener la semilla.
 
+Los errores devuelven JSON con `error.status`, `error.code`, `error.message` y `error.hint`. Por ejemplo, una colección desconocida devuelve 404 y el código `not_found`. Las respuestas no incluyen la semilla enviada.
+
 ## Más integraciones y código fuente
 
 El paquete también incluye [un web component](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/integrations/web-component.md). Consulta los detalles de [React](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/integrations/react.md), [CLI](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/integrations/cli.md), [HTTP](https://github.com/paulaquiin/lazy-avatars/blob/main/docs/integrations/http.md) y el [contrato completo del paquete](https://github.com/paulaquiin/lazy-avatars/blob/main/packages/core/README.md) en GitHub.

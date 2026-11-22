@@ -4,7 +4,7 @@ Available in lazy-avatars 1.1.0, published on npm. Uses Node standard modules,
 no React or runtime dependencies. No project-hosted public image API is deployed.
 
 ```sh
-npx --package=lazy-avatars@1.1.0 lazy-avatars-http
+npx --package=lazy-avatars@2.0.0 lazy-avatars-http
 # Or from checkout:
 node packages/core/dist/http-bin.js
 # Docker, from repository root:
@@ -27,8 +27,7 @@ GET/HEAD /healthz reports readiness. Request target: max 4096 characters; header
 
 Success: image/svg+xml; charset=utf-8, byte length, SHA-256 ETag and private,
 max-age=3600, must-revalidate cache. If-None-Match supports lists, weak tags and *;
-returns 304. HEAD omits the body. The published 1.1.3 package returns plain
-status text for errors. Unreleased source code changes this to no-store JSON
+returns 304. HEAD omits the body. Since 2.0.0, errors return no-store JSON
 with `error.status`, `error.code`, `error.message` and `error.hint`;
 400 invalid input, 404 route/collection, 405 method with Allow, 413 body, 414 long
 URL. Nosniff, no-referrer and restrictive CSP headers. Requests/headers timeout

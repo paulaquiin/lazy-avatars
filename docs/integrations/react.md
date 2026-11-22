@@ -4,7 +4,7 @@ Available in lazy-avatars 1.1.0, published on npm. Install the single package an
 React 19; React is an optional peer, not installed for core-only users.
 
 ```sh
-npm install lazy-avatars@1.1.0 react@19
+npm install lazy-avatars@2.0.0 react@19
 ```
 
 ```tsx

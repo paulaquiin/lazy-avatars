@@ -3,7 +3,7 @@
 Available in lazy-avatars 1.1.0, published on npm.
 
 ```sh
-npx lazy-avatars@1.1.0 rack demo-server-01 --theme night > avatar.svg
+npx lazy-avatars@2.0.0 rack demo-server-01 --theme night > avatar.svg
 # From checkout, after build:
 node packages/core/dist/cli-bin.js rack demo-server-01
 ```
