@@ -4,6 +4,34 @@ import { createServer } from 'node:http';
 import { getCollection } from '../shared/catalogue.js';
 import { renderInput } from '../shared/input.js';
 
+const errors = {
+  400: {
+    code: 'invalid_input',
+    message: 'Avatar input is invalid.',
+    hint: 'Check the seed and supported query parameters.',
+  },
+  404: {
+    code: 'not_found',
+    message: 'Avatar route or collection not found.',
+    hint: 'Use /<collection>/<seed>.svg with a supported collection.',
+  },
+  405: {
+    code: 'method_not_allowed',
+    message: 'This method is not supported.',
+    hint: 'Retry with GET or HEAD.',
+  },
+  413: {
+    code: 'body_not_allowed',
+    message: 'Request bodies are not supported.',
+    hint: 'Pass avatar options in the URL query string.',
+  },
+  414: {
+    code: 'uri_too_long',
+    message: 'The request URL is too long.',
+    hint: 'Keep the URL below 4096 characters.',
+  },
+} as const;
+
 /** No listener starts until the caller invokes listen(). No seed or URL is logged. */
 export function createAvatarServer(): Server {
   const server = createServer({ maxHeaderSize: 16 * 1024 }, (request, response) => {
@@ -11,9 +39,13 @@ export function createAvatarServer(): Server {
     response.setHeader('Content-Security-Policy', "default-src 'none'; sandbox");
     response.setHeader('Referrer-Policy', 'no-referrer');
     response.setHeader('Cache-Control', 'no-store');
-    const fail = (status: number) => {
-      response.writeHead(status, { 'Content-Type': 'text/plain; charset=utf-8' });
-      response.end(request.method === 'HEAD' ? undefined : `${status}\n`);
+    const fail = (status: keyof typeof errors) => {
+      response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+      response.end(
+        request.method === 'HEAD'
+          ? undefined
+          : `${JSON.stringify({ error: { status, ...errors[status] } })}\n`,
+      );
     };
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       response.setHeader('Allow', 'GET, HEAD');

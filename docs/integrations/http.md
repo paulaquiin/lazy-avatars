@@ -27,7 +27,9 @@ GET/HEAD /healthz reports readiness. Request target: max 4096 characters; header
 
 Success: image/svg+xml; charset=utf-8, byte length, SHA-256 ETag and private,
 max-age=3600, must-revalidate cache. If-None-Match supports lists, weak tags and *;
-returns 304. HEAD omits the body. Errors: no-store with generic status body;
+returns 304. HEAD omits the body. The published 1.1.3 package returns plain
+status text for errors. Unreleased source code changes this to no-store JSON
+with `error.status`, `error.code`, `error.message` and `error.hint`;
 400 invalid input, 404 route/collection, 405 method with Allow, 413 body, 414 long
 URL. Nosniff, no-referrer and restrictive CSP headers. Requests/headers timeout
 10s, keep-alive 5s, 100 requests/socket. No unbounded memory cache or request logs.

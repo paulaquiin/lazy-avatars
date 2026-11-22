@@ -137,11 +137,26 @@ describe('self-hosted HTTP', () => {
       const r = await fetch(base + path);
       expect(r.status, path).toBe(code);
       expect(r.headers.get('cache-control')).toBe('no-store');
-      expect(await r.text()).toBe(`${code}\n`);
+      expect(r.headers.get('content-type')).toBe('application/json; charset=utf-8');
+      const body = await r.json();
+      expect(body).toEqual({
+        error: {
+          status: code,
+          code: expect.any(String),
+          message: expect.any(String),
+          hint: expect.any(String),
+        },
+      });
+      expect(JSON.stringify(body)).not.toContain('demo.svg');
     }
     const post = await fetch(`${base}/rack/demo.svg`, { method: 'POST' });
     expect(post.status).toBe(405);
     expect(post.headers.get('allow')).toBe('GET, HEAD');
+    expect((await post.json()).error.code).toBe('method_not_allowed');
+    const headError = await fetch(`${base}/rack/demo.png`, { method: 'HEAD' });
+    expect(headError.status).toBe(404);
+    expect(headError.headers.get('content-type')).toBe('application/json; charset=utf-8');
+    expect(await headError.text()).toBe('');
     expect(await (await fetch(`${base}/healthz`)).text()).toBe('ok\n');
   });
 });
