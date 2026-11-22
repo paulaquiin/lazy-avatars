@@ -53,6 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
+      actions: read
       contents: read
       pages: write
       id-token: write
@@ -77,10 +78,31 @@ jobs:
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
+          name: gallery-${{ github.run_id }}-${{ github.run_attempt }}
           path: apps/gallery/dist
+      - name: Wait for Pages artifact indexing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          artifact_name="gallery-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          for attempt in $(seq 1 12); do
+            count=$(curl -fsS \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts?per_page=100" \
+              | jq --arg name "$artifact_name" '[.artifacts[] | select(.name == $name)] | length')
+            if [ "$count" -eq 1 ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Pages artifact was not indexed in time" >&2
+          exit 1
       - name: Deploy gallery
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        with:
+          artifact_name: gallery-${{ github.run_id }}-${{ github.run_attempt }}
 
   docker:
     name: Docker HTTP smoke test
