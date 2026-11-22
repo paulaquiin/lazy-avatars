@@ -4,6 +4,13 @@ import type { Plugin } from 'vite';
 
 const site = 'https://lazyavatars.paulaquiin.com/';
 const repo = 'https://github.com/paulaquiin/lazy-avatars';
+const homeTitle = 'Librería de avatares SVG para JavaScript y TypeScript | lazy-avatars';
+const homeDescription =
+  'Librería de avatares SVG deterministas con 13 colecciones originales para JavaScript y TypeScript. Prueba la galería; React es opcional.';
+const homeHeading =
+  'Avatares SVG <span class="hero-highlight">con tu nombre</span> para JavaScript y TypeScript';
+const homeIntro =
+  'Prueba las 13 colecciones originales en la galería. El mismo nombre y los mismos ajustes crean el mismo avatar en tu proyecto. React es opcional.';
 const version = JSON.parse(
   readFileSync(new URL('../../packages/core/package.json', import.meta.url), 'utf8'),
 ).version as string;
@@ -12,105 +19,105 @@ const collections = [
   [
     'mosaic',
     'Mosaico',
-    'Geometric mosaic avatars',
-    'Arcs and triangular tiles form a geometric identicon for profiles and teams.',
-    'Use it for abstract identities in member lists and comments.',
+    'Avatares de mosaico geométrico',
+    'Arcos y piezas triangulares forman un avatar geométrico para perfiles y equipos.',
+    'Úsalo para distinguir miembros en listas y comentarios.',
     "{ tile: 'arcs' }",
   ],
   [
     'monogram',
     'Monograma',
-    'Monogram and initials avatars',
-    'Original serif letter paths place initials inside circle, shield or diamond frames.',
-    'Use it when initials should remain recognizable without loading a font.',
+    'Avatares de monogramas e iniciales',
+    'Las iniciales originales aparecen en marcos circulares, escudos o rombos.',
+    'Úsalo cuando las iniciales deban reconocerse sin cargar una fuente.',
     "{ frame: 'shield' }",
   ],
   [
     'rack',
     'Rack',
-    'Server rack SVG avatars',
-    'Server-inspired avatars combine original pixel initials, disk or vent units and status LEDs.',
-    'Use it for infrastructure dashboards. Status is supplied by your app, defaults to off and must also have a text label; this avatar does not monitor a server.',
+    'Avatares SVG de servidores',
+    'Bastidores con iniciales pixeladas, discos o rejillas y luces de estado.',
+    'Úsalo en paneles de infraestructura. Tu aplicación proporciona el estado; acompáñalo de texto. El avatar no monitoriza servidores.',
     "{ status: 'warn', unit: 'disks' }",
   ],
   [
     'siesta',
     'Siesta',
-    'Sleepy character avatars',
-    'Round, pear and cloud characters have sleepy expressions, with caps, masks or blankets.',
-    'Use these friendly characters for community profiles, teammates or bots.',
+    'Avatares de personajes soñolientos',
+    'Personajes redondos, con forma de pera o nube, con gorros, antifaces y mantas.',
+    'Úsalos para perfiles de comunidad, compañeros o bots.',
     "{ accessory: 'zzz', body: 'round', mouth: 'yawn' }",
   ],
   [
     'origami',
     'Origami',
-    'Origami animal avatars',
-    'Folded geometric shapes create fox, cat, bear and owl avatars.',
-    'Use it for teams and profiles that need a recognizable animal silhouette.',
+    'Avatares de animales de origami',
+    'Pliegues geométricos forman zorros, gatos, osos y búhos.',
+    'Úsalo en perfiles y equipos que quieran una silueta animal reconocible.',
     "{ animal: 'fox' }",
   ],
   [
     'pantry',
     'Despensa',
-    'Food SVG avatars',
-    'Donut, citrus, egg and avocado illustrations give each profile a food-themed identity.',
-    'Use it for food communities, member lists and playful account placeholders.',
+    'Avatares SVG de comida',
+    'Dónuts, cítricos, huevos y aguacates dan sabor a cada perfil.',
+    'Úsalo en comunidades de cocina, listas de miembros y perfiles de prueba.',
     "{ food: 'avocado' }",
   ],
   [
     'deco',
     'Déco',
-    'Art Deco geometric avatars',
-    'Fan, arch and sun motifs create compact Art Deco-inspired identity marks.',
-    'Use it when a profile needs an ornamental geometric badge instead of a face.',
+    'Avatares geométricos Déco',
+    'Abanicos, arcos y soles forman insignias inspiradas en el art déco.',
+    'Úsalo para dar a un perfil una insignia geométrica ornamental.',
     "{ motif: 'fan' }",
   ],
   [
     'latte',
     'Latte',
-    'Coffee and latte art avatars',
-    'Coffee cups contain heart, tulip, rosetta or ring patterns selected by a seed.',
-    'Use it for café projects, relaxed communities and coffee-themed bots.',
+    'Avatares de café y latte art',
+    'Tazas con corazones, tulipanes, rosetas o anillos elegidos por la semilla.',
+    'Úsalo en proyectos de cafetería, comunidades y bots con tema de café.',
     "{ art: 'tulip' }",
   ],
   [
     'constellation',
     'Constelación',
-    'Constellation identicon avatars',
-    'A seed creates a small star map with connected points and a contrasting sky.',
-    'Use it for abstract space-themed profiles. This collection has no collection-specific options.',
+    'Avatares de constelaciones',
+    'Una semilla crea un pequeño mapa estelar con puntos unidos.',
+    'Úsalo en perfiles abstractos de tema espacial. Esta colección no tiene ajustes propios.',
     '{}',
   ],
   [
     'tinbot',
     'Hojalata',
-    'Robot SVG avatars',
-    'Mechanical robot faces combine antennas, gauges or visors, and grille, smile or dot mouths.',
-    'Use it to identify bots, automation accounts and technical teammates.',
+    'Avatares SVG de robots',
+    'Caras mecánicas con antenas, indicadores, visores y distintas bocas.',
+    'Úsalo para identificar bots, cuentas de automatización y compañeros técnicos.',
     "{ antenna: 'double', eyes: 'visor', mouth: 'smile' }",
   ],
   [
     'orbit',
     'Órbita',
-    'Planet and orbit avatars',
-    'Banded or cratered planets can have thin or wide rings and a small moon.',
-    'Use it for space-themed teams or profiles where a planet silhouette works best.',
+    'Avatares de planetas y órbitas',
+    'Planetas con bandas o cráteres, anillos y una luna pequeña.',
+    'Úsalo en equipos y perfiles de tema espacial.',
     "{ surface: 'bands', ring: 'wide', moon: 'small' }",
   ],
   [
     'mission',
     'Misión',
-    'Space mission badge avatars',
-    'Mission patches combine original sans initials, rockets and striped, ringed or cratered planets.',
-    'Use it for team badges, project identities and space-themed communities.',
+    'Avatares de misiones espaciales',
+    'Emblemas con iniciales originales, cohetes y planetas.',
+    'Úsalo como insignia de equipos, proyectos y comunidades espaciales.',
     "{ badge: 'shield', planet: 'ringed', rocket: 'tilted' }",
   ],
   [
     'helmet',
     'Casco',
-    'Astronaut helmet avatars',
-    'Astronaut helmets have round, wide or angular visors with planet or crescent reflections.',
-    'Use it for individual profiles and explorers in a space-themed interface.',
+    'Avatares de cascos de astronauta',
+    'Cascos con visores redondos, anchos o angulares y reflejos de planetas o lunas.',
+    'Úsalo para perfiles de exploradores en interfaces de tema espacial.',
     "{ visor: 'wide', reflection: 'crescent', antenna: 'single' }",
   ],
 ] as const;
@@ -124,8 +131,39 @@ const escapeHtml = (text: string) =>
 
 function metadata(title: string, description: string, path = '') {
   const url = site + path;
+  const markdown =
+    path === '' ? `${site}index.md` : path === 'docs/' ? `${site}docs/index.md` : null;
+  const schema =
+    path === ''
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'lazy-avatars',
+          description,
+          url,
+          applicationCategory: 'DeveloperApplication',
+          softwareVersion: version,
+          downloadUrl: 'https://www.npmjs.com/package/lazy-avatars',
+          softwareHelp: `${site}docs/`,
+          license: `${repo}/blob/main/LICENSE`,
+          sameAs: repo,
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareSourceCode',
+          name: 'lazy-avatars',
+          description,
+          url,
+          codeRepository: repo,
+          license: `${repo}/blob/main/LICENSE`,
+          programmingLanguage: ['TypeScript', 'JavaScript'],
+          runtimePlatform: 'Browser and Node.js',
+          softwareVersion: version,
+          sameAs: repo,
+        };
   return `<meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${url}">
+${markdown ? `<link rel="alternate" type="text/markdown" href="${markdown}">` : ''}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="lazy-avatars">
 <meta property="og:title" content="${escapeHtml(title)}">
@@ -139,18 +177,7 @@ function metadata(title: string, description: string, path = '') {
 <meta name="twitter:description" content="${escapeHtml(description)}">
 <meta name="twitter:image" content="${site}social-preview.png">
 <meta name="twitter:image:alt" content="Thirteen original lazy-avatars collections">
-<script type="application/ld+json">${JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareSourceCode',
-    name: 'lazy-avatars',
-    description,
-    url,
-    codeRepository: repo,
-    license: `${repo}/blob/main/LICENSE`,
-    programmingLanguage: ['TypeScript', 'JavaScript'],
-    runtimePlatform: 'Browser and Node.js',
-    softwareVersion: version,
-  }).replaceAll('<', '\\u003c')}</script>`;
+<script type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`;
 }
 
 const links = (prefix = '') =>
@@ -158,14 +185,71 @@ const links = (prefix = '') =>
     .map(([id, name]) => `<li><a href="${prefix}collections/${id}/">${name} / ${id}</a></li>`)
     .join('');
 
-function page(title: string, description: string, path: string, body: string) {
+function page(title: string, description: string, path: string, body: string, lang = 'es') {
   const fontPath = `${'../'.repeat(path.split('/').filter(Boolean).length)}fonts/fonts.css`;
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
+  return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(title)}</title>${metadata(title, description, path)}
 <link rel="stylesheet" href="${fontPath}">
 <style>body{font:17px/1.65 "Mulish",system-ui,sans-serif;background:#f6f3ec;color:#243b35;margin:0}main{max-width:960px;padding:32px 24px;margin:auto}a{color:#315647;text-underline-offset:3px}nav{display:flex;gap:20px;flex-wrap:wrap}h1,h2{font-family:"Arima Madurai",Georgia,serif}h1{font-size:clamp(30px,5vw,48px);line-height:1.15}h2{margin-top:32px}pre{overflow:auto;padding:20px;background:#fffdf8;border:1px solid #cbd5c6;border-radius:12px}img{max-width:100%}table{border-collapse:collapse;font-size:15px}th,td{border:1px solid #cbd5c6;padding:12px;text-align:left;vertical-align:top}.table-scroll{overflow:auto}ul{padding-left:24px}footer{margin-top:40px;border-top:1px solid #cbd5c6;padding-top:16px}.preview{display:flex;gap:20px;flex-wrap:wrap}</style>
-</head><body><main><nav aria-label="Main navigation"><a href="${site}">Gallery / Galería</a><a href="${site}comparison/">Compare libraries</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="${repo}">GitHub</a></nav>${body}<footer>Maintained by <a href="${repo}">the lazy-avatars project</a>. Original artwork and code: <a href="${repo}/blob/main/LICENSE">MIT</a>. No hosted public image API.</footer></main></body></html>`;
+</head><body><main><nav aria-label="Navegación principal"><a href="${site}">Galería</a><a href="${site}docs/">Documentación</a><a href="${site}comparison/">Comparativa</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="${repo}">GitHub</a></nav>${body}<footer>Proyecto <a href="${repo}">lazy-avatars</a>. Código e ilustraciones originales bajo <a href="${repo}/blob/main/LICENSE">licencia MIT</a>. El proyecto no aloja una API pública de imágenes.</footer></main></body></html>`;
+}
+
+function docsBody(markdown: string) {
+  const inline = (value: string) =>
+    escapeHtml(value)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\[([^\]]+)\]\((https:\/\/[^)]+)\)/g, '<a href="$2">$1</a>');
+  const blocks: string[] = [];
+  let current: string[] = [];
+  let inCode = false;
+  for (const line of markdown.trim().split('\n')) {
+    if (
+      !inCode &&
+      current.length &&
+      (line.startsWith('# ') ||
+        line.startsWith('## ') ||
+        line.startsWith('```') ||
+        (line.startsWith('- ') && !current[0]?.startsWith('- ')))
+    ) {
+      blocks.push(current.join('\n'));
+      current = [];
+    }
+    if (line.startsWith('```')) inCode = !inCode;
+    if (!inCode && line.trim() === '') {
+      if (current.length) blocks.push(current.join('\n'));
+      current = [];
+    } else {
+      current.push(line);
+    }
+  }
+  if (current.length) blocks.push(current.join('\n'));
+  if (inCode) throw new Error('Bloque de código sin cerrar en la documentación');
+  const anchor = (heading: string) =>
+    heading
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  return blocks
+    .map((block) => {
+      if (block.startsWith('```')) {
+        const match = /^```[a-z]*\n([\s\S]*?)\n```$/.exec(block);
+        if (!match) throw new Error('Bloque de código inválido en la documentación');
+        return `<pre><code>${escapeHtml(match[1] ?? '')}</code></pre>`;
+      }
+      if (block.startsWith('# ')) return `<h1>${inline(block.slice(2))}</h1>`;
+      if (block.startsWith('## '))
+        return `<h2 id="${anchor(block.slice(3))}">${inline(block.slice(3))}</h2>`;
+      if (block.startsWith('- '))
+        return `<ul>${block
+          .split('\n')
+          .map((line) => `<li>${inline(line.slice(2))}</li>`)
+          .join('')}</ul>`;
+      return `<p>${inline(block.replaceAll('\n', ' '))}</p>`;
+    })
+    .join('\n');
 }
 
 function comparisonBody() {
@@ -212,27 +296,48 @@ export function discoveryPages(): Plugin {
     transformIndexHtml: {
       order: 'post',
       handler(html) {
-        const title = 'Avatares SVG para JavaScript y React | lazy-avatars';
-        const description =
-          'Avatares SVG deterministas para perfiles, equipos y bots. Prueba 13 colecciones originales y úsalas en JavaScript, TypeScript o React.';
         const content = `<section class="api-guide" id="api-guide" aria-labelledby="api-guide-title"><div class="api-guide-copy"><h2 id="api-guide-title" class="heading-square">La API de lazy-avatars</h2>
-<p>Consulta las opciones de <code>createAvatar</code>, los ejemplos para JavaScript y TypeScript y las integraciones opcionales, como React.</p></div>
-<div class="api-guide-action"><span id="api-arrival" class="api-arrival" aria-hidden="true"></span><a class="api-guide-link" href="${repo}/blob/main/packages/core/README.md">Consulta la API y sus ejemplos</a></div></section>
+<p>Consulta <code>createAvatar</code> y los ejemplos para JavaScript y TypeScript. Genera un SVG con la <a href="${site}docs/#cli-genera-un-archivo-svg">CLI</a> o aloja el <a href="${site}docs/#http-autoalojable">servidor HTTP</a> en tu infraestructura.</p></div>
+<div class="api-guide-action"><span id="api-arrival" class="api-arrival" aria-hidden="true"></span><a class="api-guide-link" href="${site}docs/">Lee la documentación</a></div></section>
 <section class="discovery" aria-labelledby="faq-title"><h2 id="faq-title" class="heading-square">Preguntas frecuentes</h2><div class="discovery-faq"><details open><summary>¿Necesito React o una API de imágenes?</summary><p>No. Puedes probar los avatares aquí y generarlos en tu proyecto con JavaScript o TypeScript. React es opcional; también puedes alojar la integración HTTP en tu servidor.</p></details>
 <details><summary>¿Puedo usar los avatares en un proyecto comercial?</summary><p>Sí. Puedes usarlos comercialmente. Si distribuyes copias de los SVG, el código o partes sustanciales de la librería, incluye el aviso <code>Copyright (c) 2026 lazy-avatars contributors</code>.</p></details>
 <details><summary>¿El mismo texto crea siempre el mismo avatar?</summary><p>Sí, si mantienes la misma versión del paquete, colección y ajustes. Si quieres conservarlo después de actualizar, guarda el SVG.</p></details>
 <details><summary>¿Se envía el texto a algún servidor?</summary><p>La galería genera los avatares en tu navegador. El enlace para compartir incluye el nombre o texto que hayas escrito: usa datos ficticios si vas a publicarlo. La galería no utiliza un servicio de imágenes ni analítica.</p></details></div>
 <noscript><p>El generador interactivo necesita JavaScript. Puedes leer las colecciones y ejemplos sin activarlo.</p></noscript></section>`;
         return html
-          .replace(/<title>.*?<\/title>/s, `<title>${title}</title>`)
+          .replace(/<title>.*?<\/title>/s, `<title>${homeTitle}</title>`)
           .replace(/\s*<meta name="description"[^>]*>/, '')
-          .replace('</head>', `${metadata(title, description)}</head>`)
+          .replace('</head>', `${metadata(homeTitle, homeDescription)}</head>`)
+          .replace(
+            /<h1 class="heading-square">.*?<\/h1>/s,
+            `<h1 class="heading-square">${homeHeading}</h1>`,
+          )
+          .replace(
+            /<p class="hero-description">.*?<\/p>/s,
+            `<p class="hero-description">${homeIntro}</p>`,
+          )
           .replace('<!-- discovery-content -->', content);
       },
     },
     generateBundle() {
       const emit = (fileName: string, source: string | Uint8Array) =>
         this.emitFile({ type: 'asset', fileName, source });
+      const documentation = readFileSync(new URL('./content/docs.md', import.meta.url), 'utf8');
+      emit('docs/index.md', documentation);
+      emit(
+        'docs/index.html',
+        page(
+          'Documentación de la API de lazy-avatars para JavaScript y TypeScript',
+          'Instala lazy-avatars y genera SVG deterministas. Referencia de createAvatar, ejemplos para React, CLI y servidor HTTP autoalojable.',
+          'docs/',
+          docsBody(documentation),
+        ),
+      );
+      emit(
+        'index.md',
+        `# lazy-avatars: avatares SVG para JavaScript y TypeScript\n\n${homeDescription}\n\n${homeIntro}\n\n- [Prueba el generador](${site}#playground)\n- [Documentación de la API](${site}docs/)\n- [CLI y servidor HTTP autoalojable](${site}docs/#cli-genera-un-archivo-svg)\n- [Colecciones](${site}#collections)\n- [Código fuente](${repo})\n`,
+      );
+      emit('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site}sitemap.xml\n`);
       for (const [id, name, title, description, use, options] of collections) {
         emit(
           `previews/${id}.svg`,
@@ -246,7 +351,7 @@ export function discoveryPages(): Plugin {
             `${title} · lazy-avatars`,
             description,
             path,
-            `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(name)} is one of the 13 original lazy-avatars collections. ${escapeHtml(description)}</p><div class="preview"><img src="../../previews/${id}.svg" width="128" height="128" alt="${escapeHtml(name)} avatar example"></div><h2>When to use ${escapeHtml(name)}</h2><p>${escapeHtml(use)}</p><h2>Install and render</h2><pre><code>npm install lazy-avatars@${escapeHtml(version)}</code></pre><pre><code>${escapeHtml(code)}</code></pre><p>This code demonstrates explicit collection options. The preview uses seed-selected defaults (Rack: demo-host-01 with status warn); changing options can change its appearance.</p><h2>React integration</h2><p>Install React 19 separately, then pass this collection to the optional component:</p><pre><code>${escapeHtml(`import { Avatar } from 'lazy-avatars/react';\nimport { ${id} } from 'lazy-avatars/${id}';\n\n<Avatar collection={${id}} seed="Ada Moss" size={64} title="Example profile" />;`)}</code></pre><h2>Determinism and license</h2><p>Same collection/output version, normalized seed and effective options produce identical SVG bytes. Collection outputVersion is 1. Pin the package or save the SVG to preserve historical output. Original artwork and code use this project's MIT license; the website fonts use SIL OFL and are not part of the avatar SVG output.</p><p><a href="${repo}/blob/main/packages/core/README.md">Full API contract</a></p><h2>Other collections</h2><ul>${links(site)}</ul>`,
+            `<h1>${escapeHtml(title)}</h1><p>${escapeHtml(name)} es una de las 13 colecciones originales de lazy-avatars. ${escapeHtml(description)}</p><div class="preview"><img src="../../previews/${id}.svg" width="128" height="128" alt="Ejemplo de avatar ${escapeHtml(name)}"></div><h2>Cuándo usar ${escapeHtml(name)}</h2><p>${escapeHtml(use)}</p><h2>Instala y genera el SVG</h2><pre><code>npm install lazy-avatars@${escapeHtml(version)}</code></pre><pre><code>${escapeHtml(code)}</code></pre><p>El código muestra ajustes propios de la colección. La vista previa usa ajustes elegidos por la semilla (Rack: demo-host-01 con estado warn); si cambias los ajustes, el resultado puede variar.</p><h2>Integración con React</h2><p>Instala React 19 por separado y pasa esta colección al componente opcional:</p><pre><code>${escapeHtml(`import { Avatar } from 'lazy-avatars/react';\nimport { ${id} } from 'lazy-avatars/${id}';\n\n<Avatar collection={${id}} seed="Ada Moss" size={64} title="Avatar de ejemplo" />;`)}</code></pre><h2>Repetibilidad y licencia</h2><p>La misma versión de salida, semilla normalizada y configuración efectiva producen el mismo SVG. Fija la versión del paquete o guarda el SVG si necesitas conservarlo tras una actualización. El código y las ilustraciones originales tienen licencia MIT; las fuentes de la web usan SIL OFL y no forman parte del SVG generado.</p><p><a href="${site}docs/">Consulta la documentación de la API</a></p><h2>Otras colecciones</h2><ul>${links(site)}</ul>`,
           ),
         );
       }
@@ -257,10 +362,12 @@ export function discoveryPages(): Plugin {
           'Compare SVG avatar libraries by local generation, React integration, artwork, licensing and hosted APIs. Maintained by the lazy-avatars project.',
           'comparison/',
           comparisonBody(),
+          'en',
         ),
       );
       const urls = [
         site,
+        `${site}docs/`,
         ...collections.map(([id]) => `${site}collections/${id}/`),
         `${site}comparison/`,
       ];
@@ -270,7 +377,7 @@ export function discoveryPages(): Plugin {
       );
       emit(
         'llms.txt',
-        `# lazy-avatars\n\n> Deterministic SVG avatar library for JavaScript and TypeScript. 13 original collections, zero core runtime dependencies, optional React. Original code and art: MIT.\n\n- [Gallery and installation](${site})\n- [npm](https://www.npmjs.com/package/lazy-avatars)\n- [Source and API documentation](${repo})\n- [Comparison](${site}comparison/)\n${collections.map(([id, name]) => `- [${name}](${site}collections/${id}/)`).join('\n')}\n`,
+        `# lazy-avatars\n\n> Librería de avatares SVG deterministas para JavaScript y TypeScript. 13 colecciones originales y React opcional.\n\n## Cuándo usarla\n\nPara generar avatares SVG de perfiles, equipos y bots a partir de una semilla en tu aplicación. Instala el paquete; si necesitas un archivo desde un script, usa la CLI. El servidor HTTP se aloja por tu cuenta.\n\n- [Galería](${site})\n- [Documentación de la API](${site}docs/)\n- [Documentación en Markdown](${site}docs/index.md)\n- [npm](https://www.npmjs.com/package/lazy-avatars)\n- [Código fuente](${repo})\n- [Comparativa](${site}comparison/)\n${collections.map(([id, name]) => `- [${name}](${site}collections/${id}/)`).join('\n')}\n`,
       );
       emit(
         'social-preview.png',

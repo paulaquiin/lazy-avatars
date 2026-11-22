@@ -16,7 +16,14 @@ original collections, optional integrations and MIT-licensed original artwork.
 - [Comparison](comparison.md): owned by this project, dated and sourced from the
   official documentation of all three libraries. No unmeasured performance claims.
 - [`sitemap.xml`](https://lazyavatars.paulaquiin.com/sitemap.xml): home,
-  thirteen collection pages and comparison; query-string gallery states are omitted.
+  documentation, thirteen collection pages and comparison; query-string gallery states are omitted.
+- [`docs/`](https://lazyavatars.paulaquiin.com/docs/): Spanish quickstart, core API,
+  React, CLI and self-hosted HTTP. It is generated from `apps/gallery/content/docs.md`.
+- [`index.md`](https://lazyavatars.paulaquiin.com/index.md) and
+  [`docs/index.md`](https://lazyavatars.paulaquiin.com/docs/index.md): Markdown
+  alternatives linked from their HTML pages.
+- [`robots.txt`](https://lazyavatars.paulaquiin.com/robots.txt): allows crawling and
+  points to the sitemap.
 - [`llms.txt`](https://lazyavatars.paulaquiin.com/llms.txt): a small index of
   the same public documentation. It is optional convenience, not a ranking guarantee.
 - README badges: registry version/downloads, existing CI and MIT license. Bundle
@@ -33,11 +40,18 @@ in `docs/comparison.md`. Social artwork is `assets/previews/social-preview.png`.
 2. Submit `https://lazyavatars.paulaquiin.com/sitemap.xml` in Sitemaps.
 3. Add/import the site in Bing Webmaster Tools, verify access and submit the same sitemap.
 4. Inspect the home, Rack and comparison URLs; review indexing and crawl errors.
+5. Check brand searches for `lazy-avatars avatares SVG` and
+   `lazy-avatars JavaScript TypeScript`; record the engine, date and result URL.
+6. After deployment, request `/robots.txt`, `/sitemap.xml`, `/docs/`,
+   `/index.md` and `/docs/index.md` on the custom domain. Check HTTP status,
+   sitemap URLs, Markdown bodies and `Content-Type: text/markdown` for both
+   `.md` routes. Confirm the HTML pages advertise their Markdown alternatives.
 
 Verification files/meta tags must come from those accounts. Do not invent a token
 or claim that submission or indexing happened without checking the account.
-The custom domain serves this gallery at the host root. If a `robots.txt` file is
-needed, publish it at `/robots.txt` on `lazyavatars.paulaquiin.com`.
+The custom domain serves this gallery at the host root. Verify the deployed
+`robots.txt`, sitemap and Markdown Content-Type after deployment; a local build
+only proves that Vite emitted the files.
 
 ## Examples and outreach: prepare, then request publication
 

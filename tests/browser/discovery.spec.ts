@@ -12,11 +12,8 @@ test('published documentation is readable without JavaScript and sitemap routes 
       page.locator('.api-guide').getByRole('heading', { name: 'La API de lazy-avatars' }),
     ).toBeVisible();
     await expect(
-      page.locator('.api-guide').getByRole('link', { name: 'Consulta la API y sus ejemplos' }),
-    ).toHaveAttribute(
-      'href',
-      'https://github.com/paulaquiin/lazy-avatars/blob/main/packages/core/README.md',
-    );
+      page.locator('.api-guide').getByRole('link', { name: 'Lee la documentación' }),
+    ).toHaveAttribute('href', 'https://lazyavatars.paulaquiin.com/docs/');
     await expect(page.getByRole('heading', { name: 'Preguntas frecuentes' })).toBeVisible();
     await expect(page.locator('.discovery').getByRole('link')).toHaveCount(0);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
@@ -26,15 +23,28 @@ test('published documentation is readable without JavaScript and sitemap routes 
     const sitemap = await request.get('/sitemap.xml');
     expect(sitemap.ok()).toBe(true);
     const urls = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)];
-    expect(urls).toHaveLength(15);
+    expect(urls).toHaveLength(16);
     for (const [, url] of urls) {
       const path = new URL(url ?? '').pathname;
       const response = await request.get(path);
       expect(response.ok(), path).toBe(true);
       expect(await response.text()).toMatch(/<h1(?:\s[^>]*)?>/);
     }
+    const docs = await request.get('/docs/');
+    expect(docs.ok()).toBe(true);
+    expect(await docs.text()).toContain('Documentación de la API de lazy-avatars');
+    expect(await docs.text()).toContain('<ul><li><code>size</code>');
+    for (const path of ['/index.md', '/docs/index.md']) {
+      const markdown = await request.get(path);
+      expect(markdown.ok(), path).toBe(true);
+      expect(await markdown.text()).toMatch(/^# /);
+    }
+    const robots = await request.get('/robots.txt');
+    expect(await robots.text()).toContain(
+      'Sitemap: https://lazyavatars.paulaquiin.com/sitemap.xml',
+    );
     await page.goto('http://127.0.0.1:4173/collections/rack/');
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Server rack SVG avatars');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Avatares SVG de servidores');
     await expect(page.locator('.preview img')).toHaveJSProperty('naturalWidth', 128);
     await page.goto('http://127.0.0.1:4173/comparison/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(

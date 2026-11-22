@@ -124,7 +124,7 @@ main {
 .hero h1 {
   margin: 0 auto 23px;
   color: #293d31;
-  font-size: clamp(62px, 6.2vw, 88px);
+  font-size: clamp(46px, 5.2vw, 68px);
   font-family: "Arima Madurai", Georgia, serif;
   font-weight: 700;
   line-height: 1.02;
@@ -966,12 +966,15 @@ main {
     gap: 10px;
     font-size: 11px;
   }
+  .site-nav-links a:nth-child(5) {
+    display: none;
+  }
   .discovery-faq {
     padding: 20px;
   }
 }
 @media (max-width: 360px) {
-  .site-nav-links a:nth-child(3) {
+  .site-nav-links a:nth-child(4) {
     display: none;
   }
   .collection-invitation {
