@@ -23,7 +23,7 @@ test('published documentation is readable without JavaScript and sitemap routes 
     const sitemap = await request.get('/sitemap.xml');
     expect(sitemap.ok()).toBe(true);
     const urls = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)];
-    expect(urls).toHaveLength(16);
+    expect(urls).toHaveLength(18);
     for (const [, url] of urls) {
       const path = new URL(url ?? '').pathname;
       const response = await request.get(path);
@@ -34,11 +34,22 @@ test('published documentation is readable without JavaScript and sitemap routes 
     expect(docs.ok()).toBe(true);
     expect(await docs.text()).toContain('Documentación de la API de lazy-avatars');
     expect(await docs.text()).toContain('<ul><li><code>size</code>');
-    for (const path of ['/index.md', '/docs/index.md']) {
+    for (const [path, heading] of [
+      ['/contact/', 'Contacto'],
+      ['/privacy/', 'Privacidad de la galería'],
+    ] as const) {
+      const response = await request.get(path);
+      expect(response.ok(), path).toBe(true);
+      expect(await response.text()).toContain(`<h1>${heading}</h1>`);
+      expect(await response.text()).toContain('rel="alternate" type="text/markdown"');
+    }
+    for (const path of ['/index.md', '/docs/index.md', '/contact/index.md', '/privacy/index.md']) {
       const markdown = await request.get(path);
       expect(markdown.ok(), path).toBe(true);
       expect(await markdown.text()).toMatch(/^# /);
     }
+    const llms = await request.get('/llms.txt');
+    expect(await llms.text()).toContain('https://registry.npmjs.org/lazy-avatars/latest');
     const robots = await request.get('/robots.txt');
     expect(await robots.text()).toContain(
       'Sitemap: https://lazyavatars.paulaquiin.com/sitemap.xml',

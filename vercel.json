@@ -9,6 +9,14 @@
     {
       "source": "/docs/index.md",
       "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }]
+    },
+    {
+      "source": "/contact/index.md",
+      "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }]
+    },
+    {
+      "source": "/privacy/index.md",
+      "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }]
     }
   ]
 }

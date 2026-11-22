@@ -19,13 +19,18 @@ original collections, optional integrations and MIT-licensed original artwork.
   documentation, thirteen collection pages and comparison; query-string gallery states are omitted.
 - [`docs/`](https://lazyavatars.paulaquiin.com/docs/): Spanish quickstart, core API,
   React, CLI and self-hosted HTTP. It is generated from `apps/gallery/content/docs.md`.
+- [`contact/`](https://lazyavatars.paulaquiin.com/contact/) and
+  [`privacy/`](https://lazyavatars.paulaquiin.com/privacy/): factual contact and
+  gallery-data explanations, generated from Markdown sources.
 - [`index.md`](https://lazyavatars.paulaquiin.com/index.md) and
-  [`docs/index.md`](https://lazyavatars.paulaquiin.com/docs/index.md): Markdown
-  alternatives linked from their HTML pages.
+  [`docs/index.md`](https://lazyavatars.paulaquiin.com/docs/index.md), plus the
+  Contact and Privacy Markdown twins: alternatives linked from their HTML pages.
 - [`robots.txt`](https://lazyavatars.paulaquiin.com/robots.txt): allows crawling and
   points to the sitemap.
 - [`llms.txt`](https://lazyavatars.paulaquiin.com/llms.txt): a small index of
-  the same public documentation. It is optional convenience, not a ranking guarantee.
+  the same public documentation. It links to the npm registry JSON because the
+  npm website can challenge automated requests. It is optional convenience,
+  not a ranking guarantee.
 - README badges: registry version/downloads, existing CI and MIT license. Bundle
   measurements refer to the reachable core ESM graph, not the entire tarball.
 
@@ -43,9 +48,10 @@ in `docs/comparison.md`. Social artwork is `assets/previews/social-preview.png`.
 5. Check brand searches for `lazy-avatars avatares SVG` and
    `lazy-avatars JavaScript TypeScript`; record the engine, date and result URL.
 6. After deployment, request `/robots.txt`, `/sitemap.xml`, `/docs/`,
-   `/index.md` and `/docs/index.md` on the custom domain. Check HTTP status,
-   sitemap URLs, Markdown bodies and `Content-Type: text/markdown` for both
-   `.md` routes. Confirm the HTML pages advertise their Markdown alternatives.
+   `/contact/`, `/privacy/` and their Markdown twins on the custom domain.
+   Check HTTP status, sitemap URLs, Markdown bodies and
+   `Content-Type: text/markdown`. Confirm the HTML pages advertise their
+   Markdown alternatives.
 
 Verification files/meta tags must come from those accounts. Do not invent a token
 or claim that submission or indexing happened without checking the account.

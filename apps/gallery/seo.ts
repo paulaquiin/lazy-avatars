@@ -132,7 +132,11 @@ const escapeHtml = (text: string) =>
 function metadata(title: string, description: string, path = '') {
   const url = site + path;
   const markdown =
-    path === '' ? `${site}index.md` : path === 'docs/' ? `${site}docs/index.md` : null;
+    path === ''
+      ? `${site}index.md`
+      : ['docs/', 'contact/', 'privacy/'].includes(path)
+        ? `${site}${path}index.md`
+        : null;
   const schema =
     path === ''
       ? {
@@ -148,19 +152,28 @@ function metadata(title: string, description: string, path = '') {
           license: `${repo}/blob/main/LICENSE`,
           sameAs: repo,
         }
-      : {
-          '@context': 'https://schema.org',
-          '@type': 'SoftwareSourceCode',
-          name: 'lazy-avatars',
-          description,
-          url,
-          codeRepository: repo,
-          license: `${repo}/blob/main/LICENSE`,
-          programmingLanguage: ['TypeScript', 'JavaScript'],
-          runtimePlatform: 'Browser and Node.js',
-          softwareVersion: version,
-          sameAs: repo,
-        };
+      : path === 'contact/' || path === 'privacy/'
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: title,
+            description,
+            url,
+            isPartOf: site,
+          }
+        : {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareSourceCode',
+            name: 'lazy-avatars',
+            description,
+            url,
+            codeRepository: repo,
+            license: `${repo}/blob/main/LICENSE`,
+            programmingLanguage: ['TypeScript', 'JavaScript'],
+            runtimePlatform: 'Browser and Node.js',
+            softwareVersion: version,
+            sameAs: repo,
+          };
   return `<meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${url}">
 ${markdown ? `<link rel="alternate" type="text/markdown" href="${markdown}">` : ''}
@@ -192,7 +205,7 @@ function page(title: string, description: string, path: string, body: string, la
 <title>${escapeHtml(title)}</title>${metadata(title, description, path)}
 <link rel="stylesheet" href="${fontPath}">
 <style>body{font:17px/1.65 "Mulish",system-ui,sans-serif;background:#f6f3ec;color:#243b35;margin:0}main{max-width:960px;padding:32px 24px;margin:auto}a{color:#315647;text-underline-offset:3px}nav{display:flex;gap:20px;flex-wrap:wrap}h1,h2{font-family:"Arima Madurai",Georgia,serif}h1{font-size:clamp(30px,5vw,48px);line-height:1.15}h2{margin-top:32px}pre{overflow:auto;padding:20px;background:#fffdf8;border:1px solid #cbd5c6;border-radius:12px}img{max-width:100%}table{border-collapse:collapse;font-size:15px}th,td{border:1px solid #cbd5c6;padding:12px;text-align:left;vertical-align:top}.table-scroll{overflow:auto}ul{padding-left:24px}footer{margin-top:40px;border-top:1px solid #cbd5c6;padding-top:16px}.preview{display:flex;gap:20px;flex-wrap:wrap}</style>
-</head><body><main><nav aria-label="Navegación principal"><a href="${site}">Galería</a><a href="${site}docs/">Documentación</a><a href="${site}comparison/">Comparativa</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="${repo}">GitHub</a></nav>${body}<footer>Proyecto <a href="${repo}">lazy-avatars</a>. Código e ilustraciones originales bajo <a href="${repo}/blob/main/LICENSE">licencia MIT</a>. El proyecto no aloja una API pública de imágenes.</footer></main></body></html>`;
+</head><body><main><nav aria-label="Navegación principal"><a href="${site}">Galería</a><a href="${site}docs/">Documentación</a><a href="${site}comparison/">Comparativa</a><a href="https://www.npmjs.com/package/lazy-avatars">npm</a><a href="${repo}">GitHub</a></nav>${body}<footer>Proyecto <a href="${repo}">lazy-avatars</a>. Código e ilustraciones originales bajo <a href="${repo}/blob/main/LICENSE">licencia MIT</a>. <a href="${site}contact/">Contacto</a> · <a href="${site}privacy/">Privacidad</a>. El proyecto no aloja una API pública de imágenes.</footer></main></body></html>`;
 }
 
 function docsBody(markdown: string) {
@@ -322,17 +335,30 @@ export function discoveryPages(): Plugin {
     generateBundle() {
       const emit = (fileName: string, source: string | Uint8Array) =>
         this.emitFile({ type: 'asset', fileName, source });
-      const documentation = readFileSync(new URL('./content/docs.md', import.meta.url), 'utf8');
-      emit('docs/index.md', documentation);
-      emit(
-        'docs/index.html',
-        page(
+      for (const [path, source, title, description] of [
+        [
+          'docs/',
+          'docs.md',
           'Documentación de la API de lazy-avatars para JavaScript y TypeScript',
           'Instala lazy-avatars y genera SVG deterministas. Referencia de createAvatar, ejemplos para React, CLI y servidor HTTP autoalojable.',
-          'docs/',
-          docsBody(documentation),
-        ),
-      );
+        ],
+        [
+          'contact/',
+          'contact.md',
+          'Contacto | lazy-avatars',
+          'Consulta cómo comunicar fallos y dudas sobre la librería lazy-avatars en el repositorio de GitHub.',
+        ],
+        [
+          'privacy/',
+          'privacy.md',
+          'Privacidad de la galería | lazy-avatars',
+          'Cómo utiliza la galería de lazy-avatars el texto del generador, los enlaces para compartir y los sitios externos.',
+        ],
+      ] as const) {
+        const markdown = readFileSync(new URL(`./content/${source}`, import.meta.url), 'utf8');
+        emit(`${path}index.md`, markdown);
+        emit(`${path}index.html`, page(title, description, path, docsBody(markdown)));
+      }
       emit(
         'index.md',
         `# lazy-avatars: avatares SVG para JavaScript y TypeScript\n\n${homeDescription}\n\n${homeIntro}\n\n- [Prueba el generador](${site}#playground)\n- [Documentación de la API](${site}docs/)\n- [CLI y servidor HTTP autoalojable](${site}docs/#cli-genera-un-archivo-svg)\n- [Colecciones](${site}#collections)\n- [Código fuente](${repo})\n`,
@@ -368,6 +394,8 @@ export function discoveryPages(): Plugin {
       const urls = [
         site,
         `${site}docs/`,
+        `${site}contact/`,
+        `${site}privacy/`,
         ...collections.map(([id]) => `${site}collections/${id}/`),
         `${site}comparison/`,
       ];
@@ -377,7 +405,7 @@ export function discoveryPages(): Plugin {
       );
       emit(
         'llms.txt',
-        `# lazy-avatars\n\n> Librería de avatares SVG deterministas para JavaScript y TypeScript. 13 colecciones originales y React opcional.\n\n## Cuándo usarla\n\nPara generar avatares SVG de perfiles, equipos y bots a partir de una semilla en tu aplicación. Instala el paquete; si necesitas un archivo desde un script, usa la CLI. El servidor HTTP se aloja por tu cuenta.\n\n- [Galería](${site})\n- [Documentación de la API](${site}docs/)\n- [Documentación en Markdown](${site}docs/index.md)\n- [npm](https://www.npmjs.com/package/lazy-avatars)\n- [Código fuente](${repo})\n- [Comparativa](${site}comparison/)\n${collections.map(([id, name]) => `- [${name}](${site}collections/${id}/)`).join('\n')}\n`,
+        `# lazy-avatars\n\n> Librería de avatares SVG deterministas para JavaScript y TypeScript. 13 colecciones originales y React opcional.\n\n## Cuándo usarla\n\nPara generar avatares SVG de perfiles, equipos y bots a partir de una semilla en tu aplicación. Instala el paquete; si necesitas un archivo desde un script, usa la CLI. El servidor HTTP se aloja por tu cuenta.\n\n- [Galería](${site})\n- [Documentación de la API](${site}docs/)\n- [Documentación en Markdown](${site}docs/index.md)\n- [Ficha del paquete en el registro npm](https://registry.npmjs.org/lazy-avatars/latest)\n- [Código fuente](${repo})\n- [Contacto](${site}contact/)\n- [Privacidad](${site}privacy/)\n- [Comparativa](${site}comparison/)\n${collections.map(([id, name]) => `- [${name}](${site}collections/${id}/)`).join('\n')}\n`,
       );
       emit(
         'social-preview.png',
